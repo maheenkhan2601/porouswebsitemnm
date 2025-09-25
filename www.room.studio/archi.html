@@ -1,0 +1,1038 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Work — Updated (Video Match)</title>
+
+  <!-- Fonts (match video-like modern sans) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Swiper (for hero / slider) -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css" />
+
+  <style>
+
+    /* Give left/right gap to match grid */
+.portfolio .container > div:first-child {
+  margin-left: 0px;   /* match your grid’s padding */
+  margin-right:1px;  /* adjust if grid uses different padding */
+}
+
+/* Increase font size for "Selected projects" */
+.portfolio .container h2 {
+  font-size: 2rem;   /* default ~32px */
+  font-weight: 700;  /* make it bold */
+  margin: 0;
+}
+
+
+    .portfolio .container > div:first-child {
+  padding: 0 20px;  /* adjust 20px/40px as per your grid */
+  box-sizing: border-box;
+}
+
+/* Headings (Navigation, Contacts, Socials) */
+.nav-panel h3 {
+  color: #ffffff;      /* white text */
+  font-weight: 700;    /* bold */
+  font-size: 20px;     /* increase font size */
+  margin-bottom: 16px; /* spacing below heading */
+}
+
+/* Links under each column */
+.nav-panel a {
+  color: #ffffff;      /* keep links white */
+  font-weight: 600;    /* semi-bold */
+  font-size: 18px;     /* increase font size */
+  text-decoration: none;
+  display: block;      /* stack vertically */
+  margin-bottom: 10px; /* spacing between links */
+}
+
+/* Remove hover color change (stay white always) */
+.nav-panel a:hover {
+  color: #ffffff;
+}
+
+    .nav-panel,
+.nav-panel.open {
+  background-color: #6a6969; /* grey fallback */
+  background: linear-gradient(180deg, rgba(69, 69, 69, 0.95), rgba(180,180,180,0.95)); /* grey gradient */
+  color: #ffffff; /* white text */
+}
+
+.nav-panel a,
+.nav-panel.open a,
+.nav-panel h3,
+.nav-panel.open h3 {
+  color: #ffffff; /* force links and headings white */
+}
+
+ .nav-panel {
+  color: #ffffff; /* text color for all content inside */
+}
+
+.nav-panel h3 {
+  color: #fff;
+  font-weight: 700;
+}
+
+.nav-panel a {
+  color: #ffffff !important;  /* force white */
+  text-decoration: none;
+  opacity: 1;               /* full opacity */
+}
+
+/* remove hover effect */
+.nav-panel a:hover {
+  color: #ffffff !important;  /* stay white even on hover */
+}
+
+    /* Make all text inside nav panel white */
+.nav-panel {
+  color: #ffffff;        /* default text color */
+}
+
+/* Headings */
+.nav-panel h3 {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* Links (Work, Services, Company, Telegram, etc.) */
+.nav-panel a {
+  display: block;
+  padding: 12px 0;
+  font-size: 18px;
+  color: #fff;       /* white text */
+  opacity: 1;        /* fully visible */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-panel a:hover {
+  color: #ddd;       /* lighter on hover */
+}
+
+    .nav-panel {
+  color: #fff; /* default text inside panel */
+}
+
+.nav-panel h3 {
+  color: #fff;  /* headings */
+}
+
+.nav-panel a {
+  color: #fff;  /* links */
+  opacity: 1;   /* fully visible */
+  text-decoration: none; 
+}
+
+.nav-panel a:hover {
+  color: #ddd;  /* optional hover effect */
+}
+
+.portfolio .container {
+  padding: 0 10px; /* 👈 same gap as grid */
+  box-sizing: border-box;
+}
+
+.portfolio h2,
+.portfolio .muted {
+  margin-left: 0;  /* prevent double spacing */
+  margin-right: 0;
+}
+
+
+
+    .project-modal-left {
+  padding: 10px; /* minimal for text, or 0 if you want full width for image */
+}
+
+    /* --- Reset & base --- */
+  :root{
+  --bg:#ffffff;       /* background white */
+  --muted:#444444;    /* muted gray text */
+  --accent:#000000;   /* main text black */
+  --accent-dim: rgba(0,0,0,0.08);
+  --glass: rgba(0,0,0,0.04);
+  --container:1200px;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+    *{box-sizing:border-box}
+    html,body{
+  height:100%;
+  margin:0;
+  background: var(--bg);   /* white */
+  color: var(--accent);    /* black */
+}
+
+    a{color:inherit;text-decoration:none}
+
+    /* --- Preloader (frame-by-frame feel) --- */
+    .preloader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;z-index:9999;background:var(--bg)}
+    .preloader .logo{width:120px;opacity:.96}
+    .preloader .bar{width:320px;height:6px;background:var(--accent-dim);border-radius:999px;overflow:hidden}
+    .preloader .bar > i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#fff,#bfbfbf);transition:width .8s cubic-bezier(.2,.9,.3,1)}
+    .preloader .percent{font-size:13px;color:var(--muted)}
+
+    /* --- Navigation overlay & header --- */
+    header{position:fixed;left:0;right:0;top:0;padding:26px 30px;display:flex;align-items:center;justify-content:space-between;z-index:70}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand img{height:22px}
+    .menu-btn{width:56px;height:44px;border-radius:8px;background:transparent;border:1px solid var(--accent-dim);display:flex;align-items:center;justify-content:center;cursor:pointer}
+
+    /* Slide-out nav (full-screen) */
+    .nav-panel{position:fixed;inset:0;transform:translateY(-100%);transition:transform .55s cubic-bezier(.2,.9,.3,1);backdrop-filter:blur(6px);background:linear-gradient(180deg,rgba(2,3,4,.86),rgba(2,3,4,.96));z-index:80;padding:40px}
+    .nav-panel.open{transform:translateY(0)}
+    .nav-panel .cols{display:flex;gap:48px;max-width:var(--container);margin:0 auto}
+    .nav-panel .col{flex:1}
+    .nav-panel h3{font-weight:700;margin:0 0 20px}
+    .nav-panel a{display:block;padding:12px 0;font-size:18px;color:var(--accent);opacity:.95}
+
+    /* --- Hero / Title --- */
+    .hero{min-height:84vh;display:grid;align-items:center;padding:120px 24px 60px;position:relative;overflow:hidden}
+    .hero .container{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:48px;align-items:center}
+    .hero h1{font-size:clamp(40px,8vw,80px);line-height:0.95;margin:0;font-weight:800;letter-spacing:-1px}
+    .hero p.lead{color:var(--muted);margin-top:18px;font-size:18px;max-width:60ch}
+
+    /* Right column: animated preview / video mimic */
+    .preview{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));box-shadow:0 8px 30px rgba(0,0,0,.6);min-height:420px}
+    .preview .play{position:absolute;inset:12px;border-radius:12px;display:flex;align-items:center;justify-content:center;pointer-events:none}
+
+    /* Cursor-follow label (mirrors video cursor text) */
+    .cursor-label{position:fixed;pointer-events:none;z-index:1000;font-weight:600;font-size:14px;padding:6px 10px;border-radius:6px;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.06)}
+
+    /* --- Portfolio grid --- */
+    .portfolio{padding:40px 24px 120px}
+    .portfolio .container{max-width:var(--container);margin:0 auto}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .tile{position:relative;overflow:hidden;border-radius:6px;min-height:160px;background:#111}
+    .tile img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.05);transition:transform 0.9s cubic-bezier(.2,.9,.3,1)}
+    .tile:hover img{transform:scale(1.12)}
+    .tile .meta{position:absolute;left:14px;bottom:14px;font-weight:600;background:linear-gradient(90deg,rgba(0,0,0,0.6),rgba(0,0,0,0.2));padding:8px 12px;border-radius:6px}
+
+    /* Large & tall tiles like original */
+    .tile.wide{grid-column:span 2}
+    .tile.tall{grid-row:span 2}
+
+    /* Footer */
+    footer{Padding:56px 24px;background:linear-gradient(180deg,transparent rgba(0,0,0,.06));color:var(--muted)}
+    .footer-inner{max-width:var(--container);margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+
+    /* --- Modal (REPLACED: square card, left text + right vertical slider) --- */
+    .project-modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:2000;pointer-events:none;opacity:0;background:rgba(0,0,0,0.72)}
+    .project-modal.open{pointer-events:auto;opacity:1}
+    .project-modal-card{width:92%;max-width:900px;aspect-ratio:1/1;background:#070707;border-radius:12px;padding:20px;box-shadow:0 30px 90px rgba(0,0,0,0.85);color:var(--accent);overflow:hidden;transform-origin:center center}
+    .project-modal-close{position:absolute;top:12px;right:16px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;z-index:10}
+    .project-modal-inner{display:grid;grid-template-columns:1fr 1fr;height:100%}
+    .project-modal-left{padding:28px;display:flex;flex-direction:column;justify-content:center}
+    .project-modal-title{font-size:22px;font-weight:700;margin:0}
+    .project-modal-desc{color:var(--muted);margin-top:10px;line-height:1.6}
+    .project-modal-right{position:relative}
+    .project-modal-right .swiper{height:100%}
+    .project-modal-right .swiper-slide img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+
+    /* Responsiveness for modal */
+    @media (max-width:1100px){
+      .project-modal-card{max-width:720px}
+    }
+    @media (max-width:640px){
+      .project-modal-inner{grid-template-columns:1fr}
+      header{padding:18px}
+      .project-modal-card{width:95%;padding:14px}
+      .project-modal-right .swiper{height:240px}
+    }
+
+    /* small touches */
+    .muted{color:var(--muted)}
+    .btn{display:inline-block;padding:12px 16px;border-radius:8px;border:1px solid var(--accent-dim);font-weight:600}
+   .project-gallery-btn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-size: 13px;
+  padding: 6px 12px;
+  border: 1px solid rgba(0,0,0,0.25);  /* light border */
+  background: rgba(0,0,0,0.05);        /* subtle gray background */
+  border-radius: 6px;
+  color: #000;                         /* black text */
+  cursor: pointer;
+  z-index: 20;
+}
+.project-gallery-btn:hover {
+  background: rgba(0,0,0,0.1);
+}
+
+.project-gallery-btn:hover {
+  background: rgba(255,255,255,0.18);
+}
+
+.gallery-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.96);   /* white overlay */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+.gallery-modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.gallery-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 32px;
+  background: none;
+  border: none;
+  color: #000;  /* black instead of white */
+  cursor: pointer;
+  z-index: 10;
+}
+
+.gallery-swiper {
+  width: 90%;
+  height: 90%;
+}
+.gallery-swiper .swiper-slide img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 80vh; /* match your gallery height */
+  display: block;
+  margin: 0 auto;
+}
+
+.gallery-swiper .swiper-button-next,
+.gallery-swiper .swiper-button-prev {
+  color: #fff;
+}
+.preview {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  box-shadow: 0 8px 30px rgba(0,0,0,.6);
+  min-height: 420px;
+  display: flex;
+}
+
+.hero-swiper {
+  width: 100%;
+  flex: 1;           /* take full height of .preview */
+}
+
+.hero-swiper .swiper-wrapper {
+  height: 100%;
+}
+
+.hero-swiper .swiper-slide {
+  height: 100%;
+}
+
+.hero-swiper .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  /* cover entire slide */
+  display: block;
+}
+
+/* Preloader logo */
+.preloader .logo {
+  width: 450px;   /* adjust as needed */
+  height: auto;   /* keeps aspect ratio */
+}
+
+/* Header brand logo */
+header .brand img {
+  width: 100px;   /* adjust as needed */
+  height: auto;   /* keeps aspect ratio */
+}
+.tile .meta {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 6px;
+
+  /* Frosted blur effect */
+  background: rgba(0, 0, 0, 0.4);       /* semi-transparent black */
+  color: #fff;                           /* white text */
+  backdrop-filter: blur(2px);            /* blur behind the element */
+  -webkit-backdrop-filter: blur(2px);    /* for Safari support */
+
+  /* Optional smooth text shadow to improve readability */
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+/* Contact and Menu Button Frosted Blur */
+header .btn,
+header .menu-btn {
+  background: rgba(0, 0, 0, 0.4);       /* semi-transparent dark */
+  color: #fff;                           /* white text/icons */
+  backdrop-filter: blur(6px);            /* frosted glass blur */
+  -webkit-backdrop-filter: blur(6px);    /* Safari support */
+  border: 1px solid rgba(255,255,255,0.2); /* subtle border */
+  transition: background 0.3s ease;
+}
+
+/* Hover effect for buttons */
+header .btn:hover,
+header .menu-btn:hover {
+  background: rgba(0, 0, 0, 0.55);       /* slightly darker on hover */
+}
+/* Make portfolio section full width */
+.portfolio {
+  width: 100vw;       /* full viewport width */
+  margin: 0;
+  padding: 40px 0;    /* optional vertical padding */
+}
+
+/* Remove max-width on container but keep flex/grid intact */
+.portfolio .container {
+  width: 100%;
+  max-width: none;    /* remove any limiting width */
+  padding: 0;         /* remove horizontal padding */
+}
+
+/* Reduce space between tiles */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: auto;
+  gap: 2px;    /* 👈 reduce from 16px to 10px (tighter grid) */
+  width: 100%;
+  padding: 0 20px; 
+  box-sizing: border-box;
+}
+
+
+
+/* Keep tile variations intact */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: auto;
+  gap: 4px;
+  width: 100%;
+}
+
+.tile.wide { grid-column: span 2; }
+.tile.tall { grid-row: auto / span 2; min-height: 520px; }
+
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Preloader (progress will animate via JS) -->
+  <div class="preloader" id="preloader">
+    <img class="logo" src="../www.room.studio/Font Logo-Dark (1).png" alt="logo">
+    <div class="bar"><i id="bar-fill"></i></div>
+    <div class="percent" id="percent">0%</div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <a href="index.html"><img src="../www.room.studio/FINAL LOGO_Icon Logo White BG - Dark copy.png" alt="Room"></a>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <a class="btn" href="mailto:porousdelab@gmail.com">Email</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="2" rx="1" fill="white"/><rect y="6" width="20" height="2" rx="1" fill="white" opacity="0.7"/><rect y="12" width="20" height="2" rx="1" fill="white" opacity="0.4"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Navigation panel (full-screen) -->
+  <div class="nav-panel" id="navPanel" aria-hidden="true">
+    <div class="cols">
+      <div class="col">
+        <h3>Navigation</h3>
+        <a href="work.html">Work</a>
+        <a href="services.html">Services</a>
+        <a href="studio.html">Company</a>
+      </div>
+      <div class="col">
+        <h3>Contacts</h3>
+        <a href="https://maps.app.goo.gl/VsMdhSCaWwA8UAj87?g_st=iw" target="_blank">Map Location</a>
+         <a href="mailto:info@room.studio">Plot No. B-280 , Block 13</a>
+         <a href="mailto:info@room.studio">Federal-B Area </a>
+         <a href="mailto:info@room.studio">Gulberg Town, Karachi</a>
+         <a href="mailto:info@room.studio">75950</a>
+        <!-- <a href="mailto:info@room.studio">Plot No. B-280 , Block 13, Federal-B Area , Gulberg Town, Karachi. 75950</a> -->
+        <a href="mailto:info@room.studio">porousdelab@gmail.com</a>
+        <a href="tel:+48573896800">+92 336 3922013</a>
+      </div>
+      <div class="col">
+        <h3>Socials</h3>
+        <a href="https://www.linkedin.com/company/porousdelab/" target="_blank">linkedin</a>
+        <a href="https://www.instagram.com/porousdelab?igsh=MTUzaW1tY3k2dWhyYQ==" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/share/1CjaMuzAVE/?mibextid=wwXIfr" target="_blank">Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div>
+        <h1>Work</h1>
+        <p class="lead">Our portfolio showcases the full scope of our work — from photorealistic visualizations and cinematic animations to interactive experiences built in Unreal Engine.</p>
+        <div style="margin-top:22px;display:flex;gap:12px;align-items:center">
+          <a class="btn" href="#portfolio">See projects</a>
+          <a class="muted" href="mailto:info@room.studio">info@room.studio</a>
+        </div>
+      </div>
+
+     <div class="preview" aria-hidden="true">
+  <div class="swiper hero-swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77a259f83edffcbf4ad53_Tile-additional_41.webp" alt="preview">
+      </div>
+      <div class="swiper-slide">
+        <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f7746ff1fdc22fe0200ff3_Tile-main_12.webp" alt="preview">
+      </div>
+      <div class="swiper-slide">
+        <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/68a7311522d28888584ff9f3_ZIQ_10.webp" alt="preview">
+      </div>
+    </div>
+  </div>
+  <div class="play">
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+      <circle cx="32" cy="32" r="30" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+      <path d="M26 22L44 32L26 42V22Z" fill="white" opacity="0.96"/>
+    </svg>
+  </div>
+</div>
+
+  </section>
+
+  <!-- Portfolio grid -->
+  <section class="portfolio" id="portfolio">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:18px">
+        <div><h2 style="margin:0">Selected projects</h2><div class="muted">Click to open project</div></div>
+        <div class="muted">Showing 24 projects</div>
+      </div>
+
+      <div class="grid" id="grid">
+        <!-- Tiles: using the real image URLs from your original file to preserve content -->
+        <a class="tile wide" href="work/havsaga.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f778089f83edffcbf33e20_Tile-additional_18.webp" alt="Havsaga"><div class="meta">Havsaga</div></a>
+        <a class="tile" href="work/myter.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77895e93f9e7ec4d90948_Tile-additional_24.webp" alt="Myter"><div class="meta">Myter om Skandinavien</div></a>
+        <a class="tile" href="work/capsule-interior.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77701c670b8a7a2312b39_Tile-additional_08.webp" alt="Capsule"><div class="meta">Capsule Interior</div></a>
+        <a class="tile" href="work/hygge.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f7746ff1fdc22fe0200ff3_Tile-main_12.webp" alt="Hygge"><div class="meta">Hygge</div></a>
+
+        <a class="tile tall" href="work/ziq.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/68a7311522d28888584ff9f3_ZIQ_10.webp" alt="Ziq"><div class="meta">Ziq</div></a>
+        <a class="tile" href="work/capsule.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77693e1d218578e231b6b_Tile-additional_05.webp" alt="Capsule"><div class="meta">Capsule</div></a>
+        <a class="tile" href="work/morke.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f778e3d4ae580817f8cfb1_Tile-additional_27.webp" alt="Morke"><div class="meta">Mørke</div></a>
+        <a class="tile" href="work/lagom.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f779884b8eb6105169ba1c_Tile-additional_36.webp" alt="Lagom"><div class="meta">Lagom</div></a>
+
+        <!-- repeat more tiles to simulate the full grid (user content preserved) -->
+        <a class="tile" href="work/multi-towers.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77b44aed623630778c6c5_Tile-additional_48.webp" alt="Multi Towers"><div class="meta">Multi Towers</div></a>
+        <a class="tile" href="work/mono.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f779348293fb21ea973a38_Tile-additional_32.webp" alt="Mono"><div class="meta">Mono</div></a>
+        <a class="tile wide" href="work/havsaga.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f773df8953378d68a26d4f_Tile-main_06.webp" alt="Havsaga"><div class="meta">Havsaga</div></a>
+        <a class="tile" href="work/gitter.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f7764daa11ce4fc58556ba_Tile-additional_03.webp" alt="Gitter"><div class="meta">Gitter</div></a>
+
+        <a class="tile" href="work/hygge.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77a6b14cd419492b16b7d_Tile-additional_43.webp" alt="Hygge"><div class="meta">Hygge</div></a>
+        <a class="tile" href="work/lagom-interior.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77a18d4ae580817f9b94e_Tile-additional_40.webp" alt="Lagom Interior"><div class="meta">Lagom Interior</div></a>
+        <a class="tile" href="work/mono.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f7792a32c7e5123c0019d9_Tile-additional_31.webp" alt="Mono"><div class="meta">Mono</div></a>
+        <a class="tile" href="work/morke.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f778f27d7d8f49f861e854_Tile-additional_28.webp" alt="Mørke"><div class="meta">Mørke</div></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="muted">© The Room — All rights reserved</div>
+      <div class="muted">Made with ♥ — <a href="mailto:info@room.studio">info@room.studio</a></div>
+    </div>
+  </footer>
+
+  <!-- Cursor label (follows cursor and shows "View") -->
+  <div class="cursor-label" id="cursorLabel" style="display:none">View</div>
+
+<div class="project-modal" id="projectModal" aria-hidden="true">
+  <div class="project-modal-card" role="dialog" aria-modal="true" aria-labelledby="pmTitle">
+    <!-- Close button -->
+    <button class="project-modal-close" id="pmClose" aria-label="Close">×</button>
+
+    <!-- ✅ Gallery button -->
+    <button class="project-gallery-btn" id="pmGalleryBtn">Gallery</button>
+
+    <div class="project-modal-inner">
+      <!-- Left: text -->
+      <div class="project-modal-left">
+        <h3 class="project-modal-title" id="pmTitle">Title</h3>
+        <div class="project-modal-desc" id="pmDesc">
+          Short description goes here.
+        </div>
+      </div>
+
+      <!-- Right: vertical swiper -->
+      <div class="project-modal-right">
+        <div class="swiper project-swiper">
+          <div class="swiper-wrapper" id="pmGallery"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+
+.project-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  pointer-events: none;
+  opacity: 0;
+  background: rgba(0,0,0,0.72);
+  transition: opacity .3s ease;
+}
+.project-modal.open {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.project-modal-card {
+  width: 95%;           /* wider card */
+  max-width: 1300px;    /* bigger max width */
+  height: 90vh;         /* taller */
+  margin: 20px 0;       /* smaller vertical margin */
+  background: #ffffff;
+  color: #000000;
+  border-radius: 12px;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.15);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-modal-inner {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr; /* make right slider even wider */
+  height: 100%;
+}
+
+.project-modal-left {
+  padding: 20px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.project-modal-right {
+  position: relative;
+  overflow: hidden;
+  padding: 0; /* remove extra white space */
+}
+
+.project-modal-right .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fills container completely */
+  border-radius: 0;  /* remove white border around image */
+}
+
+/* Mobile override */
+@media(max-width:768px){
+  .project-modal-inner {
+    grid-template-columns: 1fr; /* stack */
+  }
+.project-modal-card {
+  padding: 0 20px;  /* 👈 add left/right breathing space */
+  box-sizing: border-box;
+  max-width: 1200px;  /* optional, keeps it from going too wide */
+  margin: 0 auto;
+}
+
+  .project-modal-right .swiper {
+    height: 240px;
+  }
+}
+.gallery-swiper img {
+  filter: blur(0px);
+}
+
+/* Swiper gallery */
+.gallery-swiper .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gallery-swiper .swiper-slide img {
+  max-width: 95vw;
+  max-height: 85vh; /* keeps images inside viewport */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* Navigation arrows black */
+.gallery-swiper .swiper-button-next,
+.gallery-swiper .swiper-button-prev {
+  color: #000;
+}
+
+/* Background blur when modal is open */
+body.modal-open {
+  filter: blur(5px);
+  transition: filter 0.3s ease;
+}
+
+.modal-blur {
+  filter: blur(6px);
+  transition: filter 0.3s ease;
+  pointer-events: none;
+}
+
+
+</style>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <script>
+    /* ---------- Preloader simulation ---------- */
+    (function(){
+      const pre = document.getElementById('preloader');
+      const fill = document.getElementById('bar-fill');
+      const pct = document.getElementById('percent');
+      let progress = 0;
+      const step = () => {
+        progress += Math.random()*18;
+        if(progress >= 100){progress=100; fill.style.width='100%'; pct.textContent='100%';
+          setTimeout(()=>{pre.style.opacity=0; pre.style.pointerEvents='none'; setTimeout(()=>pre.remove(),600)},500);
+        } else {fill.style.width = progress+'%'; pct.textContent = Math.floor(progress)+'%'; setTimeout(step,220+Math.random()*200)}
+      }
+      step();
+    })();
+
+    /* ---------- Nav panel ---------- */
+    const menuBtn = document.getElementById('menuBtn');
+    const navPanel = document.getElementById('navPanel');
+    menuBtn.addEventListener('click', ()=>{
+      const open = navPanel.classList.toggle('open');
+      navPanel.setAttribute('aria-hidden', !open);
+    });
+
+    /* ---------- Hero Swiper ---------- */
+    const swiper = new Swiper('.hero-swiper',{
+      loop:true,
+      autoplay:{delay:2200, disableOnInteraction:false},
+      speed:900,
+      effect: 'slide',
+    });
+
+    /* ---------- Cursor label (like video) ---------- */
+    const cursor = document.getElementById('cursorLabel');
+    document.addEventListener('mousemove',(e)=>{
+      cursor.style.display='block';
+      cursor.style.transform = `translate3d(${e.clientX+18}px, ${e.clientY+18}px, 0)`;
+    });
+    // show 'View' when hovering tiles
+    document.querySelectorAll('.tile').forEach(t=>{
+      t.addEventListener('mouseenter', ()=>{ cursor.textContent='View'; cursor.style.transform += ' scale(1)';});
+      t.addEventListener('mouseleave', ()=>{ cursor.textContent='View';});
+    });
+
+    /* ---------- Simple entry animations using GSAP ---------- */
+    window.addEventListener('load', ()=>{
+      gsap.from('header', {y:-20, autoAlpha:0, duration:.8, ease:'power3.out'});
+      gsap.from('.hero h1', {y:18, autoAlpha:0, duration:.9, delay:.2, ease:'power3.out'});
+      gsap.from('.hero p.lead', {y:12, autoAlpha:0, duration:.9, delay:.35});
+      gsap.from('.grid .tile', {y:20, autoAlpha:0, duration:.9, stagger:.05, delay:.45, ease:'power3.out'});
+    });
+
+    /* Accessibility: keyboard close for nav panel */
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ navPanel.classList.remove('open'); navPanel.setAttribute('aria-hidden', true);} });
+
+    /* --------- Project Popup Modal (only changed section) ---------- */
+    (function(){
+      
+      const modal = document.getElementById('projectModal');
+      const modalCard = modal.querySelector('.project-modal-card');
+      const pmTitle = document.getElementById('pmTitle');
+      const pmDesc = document.getElementById('pmDesc');
+      const pmGallery = document.getElementById('pmGallery');
+      const pmClose = document.getElementById('pmClose');
+
+      const tiles = Array.from(document.querySelectorAll('#grid .tile, #grid a.tile'));
+      let lastRect = null; // store the tile rect for reverse animation
+
+      function buildGalleryFromIndex(i, mainSrc){
+        // use mainSrc + next two grid images (or fallback to mainSrc duplicates)
+        const allImgs = Array.from(document.querySelectorAll('#grid img')).map(img=>img.src);
+        const gallery = [];
+        gallery.push(mainSrc || allImgs[i] || allImgs[0] || '');
+        if(allImgs[i+1]) gallery.push(allImgs[i+1]);
+        else if(allImgs[(i+2) % allImgs.length]) gallery.push(allImgs[(i+2) % allImgs.length]);
+        else gallery.push(gallery[0]);
+        if(allImgs[i+2]) gallery.push(allImgs[i+2]);
+        else gallery.push(gallery[0]);
+        return gallery;
+      }
+ function openModalForTile(tile, index){
+    // get the main image and title
+    const imgEl = tile.querySelector('img');
+    const titleEl = tile.querySelector('.meta');
+    const mainSrc = imgEl ? imgEl.src : '';
+    const title = (titleEl && titleEl.innerText) ? titleEl.innerText : (imgEl ? imgEl.alt : 'Project');
+    const desc = tile.getAttribute('data-desc') || 'Project preview — example description.';
+
+    // populate modal content (left text)
+    pmTitle.textContent = title;
+    pmDesc.textContent = desc;
+
+    // build gallery slides (right side)
+    pmGallery.innerHTML = '';
+    const gallerySrcs = buildGalleryFromIndex(index, mainSrc);
+    gallerySrcs.forEach(src=>{
+      const slide = document.createElement('div');
+      slide.className = 'swiper-slide';
+      slide.innerHTML = `<img src="${src}" alt="${title}">`;
+      pmGallery.appendChild(slide);
+    });
+
+    // Open modal
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+document.querySelectorAll('body > *:not(.project-modal)').forEach(el => {
+  el.style.filter = 'blur(8px) brightness(1.5) contrast(1.2)'; // lighter, more contrast
+  el.style.transition = 'filter 0.3s ease';
+  el.style.pointerEvents = 'none';
+});
+
+
+
+
+    // animate from tile position
+    lastRect = tile.getBoundingClientRect();
+    const dx = (lastRect.left + lastRect.width/2) - (window.innerWidth/2);
+    const dy = (lastRect.top + lastRect.height/2) - (window.innerHeight/2);
+    gsap.fromTo(modalCard,
+      { scale: 0.85, x: dx, y: dy, autoAlpha: 0 },
+      { scale: 1, x: 0, y: 0, autoAlpha: 1, duration: 0.55, ease: 'power3.out' }
+    );
+
+    // Initialize Swiper
+    if(window.pmSwiper) window.pmSwiper.destroy(true, true);
+    window.pmSwiper = new Swiper('.project-swiper',{
+      direction: 'vertical',
+      loop: true,
+      autoplay: { 
+        delay: 2000, 
+        disableOnInteraction: false 
+      },
+      speed: 800
+    });
+  }
+
+function closeModal() {
+  const dx = lastRect
+    ? (lastRect.left + lastRect.width / 2) - (window.innerWidth / 2)
+    : 0;
+  const dy = lastRect
+    ? (lastRect.top + lastRect.height / 2) - (window.innerHeight / 2)
+    : 0;
+
+  gsap.to(modalCard, {
+    scale: lastRect ? 0.85 : 0.9,
+    x: dx,
+    y: dy,
+    autoAlpha: 0,
+    duration: 0.45,
+    ease: 'power3.in',
+    onComplete: () => {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      pmGallery.innerHTML = '';
+      
+      // Destroy swiper if exists
+      if (window.pmSwiper) { 
+        try { window.pmSwiper.destroy(true, true); } catch(e){}
+        window.pmSwiper = null;
+      }
+
+      // Reset blur & pointer events
+      document.querySelectorAll('body > *:not(.project-modal)').forEach(el => {
+        el.style.filter = '';
+        el.style.pointerEvents = '';
+        el.style.transition = '';
+      });
+
+      lastRect = null;
+    }
+  });
+
+
+
+// document.querySelectorAll('body > *:not(.project-modal)').forEach(el => {
+//   el.style.filter = 'blur(1px) brightness(1.8)'; // lower blur, higher brightness
+//   el.style.transition = 'filter 0.3s ease';
+//   el.style.pointerEvents = 'none';
+// });
+
+
+  }
+
+  // Attach click handlers to tiles (prevent default navigation)
+  tiles.forEach((tile, i) => {
+    tile.addEventListener('click', function(ev){
+      if(tile.tagName.toLowerCase() === 'a') ev.preventDefault();
+      openModalForTile(tile, i);
+    });
+  });
+
+  // Close modal events
+ pmClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+  if (e.target === modal) closeModal();
+});
+ document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modal.classList.contains('open')) {
+    closeModal();
+  }
+});
+})();
+</script>
+  <div class="gallery-modal" id="galleryModal" aria-hidden="true">
+  <button class="gallery-close" id="galleryClose" aria-label="Close">×</button>
+  <div class="swiper gallery-swiper">
+    <div class="swiper-wrapper" id="galleryWrapper"></div>
+    <!-- Navigation arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<!-- Your gallery JS -->
+<script>
+(function(){
+  const galleryModal = document.getElementById('galleryModal');
+  const galleryWrapper = document.getElementById('galleryWrapper');
+  const galleryClose = document.getElementById('galleryClose');
+  const pmGalleryBtn = document.getElementById('pmGalleryBtn');
+  let gallerySwiper;
+
+  pmGalleryBtn.addEventListener('click', () => {
+  // copy current project images into fullscreen gallery
+  galleryWrapper.innerHTML = document.getElementById('pmGallery').innerHTML;
+  galleryModal.classList.add('open');
+  galleryModal.setAttribute('aria-hidden','false');
+
+  // Remove global blur when opening gallery
+  document.querySelectorAll('body > *').forEach(el => {
+    el.style.filter = 'none';
+    el.style.pointerEvents = 'auto';
+  });
+
+  // destroy previous Swiper instance
+  if (gallerySwiper) gallerySwiper.destroy(true,true);
+
+  // Initialize new Swiper AFTER slides are in DOM
+  gallerySwiper = new Swiper('.gallery-swiper', {
+    loop: true,
+    navigation: {
+      nextEl: '.gallery-swiper .swiper-button-next',
+      prevEl: '.gallery-swiper .swiper-button-prev'
+    },
+    slidesPerView: 1,
+    spaceBetween: 20,
+    speed: 800
+  });
+
+  // Make sure swiper container has height
+  document.querySelector('.gallery-swiper').style.height = '80vh';
+});
+
+})();
+</script>
+<script>
+  /* --------- Gallery Modal ---------- */
+  (function(){
+    const galleryModal = document.getElementById('galleryModal');
+    const galleryWrapper = document.getElementById('galleryWrapper');
+    const galleryClose = document.getElementById('galleryClose');
+    const pmGalleryBtn = document.getElementById('pmGalleryBtn');
+    let gallerySwiper;
+
+    pmGalleryBtn.addEventListener('click', () => {
+      // copy current project images into fullscreen gallery
+     originalImages.forEach(img => {
+  const newImg = img.cloneNode(true);
+  newImg.classList.remove('u-video-embed', 'lazyload');
+  
+  const slideDiv = document.createElement('div');
+  slideDiv.classList.add('swiper-slide');
+  slideDiv.appendChild(newImg);
+
+  galleryWrapper.appendChild(slideDiv);
+});
+      galleryModal.classList.add('open');
+      galleryModal.setAttribute('aria-hidden','false');
+
+      if (gallerySwiper) gallerySwiper.destroy(true,true);
+      gallerySwiper = new Swiper('.gallery-swiper', {
+        loop: true,
+        navigation: {
+          nextEl: '.gallery-swiper .swiper-button-next',
+          prevEl: '.gallery-swiper .swiper-button-prev'
+        },
+        speed: 800
+      });
+    });
+galleryClose.addEventListener('click', () => {
+  galleryModal.classList.remove('open');
+  galleryModal.setAttribute('aria-hidden','true');
+
+  // 🟢 Add this line to clear the cloned slides
+  galleryWrapper.innerHTML = '';
+});
+    galleryModal.addEventListener('click', (e)=>{
+      if(e.target === galleryModal){
+        galleryModal.classList.remove('open');
+        galleryModal.setAttribute('aria-hidden','true');
+      }
+    });
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape' && galleryModal.classList.contains('open')){
+        galleryModal.classList.remove('open');
+        galleryModal.setAttribute('aria-hidden','true');
+      }
+    });
+  })();
+</script>
+<!-- Fullscreen Gallery Modal -->
+
+
+
+</body>
+</html>

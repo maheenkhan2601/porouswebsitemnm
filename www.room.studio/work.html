@@ -1,0 +1,2462 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Work — Updated (Video Match)</title>
+<!-- in <head> -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Fonts (match video-like modern sans) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Swiper (for hero / slider) -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css" />
+ 
+<link href="https://api.fontshare.com/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
+
+
+
+<style>
+  :root{
+  --container: 1600px;
+  --gutter: 90px;       /* same as header .header-container padding */
+}
+
+body {
+  font-family: 'General Sans', sans-serif;
+
+}
+
+h1, h2 {
+  font-weight: 800; /* SemiBold */
+}
+
+    h1 {
+      font-weight: 900; /* ultra thin */
+    }
+
+    h2 {
+      font-weight: 300; /* light */
+    }
+
+    p {
+      font-weight: 300; /* normal */
+    }
+
+
+
+/* === Justified grid === */
+.grid{
+  /* even side padding, centered */
+  padding-inline: 60px !important;
+  margin-inline: auto;
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  background: #fff; /* clean seams */
+}
+.j-row{ display:flex; gap:2px; margin-bottom:2px; background:#fff; }
+
+.tile{
+  position:relative; overflow:hidden; border-radius:6px; background:#111; flex:none;
+}
+.tile img{ width:100%; height:100%; object-fit:cover; display:block;
+  transform:translateZ(0);
+  transition:transform .7s cubic-bezier(.2,.9,.3,1), filter .25s ease;
+}
+
+/* Hover overlay (built by JS if not provided) */
+.tile .hover-overlay{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:24px; color:#fff; opacity:0; transition:opacity .25s ease;
+  background:rgba(0,0,0,.25); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+}
+.tile .hover-overlay h4{ margin:0 0 6px; font-size:30px; font-weight:500; line-height:1.05; }
+.tile .hover-overlay .cat{ opacity:.9; font-size:18px; font-weight:300; line-height:1.8; }
+
+.tile:hover .hover-overlay{ opacity:1; }
+.tile:hover img{ transform:scale(1.04); filter:blur(3px) brightness(.85); }
+
+/* Category filter (optional) */
+.category-filters{ margin: 0 60px 18px; }
+.category{
+  padding:10px 20px; cursor:pointer; font-weight:400; font-size:22px; color:#484747;
+  transition: color .2s ease, font-weight .2s ease; display:inline-block; margin-right:16px;
+}
+.category:hover{ color:#000; }
+.category.active{ color:#000; font-weight:700; }
+
+/* === Project modal (square card, left text + right vertical swiper) === */
+.project-modal{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+  z-index:2000; pointer-events:none; opacity:0; background:rgba(0,0,0,.72); transition:opacity .3s ease;
+}
+.project-modal.open{ pointer-events:auto; opacity:1; }
+.project-modal-card{
+  width:95%; max-width:1200px; height:90vh; margin:20px 0; background:#fff; color:#000;
+  border-radius:12px; box-shadow:0 30px 90px rgba(0,0,0,.15); overflow:hidden; position:relative; display:flex; flex-direction:column;
+}
+.project-modal-close{ position:absolute; top:10px; right:14px; background:none; border:0; font-size:28px; cursor:pointer; z-index:10; }
+.project-modal-inner{ display:grid; grid-template-columns: 1fr 2.5fr; height:100%; }
+.project-modal-left{ padding:20px; display:flex; flex-direction:column; justify-content:center; }
+.project-modal-title{ font-size:22px; font-weight:700; margin:0; }
+.project-modal-desc{ color:#444; margin-top:10px; line-height:1.6; }
+.project-modal-right{ position:relative; overflow:hidden; }
+.project-modal-right .swiper{ height:100%; }
+.project-modal-right .swiper-slide img{ width:100%; height:100%; object-fit:cover; }
+
+@media (max-width:768px){
+  .project-modal-inner{ grid-template-columns:1fr; }
+  .project-modal-right .swiper{ height:240px; }
+}
+
+/* Fullscreen gallery (from the modal's slider) */
+.gallery-modal{
+  position:fixed; inset:0; background:rgba(255,255,255,.96);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  display:flex; align-items:center; justify-content:center;
+  z-index:3000; opacity:0; pointer-events:none; transition:opacity .3s ease;
+}
+.gallery-modal.open{ opacity:1; pointer-events:auto; }
+.gallery-close{ position:absolute; top:20px; right:30px; font-size:32px; background:none; border:none; cursor:pointer; }
+.gallery-swiper{ width:90%; height:90%; }
+.gallery-swiper .swiper-slide{ display:flex; align-items:center; justify-content:center; }
+.gallery-swiper .swiper-slide img{ max-width:95vw; max-height:85vh; width:auto; height:auto; object-fit:contain; }
+.gallery-swiper .swiper-button-next, .gallery-swiper .swiper-button-prev{ color:#000; }
+
+
+</style>
+
+  <style>
+ 
+
+header {
+  background: #fff !important;
+  padding: 12px 0;              /* vertical padding only */
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1500;
+}
+
+.header-container {
+  max-width: 1600px;            /* match your grid’s max width */
+  margin: 0 auto;
+  padding: 0 90px;              /* same side gap as your grid */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.header-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+/* hidden header state */
+header.header--hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+:root { --header-h: 10px; }
+
+/* White header at 50% opacity */
+/* Compact header */
+header {
+  height: 30px;                  /* sets total height */
+  padding: 8px 24px;              /* top/bottom padding smaller */
+  background: rgb(255, 255, 255) !important;  /* keep transparent white */
+  display: flex;
+  align-items: center;            /* vertically center content */
+}
+
+
+/* If you don’t want it to change on scroll, flatten the scrolled state too */
+header.header--scrolled{
+  background: rgb(255, 255, 255);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06); /* optional */
+}
+
+/* ensure earlier solid background doesn’t override */
+header { background: rgba(255,255,255,0.5) !important; }
+
+
+header .brand img {
+  height: 28px;   /* smaller logo height */
+  width: auto;    /* keep proportions */
+}
+
+/* buttons keep the frosted style if you like, or go minimal */
+/* === Clean header buttons (no blur, plain white) === */
+/* Email + burger menu buttons (lighter background) */
+/* Force Email + Burger menu buttons to white */
+/* Seamless Email + Burger buttons */
+header .btn,
+header .menu-btn {
+  background: transparent !important;  /* no background */
+  border: none !important;             /* no border */
+  box-shadow: none !important;         /* no shadow */
+  color: #000 !important;              /* black text/icons */
+  font-weight: 600;                    /* keep text bold if you want */
+  padding: 6px 10px;                   /* adjust spacing */
+}
+
+/* Hover state — just subtle opacity change */
+header .btn:hover,
+header .menu-btn:hover {
+  background: transparent !important;
+  color: rgba(0,0,0,0.7) !important;   /* slightly dim on hover */
+}
+
+
+
+/* ensure hamburger bars are black even if older CSS tries to tint them */
+header .menu-btn svg rect{
+  fill:#000 !important;
+  opacity:1 !important;
+}
+
+    /* Give left/right gap to match grid */
+.portfolio .container > div:first-child {
+  margin-left: 0px;   /* match your grid’s padding */
+  margin-right:1px;  /* adjust if grid uses different padding */
+}
+
+/* Increase font size for "Selected projects" */
+.portfolio .container h2 {
+  font-size: 2rem;   /* default ~32px */
+  font-weight: 700;  /* make it bold */
+  margin: 0;
+}
+
+
+    .portfolio .container > div:first-child {
+  padding: 0 20px;  /* adjust 20px/40px as per your grid */
+  box-sizing: border-box;
+}
+
+/* optional: ensure the inner area isn't adding any tint */
+.nav-panel .nav-inner {
+  background: transparent !important;
+}
+/* Overlay base */
+.nav-panel{
+  position: fixed; inset: 0;
+  background: #000;        /* solid black like the ref */
+  color: #fff;
+  z-index: 2000;
+  transform: translateY(-100%);
+  transition: transform .45s cubic-bezier(.2,.9,.3,1);
+}
+.nav-panel.open{ transform: translateY(0); }
+
+/* Close button */
+/* Clean X (no box) */
+.nav-close{
+  position: fixed;        /* keep it pinned */
+  top: 26px;
+  right: 28px;
+  background: none;
+  border: 0;
+  color: #fff;
+  font-size: 34px;        /* big X */
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+/* put this after your existing .nav-close styles */
+.nav-close{
+  position: fixed;           /* you already have this */
+  z-index: 4000;             /* ⬅️ higher than anything inside the panel */
+  pointer-events: auto;      /* ensure it can be clicked */
+}
+
+
+
+/* Inner layout */
+.nav-inner{
+  height: 100%;
+  padding: 60px 40px;
+  position: relative;
+}
+
+.nav-left{
+  max-width: 920px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(180px,1fr));
+  gap: 48px;
+}
+/* keep the left info tidy */
+.nav-left h4{
+  margin:0 0 14px;
+  font-size: 20px;          /* was 25px – looks better small */
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+
+.nav-left p{ margin:0 0 8px; color:#ddd; line-height:1.7; font-size:14px; }
+
+.nav-left .col a{
+  color:#fff !important;
+  font-weight:500;
+  font-size:14px;           /* ✅ stays small */
+  line-height:1.6;
+}
+.nav-left .col.social-col{ display:none; }
+.nav-left p{ margin: 0 0 8px; color: #ddd; line-height: 1.7; }
+.nav-left a{ color:#fff; text-decoration: none; }
+/* Right big links (stacked, vertically centered) */
+.nav-right{
+  /* list-style:none;
+  margin:0;
+  padding:0 8px;
+  position:absolute;
+  right:40px;
+  top:60px;              
+  transform:none;       
+  text-align:right; */
+  list-style: none;
+  margin: 0;
+  padding: 0 8px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  transform: none;
+  text-align: center;
+  bottom: 0px;
+  left: 0px;
+  justify-content: center;
+  align-self: center;
+}
+.nav-right a{
+  font-size:clamp(42px,9vw,80px);
+  line-height:1.02;
+  font-weight:700;
+  color:#fff !important;
+}
+
+.nav-right a:hover {
+  opacity: 0.8;  /* subtle fade on hover */
+}
+
+/* Responsive */
+@media (max-width: 980px){
+  .nav-left{ grid-template-columns: 1fr 1fr; gap: 28px; max-width: 680px; }
+  .nav-right{ right: 24px; }
+}
+@media (max-width: 640px){
+  .nav-left{ grid-template-columns: 1fr; }
+  .nav-right a{ font-size: clamp(32px, 9.5vw, 58px); }
+}
+
+.nav-panel.open{ transform: translateY(0); }
+.nav-bottom{
+  position:absolute;
+  left:40px;
+  right:40px;
+  bottom:24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  pointer-events:auto;
+}
+
+.social-icons{
+  position: absolute !important;
+  bottom: 66px !important;
+  left: 668px;
+  display:flex;
+  align-items:center;
+  gap:18px;
+ bottom: 50px;   
+}
+.social-icons a{
+  display:inline-flex;
+  width:28px; height:28px;
+}
+.social-icons svg{
+  width:100%; ;
+  fill:#fff; opacity:.9; transition:opacity .2s ease;
+}
+.social-icons a:hover svg{ opacity:1; }
+.social-icons img {
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) invert(1); /* ensures pure white */
+  bottom: 25px;
+}
+
+/* Make sure overlay covers full viewport */
+#navPanel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;       /* full height */
+  background: rgba(0,0,0,0.8);
+  z-index: 9999;
+}
+
+/* Pin the copyright line */
+.nav-copy {
+  position: absolute;
+  bottom: 4px;          /* flush against bottom */
+  right: 20px;
+  /* left: 0; */
+  /* width: 100%;    */
+  text-align: right; /* center it */
+  /* margin: 0;  
+  padding: 0px 0;   */
+  font-size: 14px;
+  color: #ffffff;
+
+}
+
+@media (max-width:640px){
+  .nav-copy {
+    font-size: 11px;
+    right: 15px;
+  }
+}
+
+/* Responsive: keep bottom bar readable on phones */
+@media (max-width:640px){
+  .nav-bottom{ left:20px; right:20px; bottom:18px; }
+  .social-icons a{ width:24px; height:24px; }
+  .nav-copy{ font-size:11px; }
+}
+
+/* Ensure header buttons don’t clash over the panel */
+header{ z-index:1500; }
+
+.portfolio .container {
+  padding: 0 20px;   /* left & right gap */
+  box-sizing: border-box;
+}
+
+
+.portfolio h2,
+.portfolio .muted {
+  margin-left: 0;  /* prevent double spacing */
+  margin-right: 0;
+}
+
+
+
+    .project-modal-left {
+  padding: 10px; /* minimal for text, or 0 if you want full width for image */
+}
+
+    /* --- Reset & base --- */
+  :root{
+  --bg:#ffffff;       /* background white */
+  --muted:#444444;    /* muted gray text */
+  --accent:#000000;   /* main text black */
+  --accent-dim: rgba(0,0,0,0.08);
+  --glass: rgba(0,0,0,0.04);
+  --container:1200px;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+    *{box-sizing:border-box}
+    html,body{
+  height:100%;
+  margin:0;
+  background: var(--bg);   /* white */
+  color: var(--accent);    /* black */
+}
+
+    a{color:inherit;text-decoration:none}
+
+    /* --- Preloader (frame-by-frame feel) --- */
+    .preloader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;z-index:9999;background:var(--bg)}
+    .preloader .logo{width:120px;opacity:.96}
+    .preloader .bar{width:320px;height:6px;background:var(--accent-dim);border-radius:999px;overflow:hidden}
+    .preloader .bar > i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#fff,#bfbfbf);transition:width .8s cubic-bezier(.2,.9,.3,1)}
+    .preloader .percent{font-size:13px;color:var(--muted)}
+
+    /* --- Navigation overlay & header --- */
+    header{position:fixed;left:0;right:0;top:0;padding:26px 30px;display:flex;align-items:center;justify-content:space-between;z-index:70}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand img{height:22px}
+    .menu-btn{width:56px;height:44px;border-radius:8px;background:transparent;border:1px solid var(--accent-dim);display:flex;align-items:center;justify-content:center;cursor:pointer}
+
+ 
+    /* .nav-panel{position:fixed;inset:0;transform:translateY(-100%);transition:transform .55s cubic-bezier(.2,.9,.3,1);backdrop-filter:blur(6px);background:linear-gradient(180deg,rgba(2,3,4,.86),rgba(2,3,4,.96));z-index:80;padding:40px} */
+    .nav-panel.open{transform:translateY(0)}
+    .nav-panel .cols{display:flex;gap:48px;max-width:var(--container);margin:0 auto}
+    .nav-panel .col{flex:1}
+    .nav-panel h3{font-weight:700;margin:0 0 20px}
+    .nav-panel a{display:block;padding:12px 0;font-size:35px;color:var(--accent);opacity:.95}
+/* === Frosted, light, not black === */
+#navPanel.nav-panel {
+  /* Gradient overlay with blur */
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.571) 0%,    /* dark/blackish top */
+    rgba(0, 0, 0, 0.571) 40%,   /* mid darker */
+    rgba(0, 0, 0, 0.571) 100%  /* whitish bottom */
+  ) !important;
+
+  backdrop-filter: blur(18px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(120%) !important;
+
+  color: #fff;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  transition: transform .45s cubic-bezier(.2,.9,.3,1);
+}
+
+
+/* Optional soft vignette (keeps edges readable without going “black”) */
+#navPanel.nav-panel::after{
+  content:"";
+  position:absolute; inset:0; pointer-events:none;
+  box-shadow:
+    inset 0 30px 60px rgba(0,0,0,0.14),
+    inset 0 -30px 60px rgba(0,0,0,0.12);
+}
+
+/* Make sure inner wrapper adds no tint */
+#navPanel .nav-inner{ background: transparent !important; }
+
+    /* --- Hero / Title --- */
+    .hero{min-height:84vh;display:grid;align-items:center;padding:120px 24px 60px;position:relative;overflow:hidden}
+    /* --- SAFE hero layout + gentle nudge --- */
+.hero .container{
+  /* max-width: var(--container); */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 440px;  /* slider a bit wider */
+  gap: 310px;                          /* a touch more space */
+  align-items: center;
+}
+
+/* Nudge text slightly left, slider slightly right (without breaking flow) */
+@media (min-width: 981px){
+  .hero .container > div:first-child{ transform: translateX(-12px); }
+  .hero .preview{ transform: translateX(12px); }
+}
+
+/* Mobile/tablet: stack and remove nudges */
+@media (max-width: 980px){
+  .hero .container{
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .hero .container > div:first-child,
+  .hero .preview{ transform: none; }
+}
+
+    /* .hero .container{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:48px;align-items:center;} */
+    .hero h1{font-size:clamp(40px,8vw,80px);line-height:0.95;margin:0;font-weight:800;letter-spacing:-1px}
+    .hero p.lead{color:var(--muted);margin-top:18px;font-size:18px;max-width:60ch}
+
+    /* Right column: animated preview / video mimic */
+    .preview{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));box-shadow:0 8px 30px rgba(0,0,0,.6);min-height:420px}
+    .preview .play{position:absolute;inset:12px;border-radius:12px;display:flex;align-items:center;justify-content:center;pointer-events:none}
+
+    /* Cursor-follow label (mirrors video cursor text) */
+    .cursor-label{position:fixed;pointer-events:none;z-index:1000;font-weight:600;font-size:14px;padding:6px 10px;border-radius:6px;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.06)}
+
+    /* --- Portfolio grid --- */
+    .portfolio{padding:40px 24px 120px}
+    .portfolio .container{max-width:var(--container);margin:0 auto}
+    /* .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .tile{position:relative;overflow:hidden;border-radius:6px;min-height:160px;background:#111}
+    .tile img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.05);transition:transform 0.9s cubic-bezier(.2,.9,.3,1)} */
+    .tile:hover img{transform:scale(1.12)}
+    .tile .meta{position:absolute;left:14px;bottom:14px;font-weight:600;background:linear-gradient(90deg,rgba(0,0,0,0.6),rgba(0,0,0,0.2));padding:8px 12px;border-radius:6px}
+
+    /* Large & tall tiles like original */
+    .tile.wide{grid-column:span 2}
+    .tile.tall{grid-row:span 2}
+
+    /* Footer */
+    footer{Padding:0px 55px;background:linear-gradient(180deg,transparent rgba(0,0,0,.06));color:var(--muted)}
+    .footer-inner{max-width:var(--container);margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+
+    /* --- Modal (REPLACED: square card, left text + right vertical slider) --- */
+    .project-modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:2000;pointer-events:none;opacity:0;background:rgba(0,0,0,0.72)}
+    .project-modal.open{pointer-events:auto;opacity:1}
+    .project-modal-card{width:92%;max-width:900px;aspect-ratio:1/1;background:#070707;border-radius:12px;padding:20px;box-shadow:0 30px 90px rgba(0,0,0,0.85);color:var(--accent);overflow:hidden;transform-origin:center center}
+    .project-modal-close{position:absolute;top:12px;right:16px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;z-index:10}
+    .project-modal-inner{display:grid;grid-template-columns:1fr 1fr;height:100%}
+    .project-modal-left{padding:28px;display:flex;flex-direction:column;justify-content:center}
+    .project-modal-title{font-size:22px;font-weight:700;margin:0}
+    .project-modal-desc{color:var(--muted);margin-top:10px;line-height:1.6}
+    .project-modal-right{position:relative}
+    .project-modal-right .swiper{height:100%}
+    .project-modal-right .swiper-slide img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+
+    /* Responsiveness for modal */
+    @media (max-width:1100px){
+      .project-modal-card{max-width:720px}
+    }
+    @media (max-width:640px){
+      .project-modal-inner{grid-template-columns:1fr}
+      header{padding:18px}
+      .project-modal-card{width:95%;padding:14px}
+      .project-modal-right .swiper{height:240px}
+    }
+
+    /* small touches */
+    .muted{color:var(--muted)}
+    .btn{display:inline-block;padding:12px 16px;border-radius:8px;border:1px solid var(--accent-dim);font-weight:600}
+   .project-gallery-btn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-size: 13px;
+  padding: 6px 12px;
+  border: 1px solid rgba(0,0,0,0.25);  /* light border */
+  background: rgba(0,0,0,0.05);        /* subtle gray background */
+  border-radius: 6px;
+  color: #000;                         /* black text */
+  cursor: pointer;
+  z-index: 20;
+}
+.project-gallery-btn:hover {
+  background: rgba(0,0,0,0.1);
+}
+
+.project-gallery-btn:hover {
+  background: rgba(255,255,255,0.18);
+}
+
+.gallery-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.96);   /* white overlay */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+.gallery-modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.gallery-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 32px;
+  background: none;
+  border: none;
+  color: #000;  /* black instead of white */
+  cursor: pointer;
+  z-index: 10;
+}
+
+.gallery-swiper {
+  width: 90%;
+  height: 90%;
+}
+.gallery-swiper .swiper-slide img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 80vh; /* match your gallery height */
+  display: block;
+  margin: 0 auto;
+}
+
+.gallery-swiper .swiper-button-next,
+.gallery-swiper .swiper-button-prev {
+  color: #fff;
+}
+.preview {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  box-shadow: 0 8px 30px rgba(0,0,0,.6);
+  min-height: 420px;
+  display: flex;
+}
+
+.hero-swiper {
+  width: 100%;
+  flex: 1;           /* take full height of .preview */
+}
+
+.hero-swiper .swiper-wrapper {
+  height: 100%;
+}
+
+.hero-swiper .swiper-slide {
+  height: 100%;
+}
+
+.hero-swiper .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  /* cover entire slide */
+  display: block;
+}
+
+/* Preloader logo */
+.preloader .logo {
+  width: 450px;   /* adjust as needed */
+  height: auto;   /* keeps aspect ratio */
+}
+
+/* Header brand logo */
+header .brand img {
+  width: 200px;   /* adjust as needed */
+  height: auto;   /* keeps aspect ratio */
+}
+/* Remove the bottom-left project name chip */
+.tile .meta {
+  display: none !important;
+}
+
+/* .tile .meta{
+  position:absolute; left:12px; bottom:12px;
+  background:rgba(0,0,0,.45);
+  color:#fff; padding:6px 10px; border-radius:6px;
+  font-weight:600; font-size:14px;
+  transition:opacity .25s ease;
+} */
+/* Contact and Menu Button Frosted Blur */
+header .btn,
+header .menu-btn {
+  background: rgba(0, 0, 0, 0.4);       /* semi-transparent dark */
+  color: #000000;                           /* white text/icons */
+  backdrop-filter: blur(6px);            /* frosted glass blur */
+  -webkit-backdrop-filter: blur(6px);    /* Safari support */
+  border: 1px solid rgb(255, 255, 255); /* subtle border */
+  transition: background 0.3s ease;
+}
+
+/* Hover effect for buttons */
+header .btn:hover,
+header .menu-btn:hover {
+  background: rgba(0, 0, 0, 0.55);       /* slightly darker on hover */
+}
+/* Make portfolio section full width */
+.portfolio {
+  width: 100%;
+     /* full viewport width */
+  margin: 0;
+  padding: 80px 0;    /* optional vertical padding */
+}
+
+/* Remove max-width on container but keep flex/grid intact */
+.portfolio .container {
+  width: 100%;
+  max-width: none;    /* remove any limiting width */
+  padding: 0;         /* remove horizontal padding */
+}
+
+
+.category-filters {
+  margin-bottom: 20px;
+}
+
+.category {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 150; /* Regular weight for the text */
+  font-size: 19px; /* Increased font size */
+  transition: font-weight 0.3s ease, font-size 0.3s ease; /* Smooth transition for the bold effect */
+  display: inline-block;
+  margin-right: 20px; /* Spacing between categories */
+  color: #484747
+}
+
+.category:hover {
+  color: #000; /* Optional: color change on hover */
+}
+
+.category.active {
+  font-weight: 700; /* Make the selected category bold */
+  color: #000; /* Optional: change color to black when active */
+}
+
+
+/* Project info section (on the right side) */
+.project-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;  /* Align the text to the right */
+  text-align: right; /* Optional: Text alignment for the project info */
+  padding: 34px 20px;  /* Same padding as the category */
+}
+
+.project-info .muted {
+  font-size: 17px; /* Optional: Adjust the size if needed */
+  color: #777; /* Optional: Lighter text color for the muted text */
+}
+
+/* Justified gallery layout */
+/* pick the selector that is your grid: .grid or .portfolio_grid or #a .w-dyn-items */
+.grid{
+  /* dynamic, equal gutters left & right */
+  --gut: max(1px, calc((100vw - 1200px)/2));
+  padding-inline: var(--gut) !important;
+
+  /* center the grid and cap its width */
+  margin-inline: auto;
+  max-width: 1600px;           /* adjust if you like */
+  width: 100%;
+  box-sizing: border-box;
+}
+footer i.fa-brands{
+  font-size: 24px;
+  line-height: 1;
+}
+
+/* cancel common full-bleed overrides that kill right padding */
+.grid{
+  padding-inline: 60px !important;
+  max-width: none;        /* optional: let it use full width */
+}
+
+
+/* keep children from bleeding out */
+.grid > *{ max-width: 100%; }
+                /* container is block */
+.j-row { display: flex; gap: 2px;        /* must match JS 'gutter' */
+         margin-bottom: 2px; }
+.j-row .tile { flex: none; width: auto; height: auto; } /* JS sets size */
+
+.tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #111;
+}
+.tile img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .7s cubic-bezier(.2,.9,.3,1);
+
+}
+.tile .hover-overlay{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  text-align:center;
+  padding:24px;
+  color:#fff;
+  opacity:0;
+  transition:opacity .25s ease;
+  background: rgba(0,0,0,0.25);            /* soft dark veil */
+  backdrop-filter: blur(10px);               /* extra glassy */
+  -webkit-backdrop-filter: blur(2px);
+}
+.tile .hover-overlay h4{
+  margin:0 0 6px; font-size:30px; font-weight:500;
+  line-height: 1.05;    
+}
+.tile .hover-overlay .cat{
+  opacity:.9; font-size:18px; font-weight:100;
+    line-height: 3;              /* comfy line height for the category line */
+
+}
+
+/* show overlay, hide bottom chip on hover */
+.tile:hover .hover-overlay{ opacity:1; }
+.tile:hover .meta{ opacity:0; }
+.tile:hover img{
+  transform: scale(1.04);
+  filter: blur(3px) brightness(.8);
+}
+.tile:hover img { transform: scale(1.04); }
+
+
+/* responsive breakpoints */
+@media (max-width:1200px) { .tile { flex: 1 1 calc(33.33% - 14px); } } /* 3 per row */
+@media (max-width:900px)  { .tile { flex: 1 1 calc(50% - 14px); } }    /* 2 per row */
+@media (max-width:560px)  { .tile { flex: 1 1 100%; } }                /* 1 per row */
+
+.tile:hover img{ transform: scale(1.04); }
+
+/* optional thin “seam” look */
+.grid, .j-row { background: #fff; }   /* so gaps look white */
+
+/* === FIXES: solid white header + visible footer icons === */
+
+/* Header stays pure white (no blur/tint) */
+header{
+  background:#fff !important;
+  box-shadow:none !important; /* keep or remove */
+}
+
+/* Keep the scrolled state white too (optional shadow) */
+header.header--scrolled{
+  background:#fff !important;
+  box-shadow:0 8px 24px rgba(0,0,0,0.06);
+}
+
+/* Make header buttons clean (no frosted dark backgrounds) */
+header .btn,
+header .menu-btn{
+  background:transparent !important;
+  color:#000 !important;
+  border:none !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+}
+
+/* Ensure burger lines stay black */
+header .menu-btn svg rect{ fill:#000 !important; opacity:1 !important; }
+
+/* Footer social icons (Font Awesome) */
+footer i.fa-brands{
+  display:inline-block;
+  font-size:24px;       /* controls icon size */
+  line-height:1;
+}
+ .footer_logo {
+         height: auto;
+         min-width: 100%;
+         }
+/*  */
+/* Bigger left/right padding on the portfolio grid */
+/* Center the portfolio grid + add side whitespace */
+#a .w-dyn-items{
+  max-width: 128px;                 /* cap grid width */
+  margin-inline: auto;               /* center it */
+  padding-inline: clamp(4000px, 1000vw, 16000px);
+  box-sizing: border-box;
+  justify-content: center;           /* keeps grid tracks centered if there’s extra space */
+}
+
+/* phones */
+@media (max-width: 767px){
+  #a .w-dyn-items{
+    max-width: 100%;
+    padding-inline: 24px;
+  }
+}
+
+  </style>
+  <style>
+  .footer-social { display:flex; gap:16px; padding:20px 0; align-items:center; }
+  .footer-social a { color:#000; opacity:.95; transition: opacity .2s ease, transform .2s ease; }
+  .footer-social a:hover { opacity:.7; transform: translateY(-1px); }
+  .footer-social svg { width:24px; height:24px; display:block; }
+</style>
+<style>
+  /* Round images in both the project modal and fullscreen gallery */
+  #pmGallery .swiper-slide,
+  #galleryWrapper .swiper-slide {
+    border-radius: 16px;   /* tweak: 12–32px */
+    overflow: hidden;      /* clip image to the radius */
+  }
+
+  #pmGallery img,
+  #galleryWrapper img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: inherit; /* match the slide’s radius */
+  }
+
+  /* (Optional) round the small modal card itself, too */
+  .project-modal-card {
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  /* (Optional) add a subtle frame on white backgrounds */
+  #pmGallery img, #galleryWrapper img {
+    box-shadow: 0 8px 28px rgba(0,0,0,.12);
+  }
+</style>
+<style>
+  /* Round images in both the project modal and fullscreen gallery */
+  #pmGallery .swiper-slide,
+  #galleryWrapper .swiper-slide {
+    border-radius: 16px;   /* tweak: 12–32px */
+    overflow: hidden;      /* clip image to the radius */
+  }
+
+  #pmGallery img,
+  #galleryWrapper img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: inherit; /* match the slide’s radius */
+  }
+
+  /* (Optional) round the small modal card itself, too */
+  .project-modal-card {
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  /* (Optional) add a subtle frame on white backgrounds */
+  #pmGallery img, #galleryWrapper img {
+    box-shadow: 0 8px 28px rgba(0,0,0,.12);
+  }
+</style>
+</head>
+<body>
+
+  <!-- Preloader (progress will animate via JS) -->
+  <div class="preloader" id="preloader">
+    <img class="logo" src="../www.room.studio/Font Logo-Dark (1).png" alt="logo">
+    <div class="bar"><i id="bar-fill"></i></div>
+    <div class="percent" id="percent">0%</div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="brand" style="padding-left: 22px;">
+      <a href="index.html"><img src="../www.room.studio/Font Logo-Dark (1).png" alt="Room"></a>
+    </div>
+    <div style="padding-right: 15px;display:flex;gap:16px;align-items:center">
+      <a class="btn" href="mailto:porousdelab@gmail.com">Email</a>
+   <button class="menu-btn" id="menuBtn" aria-label="Open menu" style="padding-right: 10px">
+  <!-- solid black 3-line icon -->
+  <svg width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="0" y="0"  width="22" height="2" rx="1" fill="#000"/>
+    <rect x="0" y="7"  width="22" height="2" rx="1" fill="#000"/>
+    <rect x="0" y="14" width="22" height="2" rx="1" fill="#000"/>
+  </svg>
+</button>
+
+    </div>
+  </header>
+
+
+<!-- Full-screen nav overlay -->
+<div id="navPanel" class="nav-panel" aria-hidden="true">
+  <!-- close button -->
+  <button id="navClose" class="nav-close" aria-label="Close">×</button>
+
+  <div class="nav-inner">
+    <!-- LEFT: info columns -->
+ 
+
+      
+    </div>
+
+    <!-- RIGHT: giant navigation -->
+    <ul class="nav-right">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="work.html">Works</a></li>
+      <li><a href="about-us.html">About us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <!-- <li><a href="work.html">Projects</a></li>
+      <li><a href="studio.html">Practice</a></li>
+      <li><a href="#">People</a></li>
+      <li><a href="#">Careers</a></li>
+      <li><a href="#">Shop</a></li> -->
+    </ul>
+        <!-- bottom bar -->
+    <div class="nav-bottom"style="bottom: 0;" >
+      <div class="social-icons" >
+     <a href="https://www.instagram.com/porousdelab" target="_blank" aria-label="Instagram">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" class="social-icon instagram">
+    </a>
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/share/1CjaMuzAVE/?mibextid=wwXIfr" target="_blank" aria-label="Facebook">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" class="social-icon facebook">
+    </a>
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/company/porousdelab/" target="_blank" aria-label="LinkedIn">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn" class="social-icon linkedin">
+    </a>
+      </div>
+
+      <div class="nav-copy"></div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div>
+        <h1>Work</h1>
+        <p class="lead">Our portfolio showcases the full scope of our work — from photorealistic visualizations and cinematic animations to interactive experiences built in Unreal Engine.</p>
+        <div style="margin-top:22px;display:flex;gap:12px;align-items:center">
+          <a class="btn" href="#portfolio">See projects</a>
+          <a class="muted" href="mailto:porousdelab@gmail.com">porousdelab@gmail.com</a>
+        </div>
+      </div>
+
+     <div class="preview" aria-hidden="true">
+  <div class="swiper hero-swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77a259f83edffcbf4ad53_Tile-additional_41.webp" alt="preview">
+      </div>
+      <div class="swiper-slide">
+        <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f7746ff1fdc22fe0200ff3_Tile-main_12.webp" alt="preview">
+      </div>
+      <div class="swiper-slide">
+        <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/68a7311522d28888584ff9f3_ZIQ_10.webp" alt="preview">
+      </div>
+    </div>
+  </div>
+  <div class="play">
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+      <circle cx="32" cy="32" r="30" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+      <path d="M26 22L44 32L26 42V22Z" fill="white" opacity="0.96"/>
+    </svg>
+  </div>
+</div>
+
+  </section>
+  <section id="work" class="portfolio">
+  <div class="category-filters">
+    <span class="category active" data-filter="all" id="All">All</span>
+    <span class="category" data-filter="architecture" id="Arc">Architecture</span>
+    <span class="category" data-filter="interior">Interior</span>
+    <span class="category" data-filter="landscaping">Landscaping</span>
+    <span class="category" data-filter="3d-visualization">3D Visualization</span>
+  </div>
+
+  <div class="grid" id="grid">
+    <!-- sample tiles — you can reuse the same set you had on the Work page -->
+ <a class="tile architecture"
+   href="work/havsaga.html"
+   data-desc="Sample description for Havsaga."
+   data-images="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f778089f83edffcbf33e20_Tile-additional_18.webp|https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f7746ff1fdc22fe0200ff3_Tile-main_12.webp|https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/68a7311522d28888584ff9f3_ZIQ_10.webp">
+  <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f778089f83edffcbf33e20_Tile-additional_18.webp" alt="Havsaga">
+  <div class="meta">Havsaga</div>
+</a>
+
+
+    <a class="tile landscaping" href="work/landscape-6.html" data-desc="Rock Garden — exterior concept.">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77693e1d218578e231b6b_Tile-additional_05.webp" alt="Rock Garden">
+      <div class="meta">Rock Garden</div>
+    </a>
+<!-- Architecture Projects -->
+    <a class="tile architecture" href="work/havsaga.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f778089f83edffcbf33e20_Tile-additional_18.webp" alt="Havsaga">
+      <div class="meta">Havsaga</div>
+    </a>
+     <a class="tile landscaping" href="work/landscape-6.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77693e1d218578e231b6b_Tile-additional_05.webp" alt="Landscaping Project 6">
+      <div class="meta">Rock Garden</div>
+    </a>
+    <a class="tile architecture" href="work/architecture-2.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77701c670b8a7a2312b39_Tile-additional_08.webp" alt="Architecture Project 2">
+      <div class="meta">Skyline Tower</div>
+    </a>
+   <a class="tile interior" href="work/interior-7.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77701c670b8a7a2312b39_Tile-additional_08.webp" alt="Interior Project 7">
+      <div class="meta">Luxury Entrance</div>
+    </a>
+    <a class="tile interior" href="work/interior-8.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f779884b8eb6105169ba1c_Tile-additional_36.webp" alt="Interior Project 8">
+      <div class="meta">Smart Home Design</div>
+    </a>
+    <a class="tile architecture" href="work/architecture-4.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/68a7311522d28888584ff9f3_ZIQ_10.webp" alt="Architecture Project 4">
+      <div class="meta">Urban Loft</div>
+    </a>
+    <a class="tile architecture" href="work/architecture-5.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77693e1d218578e231b6b_Tile-additional_05.webp" alt="Architecture Project 5">
+      <div class="meta">Beach Villa</div>
+    </a>
+    <a class="tile architecture" href="work/architecture-1.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77895e93f9e7ec4d90948_Tile-additional_24.webp" alt="Architecture Project 1">
+      <div class="meta">Modern House</div>
+    </a>
+    <a class="tile architecture" href="work/architecture-6.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f779884b8eb6105169ba1c_Tile-additional_36.webp" alt="Architecture Project 6">
+      <div class="meta">City Office</div>
+    </a>
+     <a class="tile architecture" href="work/architecture-3.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f7746ff1fdc22fe0200ff3_Tile-main_12.webp" alt="Architecture Project 3">
+      <div class="meta">Eco House</div>
+    </a>
+    <a class="tile architecture" href="work/architecture-7.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77b44aed623630778c6c5_Tile-additional_48.webp" alt="Architecture Project 7">
+      <div class="meta">Residential Complex</div>
+    </a>
+    <a class="tile architecture" href="work/architecture-8.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f779348293fb21ea973a38_Tile-additional_32.webp" alt="Architecture Project 8">
+      <div class="meta">Private Residence</div>
+    </a>
+    <a class="tile architecture" href="work/architecture-9.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f773df8953378d68a26d4f_Tile-main_06.webp" alt="Architecture Project 9">
+      <div class="meta">Mountain Retreat</div>
+    </a>
+
+    <!-- Landscaping Projects -->
+    
+     <a class="tile 3d-visualization" href="work/3d-visualization-1.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77701c670b8a7a2312b39_Tile-additional_08.webp" alt="3D Visualization Project 3">
+      <div class="meta">3D House Model</div>
+    </a>
+    <a class="tile landscaping" href="work/landscape-2.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77895e93f9e7ec4d90948_Tile-additional_24.webp" alt="Landscaping Project 2">
+      <div class="meta">Terrace Garden</div>
+    </a>
+    <a class="tile landscaping" href="work/landscape-3.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77701c670b8a7a2312b39_Tile-additional_08.webp" alt="Landscaping Project 1">
+      <div class="meta">City Park</div>
+    </a>
+    <a class="tile landscaping" href="work/landscape-4.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f7746ff1fdc22fe0200ff3_Tile-main_12.webp" alt="Landscaping Project 4">
+      <div class="meta">Desert Garden</div>
+    </a>
+    <a class="tile landscaping" href="work/landscape-1.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f778089f83edffcbf33e20_Tile-additional_18.webp" alt="Landscaping Project 1">
+      <div class="meta">Park Garden</div>
+    </a>
+    <a class="tile landscaping" href="work/landscape-5.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/68a7311522d28888584ff9f3_ZIQ_10.webp" alt="Landscaping Project 5">
+      <div class="meta">Water Garden</div>
+    </a>
+   
+    <a class="tile landscaping" href="work/landscape-7.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f779884b8eb6105169ba1c_Tile-additional_36.webp" alt="Landscaping Project 7">
+      <div class="meta">Zen Garden</div>
+    </a>
+    <a class="tile landscaping" href="work/landscape-8.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77b44aed623630778c6c5_Tile-additional_48.webp" alt="Landscaping Project 8">
+      <div class="meta">Urban Jungle</div>
+    </a>
+    
+
+    <!-- Interior Projects -->
+    <a class="tile interior" href="work/interior-1.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f779348293fb21ea973a38_Tile-additional_32.webp" alt="Interior Project 4">
+      <div class="meta">Modern Living Room</div>
+    </a>
+    <a class="tile landscaping" href="work/landscape-9.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f779348293fb21ea973a38_Tile-additional_32.webp" alt="Landscaping Project 9">
+      <div class="meta">Beachfront Garden</div>
+    </a>
+    <a class="tile landscaping" href="work/landscape-10.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f773df8953378d68a26d4f_Tile-main_06.webp" alt="Landscaping Project 10">
+      <div class="meta">Botanical Garden</div>
+    </a>
+    <a class="tile interior" href="work/interior-2.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77693e1d218578e231b6b_Tile-additional_05.webp" alt="Interior Project 2">
+      <div class="meta">Luxury Bedroom</div>
+    </a>
+    <a class="tile interior" href="work/interior-3.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f779348293fb21ea973a38_Tile-additional_32.webp" alt="Interior Project 3">
+      <div class="meta">Kitchen Design</div>
+    </a>
+    <a class="tile interior" href="work/interior-4.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f773df8953378d68a26d4f_Tile-main_06.webp" alt="Interior Project 6">
+      <div class="meta">Minimalist Workspace</div>
+    </a>
+    <a class="tile interior" href="work/interior-5.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/68a7311522d28888584ff9f3_ZIQ_10.webp" alt="Interior Project 5">
+      <div class="meta">Cozy Study</div>
+    </a>
+    <a class="tile interior" href="work/interior-6.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f7746ff1fdc22fe0200ff3_Tile-main_12.webp" alt="Interior Project 6">
+      <div class="meta">Contemporary Bathroom</div>
+    </a>
+    
+    <a class="tile 3d-visualization" href="work/3d-visualization-9.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/68a7311522d28888584ff9f3_ZIQ_10.webp" alt="3D Visualization Project 9">
+      <div class="meta">Architectural Walkthrough</div>
+    </a>
+    <a class="tile 3d-visualization" href="work/3d-visualization-10.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77a6b14cd419492b16b7d_Tile-additional_43.webp" alt="3D Visualization Project 10">
+      <div class="meta">Virtual Reality Tour</div>
+    </a>
+    <a class="tile interior" href="work/interior-9.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77b44aed623630778c6c5_Tile-additional_48.webp" alt="Interior Project 9">
+      <div class="meta">Luxury Dining Room</div>
+    </a>
+    <a class="tile interior" href="work/interior-10.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77693e1d218578e231b6b_Tile-additional_05.webp" alt="Interior Project 10">
+      <div class="meta">Industrial Loft</div>
+    </a>
+
+    <!-- 3D Visualization Projects -->
+   
+    <a class="tile 3d-visualization" href="work/3d-visualization-2.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f7746ff1fdc22fe0200ff3_Tile-main_12.webp" alt="3D Visualization Project 2">
+      <div class="meta">Interior Rendering</div>
+    </a>
+    <a class="tile 3d-visualization" href="work/3d-visualization-3.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/68a7311522d28888584ff9f3_ZIQ_10.webp" alt="3D Visualization Project 3">
+      <div class="meta">Exterior Rendering</div>
+    </a>
+    <a class="tile 3d-visualization" href="work/3d-visualization-4.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77701c670b8a7a2312b39_Tile-additional_08.webp" alt="3D Visualization Project 4">
+      <div class="meta">3D Landscape Design</div>
+    </a>
+    <a class="tile 3d-visualization" href="work/3d-visualization-5.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f779348293fb21ea973a38_Tile-additional_32.webp" alt="3D Visualization Project 5">
+      <div class="meta">Futuristic Building</div>
+    </a>
+    <a class="tile 3d-visualization" href="work/3d-visualization-6.html">
+      <img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77693e1d218578e231b6b_Tile-additional_05.webp" alt="3D Visualization Project 6">
+      <div class="meta">Product Design</div>
+    </a>
+    <!-- …add the rest of your tiles here (architecture/interior/landscaping/3d-visualization)… -->
+  </div>
+</section>
+
+<!-- Project popup modal -->
+<div class="project-modal" id="projectModal" aria-hidden="true">
+  <div class="project-modal-card" role="dialog" aria-modal="true" aria-labelledby="pmTitle">
+    <button class="project-modal-close" id="pmClose" aria-label="Close">×</button>
+    <button class="project-gallery-btn btn" id="pmGalleryBtn" style="position:absolute;top:14px;left:14px;">Gallery</button>
+
+    <div class="project-modal-inner">
+      <div class="project-modal-left">
+        <h3 class="project-modal-title" id="pmTitle">Title</h3>
+        <div class="project-modal-desc" id="pmDesc">Short description goes here.</div>
+      </div>
+      <div class="project-modal-right">
+        <div class="swiper project-swiper">
+          <div class="swiper-wrapper" id="pmGallery"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Fullscreen gallery modal -->
+<div class="gallery-modal" id="galleryModal" aria-hidden="true">
+  <button class="gallery-close" id="galleryClose" aria-label="Close">×</button>
+  <div class="swiper gallery-swiper">
+    <div class="swiper-wrapper" id="galleryWrapper"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+</div>
+
+ <!-- footer line seperation work grid  , website footer same   -->
+  <!-- Portfolio grid -->
+  <!-- <section class="portfolio" id="portfolio">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:18px;padding-left: 46px;padding-right: 46px;">
+ <div class="category-filters">
+    <span class="category active" data-filter="all">All</span>
+    <span class="category" data-filter="architecture">Architecture</span>
+      <span class="category" data-filter="interior">Interior</span>
+    <span class="category" data-filter="landscaping">Landscaping</span>
+    <span class="category" data-filter="3d-visualization">3D Visualization</span>
+  </div>
+
+
+     <div class="project-info">
+
+    <div class="muted">Showing 24 projects</div>
+  </div>
+</div> -->
+      <!-- <div class="grid" id="grid">
+  <div class="grid" id="grid">
+    <section class="portfolio">
+ 
+  <div class="category-filters">
+    <span class="category active" data-filter="all">All</span>
+    <span class="category" data-filter="architecture">Architecture</span>
+    <span class="category" data-filter="landscaping">Landscaping</span>
+    <span class="category" data-filter="interior">Interior</span>
+    <span class="category" data-filter="3d-visualization">3D Visualization</span>
+  </div> -->
+
+  <!-- Projects Grid -->
+  
+<script>
+(() => {
+  const tiles = document.querySelectorAll('#grid .tile');
+
+  tiles.forEach(t => {
+    // project name: from the existing bottom .meta text or img alt
+    const name =
+      (t.querySelector('.meta')?.textContent || '').trim() ||
+      (t.querySelector('img')?.alt || 'Project');
+
+    // category: infer from class (architecture/interior/landscaping/3d-visualization)
+    const cats = ['architecture','interior','landscaping','3d-visualization'];
+    const cat = cats.find(c => t.classList.contains(c)) || 'Project';
+
+    // build overlay once
+    if (!t.querySelector('.hover-overlay')) {
+      const ov = document.createElement('div');
+      ov.className = 'hover-overlay';
+      ov.innerHTML = `<div>
+        <h4>${name}</h4>
+        <div class="cat">${cat.replace('-', ' ')}</div>
+      </div>`;
+      t.appendChild(ov);
+    }
+  });
+})();
+</script>
+
+<script>
+  (function(){
+    const h = document.querySelector('header');
+    const onScroll = () => {
+      if (window.scrollY > 8) h.classList.add('header--scrolled');
+      else h.classList.remove('header--scrolled');
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+</script>
+
+<script>
+(function () {
+  const container = document.getElementById('grid');
+  const targetRowHeight = 450;
+  const gutter = 2; // must match CSS
+
+  // Master list of tiles (never changes)
+  const MASTER = Array.from(container.querySelectorAll('.tile'));
+  // default: show all
+  MASTER.forEach(t => t.dataset.show = '1');
+
+  // wait for images, then layout
+  Promise.all(MASTER.map(t => {
+    const img = t.querySelector('img');
+    if (img.complete && img.naturalWidth) return true;
+    return new Promise(res => img.addEventListener('load', res, {once:true}));
+  })).then(layout);
+
+  window.addEventListener('resize', layout);
+
+  // Use our master list + dataset flag
+  function getVisibleTiles() {
+    return MASTER.filter(t => t.dataset.show !== '0');
+  }
+
+function layout() {
+  const tiles = getVisibleTiles();
+
+  container.innerHTML = '';
+  let row = [], arSum = 0;
+
+  // ✅ use content width only (not including padding)
+  const cs = getComputedStyle(container);
+  const cw = container.clientWidth
+           - parseFloat(cs.paddingLeft || 0)
+           - parseFloat(cs.paddingRight || 0);
+
+  const items = tiles.map(t => {
+    const img = t.querySelector('img');
+    const ar = (img.naturalWidth || 1) / (img.naturalHeight || 1);
+    return { el: t, ar };
+  });
+
+    for (let i = 0; i < items.length; i++) {
+      row.push(items[i]);
+      arSum += items[i].ar;
+
+      const rowWidthMinusGaps = cw - gutter * (row.length - 1);
+      const h = rowWidthMinusGaps / arSum;
+
+      // finalize row at ~target height OR 4 items OR end
+      if (h <= targetRowHeight || row.length === 4 || i === items.length - 1) {
+        const jrow = document.createElement('div');
+        jrow.className = 'j-row';
+
+        const finalH = Math.min(targetRowHeight, h);
+        row.forEach(it => {
+          const w = finalH * it.ar;
+          it.el.style.width = w + 'px';
+          it.el.style.height = finalH + 'px';
+          jrow.appendChild(it.el);
+        });
+
+        container.appendChild(jrow);
+        row = []; arSum = 0;
+      }
+    }
+  }
+
+  // Expose a small API for the filter buttons
+  window.filterTiles = function (filterClass) {
+    MASTER.forEach(t => {
+      const match = (filterClass === 'all') || t.classList.contains(filterClass);
+      t.dataset.show = match ? '1' : '0';
+    });
+    layout();
+  };
+
+  // Also expose layout for any external calls if you need it
+  window.layout = layout;
+})();
+</script>
+
+<script>
+document.querySelectorAll('.category').forEach(el => {
+  el.addEventListener('click', function () {
+    document.querySelectorAll('.category').forEach(i => i.classList.remove('active'));
+    this.classList.add('active');
+
+    const filterType = this.getAttribute('data-filter'); // 'all', 'architecture', etc.
+    // call our API from the layout IIFE
+    window.filterTiles(filterType);
+  });
+});
+</script>
+
+        <!-- Tiles: using the real image URLs from your original file to preserve content -->
+        <!-- <a class="tile wide" href="work/havsaga.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f778089f83edffcbf33e20_Tile-additional_18.webp" alt="Havsaga"><div class="meta">Havsaga</div></a>
+        <a class="tile" href="work/myter.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77895e93f9e7ec4d90948_Tile-additional_24.webp" alt="Myter"><div class="meta">Myter om Skandinavien</div></a>
+        <a class="tile" href="work/capsule-interior.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77701c670b8a7a2312b39_Tile-additional_08.webp" alt="Capsule"><div class="meta">Capsule Interior</div></a>
+        <a class="tile" href="work/hygge.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f7746ff1fdc22fe0200ff3_Tile-main_12.webp" alt="Hygge"><div class="meta">Hygge</div></a>
+
+        <a class="tile tall" href="work/ziq.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/68a7311522d28888584ff9f3_ZIQ_10.webp" alt="Ziq"><div class="meta">Ziq</div></a>
+        <a class="tile" href="work/capsule.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77693e1d218578e231b6b_Tile-additional_05.webp" alt="Capsule"><div class="meta">Capsule</div></a>
+        <a class="tile" href="work/morke.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f778e3d4ae580817f8cfb1_Tile-additional_27.webp" alt="Morke"><div class="meta">Mørke</div></a>
+        <a class="tile" href="work/lagom.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f779884b8eb6105169ba1c_Tile-additional_36.webp" alt="Lagom"><div class="meta">Lagom</div></a>
+
+       
+        <a class="tile" href="work/multi-towers.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77b44aed623630778c6c5_Tile-additional_48.webp" alt="Multi Towers"><div class="meta">Multi Towers</div></a>
+        <a class="tile" href="work/mono.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f779348293fb21ea973a38_Tile-additional_32.webp" alt="Mono"><div class="meta">Mono</div></a>
+        <a class="tile wide" href="work/havsaga.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f773df8953378d68a26d4f_Tile-main_06.webp" alt="Havsaga"><div class="meta">Havsaga</div></a>
+        <a class="tile" href="work/gitter.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f7764daa11ce4fc58556ba_Tile-additional_03.webp" alt="Gitter"><div class="meta">Gitter</div></a>
+
+        <a class="tile" href="work/hygge.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77a6b14cd419492b16b7d_Tile-additional_43.webp" alt="Hygge"><div class="meta">Hygge</div></a>
+        <a class="tile" href="work/lagom-interior.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f77a18d4ae580817f9b94e_Tile-additional_40.webp" alt="Lagom Interior"><div class="meta">Lagom Interior</div></a>
+        <a class="tile" href="work/mono.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f7792a32c7e5123c0019d9_Tile-additional_31.webp" alt="Mono"><div class="meta">Mono</div></a>
+        <a class="tile" href="work/morke.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f778f27d7d8f49f861e854_Tile-additional_28.webp" alt="Mørke"><div class="meta">Mørke</div></a> -->
+
+<!-- 
+  <footer>
+    <div class="footer-inner">
+      <div class="muted">© The Room — All rights reserved</div>
+      <div class="muted">Made with ♥ — <a href="mailto:info@room.studio">info@room.studio</a></div>
+    </div>
+  </footer> -->
+
+  <!-- Cursor label (follows cursor and shows "View") -->
+  <div class="cursor-label" id="cursorLabel" style="display:none">View</div>
+<div class="project-modal">
+  <div class="project-modal-card">
+    <button class="project-modal-close" aria-label="Close">×</button>
+    <button class="project-gallery-btn btn">Gallery</button>
+
+    <div class="project-modal-inner">
+      <div class="project-modal-left">
+        <h3 class="project-modal-title">Title</h3>
+        <div class="project-modal-desc">Short description…</div>
+      </div>
+      <div class="project-modal-right">
+        <div class="swiper project-swiper">
+          <div class="swiper-wrapper pm-gallery"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+
+.project-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  pointer-events: none;
+  opacity: 0;
+  background: rgba(0,0,0,0.72);
+  transition: opacity .3s ease;
+}
+.project-modal.open {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.project-modal-card {
+  width: 95%;           /* wider card */
+  max-width: 1300px;    /* bigger max width */
+  height: 90vh;         /* taller */
+  margin: 20px 0;       /* smaller vertical margin */
+  background: #ffffff;
+  color: #000000;
+  border-radius: 12px;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.15);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-modal-inner {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr; /* make right slider even wider */
+  height: 100%;
+}
+
+.project-modal-left {
+  padding: 20px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.project-modal-right {
+  position: relative;
+  overflow: hidden;
+  padding: 0; /* remove extra white space */
+}
+
+.project-modal-right .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fills container completely */
+  border-radius: 0;  /* remove white border around image */
+}
+
+/* Mobile override */
+@media(max-width:768px){
+  .project-modal-inner {
+    grid-template-columns: 1fr; /* stack */
+  }
+.project-modal-card {
+  padding: 0 20px;  /* 👈 add left/right breathing space */
+  box-sizing: border-box;
+  max-width: 1200px;  /* optional, keeps it from going too wide */
+  margin: 0 auto;
+}
+
+  .project-modal-right .swiper {
+    height: 240px;
+  }
+}
+.gallery-swiper img {
+  filter: blur(0px);
+}
+
+/* Swiper gallery */
+.gallery-swiper .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gallery-swiper .swiper-slide img {
+  max-width: 95vw;
+  max-height: 85vh; /* keeps images inside viewport */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* Navigation arrows black */
+.gallery-swiper .swiper-button-next,
+.gallery-swiper .swiper-button-prev {
+  color: #000;
+}
+
+/* Background blur when modal is open */
+body.modal-open {
+  filter: blur(5px);
+  transition: filter 0.3s ease;
+}
+
+.modal-blur {
+  filter: blur(6px);
+  transition: filter 0.3s ease;
+  pointer-events: none;
+}
+/* 1) Round & clip the entire swiper viewport */
+.project-swiper,
+.gallery-swiper {
+  border-radius: 16px;      /* tweak: 12–32px */
+  overflow: hidden;         /* <- important */
+}
+
+/* 2) Also round each slide (including loop clones) and clip its contents */
+.project-swiper .swiper-slide,
+.project-swiper .swiper-slide-duplicate,
+.gallery-swiper .swiper-slide,
+.gallery-swiper .swiper-slide-duplicate {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* 3) Make images inherit the radius */
+.project-swiper img,
+.gallery-swiper img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+/* 4) iOS/Safari fix so transforms respect rounded corners */
+@supports (-webkit-touch-callout: none) {
+  .project-swiper,
+  .gallery-swiper {
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+  }
+}
+
+
+</style>
+<style>
+  .hero h1 {
+  font-weight: 200 !important; /* force ultra thin */
+}
+
+  .footer-social i[class*="fa-"] {
+    font-family: "Font Awesome 6 Brands" !important; /* only in your footer block */
+    font-style: normal; font-weight: 400;
+    font-size: 24px; line-height: 1;
+  }
+
+  
+</style>
+
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <script>
+    /* ---------- Preloader simulation ---------- */
+    (function(){
+      const pre = document.getElementById('preloader');
+      const fill = document.getElementById('bar-fill');
+      const pct = document.getElementById('percent');
+      let progress = 0;
+      const step = () => {
+        progress += Math.random()*18;
+        if(progress >= 100){progress=100; fill.style.width='100%'; pct.textContent='100%';
+          setTimeout(()=>{pre.style.opacity=0; pre.style.pointerEvents='none'; setTimeout(()=>pre.remove(),600)},500);
+        } else {fill.style.width = progress+'%'; pct.textContent = Math.floor(progress)+'%'; setTimeout(step,220+Math.random()*200)}
+      }
+      step();
+    })();
+
+    /* ---------- Nav panel ---------- */
+    const menuBtn = document.getElementById('menuBtn');
+    const navPanel = document.getElementById('navPanel');
+    menuBtn.addEventListener('click', ()=>{
+      const open = navPanel.classList.toggle('open');
+      navPanel.setAttribute('aria-hidden', !open);
+    });
+
+    /* ---------- Hero Swiper ---------- */
+    const swiper = new Swiper('.hero-swiper',{
+      loop:true,
+      autoplay:{delay:2200, disableOnInteraction:false},
+      speed:900,
+      effect: 'slide',
+    });
+
+    /* ---------- Cursor label (like video) ---------- */
+    const cursor = document.getElementById('cursorLabel');
+    document.addEventListener('mousemove',(e)=>{
+      cursor.style.display='block';
+      cursor.style.transform = `translate3d(${e.clientX+18}px, ${e.clientY+18}px, 0)`;
+    });
+    // show 'View' when hovering tiles
+    document.querySelectorAll('.tile').forEach(t=>{
+      t.addEventListener('mouseenter', ()=>{ cursor.textContent='View'; cursor.style.transform += ' scale(1)';});
+      t.addEventListener('mouseleave', ()=>{ cursor.textContent='View';});
+    });
+
+    /* ---------- Simple entry animations using GSAP ---------- */
+    window.addEventListener('load', ()=>{
+      gsap.from('header', {y:-20, autoAlpha:0, duration:.8, ease:'power3.out'});
+      gsap.from('.hero h1', {y:18, autoAlpha:0, duration:.9, delay:.2, ease:'power3.out'});
+      gsap.from('.hero p.lead', {y:12, autoAlpha:0, duration:.9, delay:.35});
+      gsap.from('.grid .tile', {y:20, autoAlpha:0, duration:.9, stagger:.05, delay:.45, ease:'power3.out'});
+    });
+
+    /* Accessibility: keyboard close for nav panel */
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ navPanel.classList.remove('open'); navPanel.setAttribute('aria-hidden', true);} });
+
+    /* --------- Project Popup Modal (only changed section) ---------- */
+    (function(){
+      
+      const modal = document.getElementById('projectModal');
+      const modalCard = modal.querySelector('.project-modal-card');
+      const pmTitle = document.getElementById('pmTitle');
+      const pmDesc = document.getElementById('pmDesc');
+      const pmGallery = document.getElementById('pmGallery');
+      const pmClose = document.getElementById('pmClose');
+
+      const tiles = Array.from(document.querySelectorAll('#grid .tile, #grid a.tile'));
+      let lastRect = null; // store the tile rect for reverse animation
+
+      function buildGalleryFromTile(tile, mainSrc) {
+  // 1) Prefer a per-project list from data-images (pipe-separated)
+  const list = (tile.dataset.images || '')
+    .split('|')
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  if (list.length) return list;
+
+  // 2) Fallback: if no data-images, use main + neighbors (your old logic)
+  const allImgs = Array.from(document.querySelectorAll('#grid img')).map(img => img.src);
+  const i = Math.max(0, allImgs.indexOf(mainSrc));
+  const gallery = [];
+  gallery.push(mainSrc || allImgs[i] || allImgs[0] || '');
+  if (allImgs[i+1]) gallery.push(allImgs[i+1]);
+  else if (allImgs[(i+2) % allImgs.length]) gallery.push(allImgs[(i+2) % allImgs.length]);
+  else gallery.push(gallery[0]);
+  if (allImgs[i+2]) gallery.push(allImgs[i+2]);
+  else gallery.push(gallery[0]);
+  return gallery;
+}
+
+ function openModalForTile(tile, index){
+    // get the main image and title
+    const imgEl = tile.querySelector('img');
+    const titleEl = tile.querySelector('.meta');
+    const mainSrc = imgEl ? imgEl.src : '';
+    const title = (titleEl && titleEl.innerText) ? titleEl.innerText : (imgEl ? imgEl.alt : 'Project');
+    const desc = tile.getAttribute('data-desc') || 'Project preview — example description.';
+
+    // populate modal content (left text)
+    pmTitle.textContent = title;
+    pmDesc.textContent = desc;
+
+    // build gallery slides (right side)
+  pmGallery.innerHTML = '';
+const gallerySrcs = buildGalleryFromTile(tile, mainSrc);
+gallerySrcs.forEach(src => {
+  const slide = document.createElement('div');
+  slide.className = 'swiper-slide';
+  slide.innerHTML = `<img src="${src}" alt="${title}">`;
+  pmGallery.appendChild(slide);
+});
+
+    // Open modal
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+document.querySelectorAll('body > *:not(.project-modal):not(.gallery-modal)').forEach(el => {
+  el.style.filter = 'blur(8px) brightness(1.5) contrast(1.2)';
+  el.style.transition = 'filter 0.3s ease';
+  el.style.pointerEvents = 'none';
+});
+// make sure the hidden gallery container has no residual blur
+const galleryModal = document.getElementById('galleryModal');
+if (galleryModal) galleryModal.style.filter = 'none';
+
+
+
+
+    // animate from tile position
+    lastRect = tile.getBoundingClientRect();
+    const dx = (lastRect.left + lastRect.width/2) - (window.innerWidth/2);
+    const dy = (lastRect.top + lastRect.height/2) - (window.innerHeight/2);
+    gsap.fromTo(modalCard,
+      { scale: 0.85, x: dx, y: dy, autoAlpha: 0 },
+      { scale: 1, x: 0, y: 0, autoAlpha: 1, duration: 0.55, ease: 'power3.out' }
+    );
+
+    // inside openModalForTile(...)
+if (window.pmSwiper) window.pmSwiper.destroy(true, true);
+window.pmSwiper = new Swiper('.project-swiper', {
+  direction: 'vertical',
+  loop: true,
+  autoplay: { delay: 2000, disableOnInteraction: false },
+  speed: 600,
+
+  // 👇 add a little gap between images
+  spaceBetween: 16,          // try 12–24px to taste
+  slidesPerView: 1
+});
+
+  }
+
+function closeModal() {
+  const dx = lastRect
+    ? (lastRect.left + lastRect.width / 2) - (window.innerWidth / 2)
+    : 0;
+  const dy = lastRect
+    ? (lastRect.top + lastRect.height / 2) - (window.innerHeight / 2)
+    : 0;
+
+  gsap.to(modalCard, {
+    scale: lastRect ? 0.85 : 0.9,
+    x: dx,
+    y: dy,
+    autoAlpha: 0,
+    duration: 0.45,
+    ease: 'power3.in',
+    onComplete: () => {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      pmGallery.innerHTML = '';
+
+      if (window.pmSwiper) { 
+        try { window.pmSwiper.destroy(true, true); } catch(e){}
+        window.pmSwiper = null;
+      }
+
+      // 🟢 Reset blur & pointer events everywhere
+      document.querySelectorAll('body > *').forEach(el => {
+        el.style.filter = '';
+        el.style.pointerEvents = '';
+        el.style.transition = '';
+      });
+
+      lastRect = null;
+    }
+  });
+
+
+
+
+// document.querySelectorAll('body > *:not(.project-modal)').forEach(el => {
+//   el.style.filter = 'blur(1px) brightness(1.8)'; // lower blur, higher brightness
+//   el.style.transition = 'filter 0.3s ease';
+//   el.style.pointerEvents = 'none';
+// });
+
+
+  }
+
+  // Attach click handlers to tiles (prevent default navigation)
+  tiles.forEach((tile, i) => {
+    tile.addEventListener('click', function(ev){
+      if(tile.tagName.toLowerCase() === 'a') ev.preventDefault();
+      openModalForTile(tile, i);
+    });
+  });
+
+  // Close modal events
+ pmClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+  if (e.target === modal) closeModal();
+});
+ document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modal.classList.contains('open')) {
+    closeModal();
+  }
+});
+})();
+</script>
+  <div class="gallery-modal" id="galleryModal" aria-hidden="true">
+  <button class="gallery-close" id="galleryClose" aria-label="Close">×</button>
+  <div class="swiper gallery-swiper">
+    <div class="swiper-wrapper" id="galleryWrapper"></div>
+    <!-- Navigation arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+</div>
+
+<!-- Your gallery JS -->
+<script>
+(function(){
+  const galleryModal = document.getElementById('galleryModal');
+  const galleryWrapper = document.getElementById('galleryWrapper');
+  const galleryClose = document.getElementById('galleryClose');
+  const pmGalleryBtn = document.getElementById('pmGalleryBtn');
+  let gallerySwiper;
+
+  pmGalleryBtn.addEventListener('click', () => {
+  galleryWrapper.innerHTML = document.getElementById('pmGallery').innerHTML;
+
+  galleryModal.classList.add('open');
+  galleryModal.setAttribute('aria-hidden','false');
+
+  // ensure the gallery element itself is NOT blurred
+  galleryModal.style.filter = 'none';
+
+  // temporarily clear background blur while gallery is open
+  // after
+document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').forEach(el => {
+  el.style.filter = 'none';
+  el.style.pointerEvents = 'auto';
+});
+
+
+
+    if (gallerySwiper) gallerySwiper.destroy(true,true);
+    gallerySwiper = new Swiper('.gallery-swiper', {
+      loop: true,
+      navigation: {
+        nextEl: '.gallery-swiper .swiper-button-next',
+        prevEl: '.gallery-swiper .swiper-button-prev'
+      },
+      slidesPerView: 1,
+      spaceBetween: 20,
+      speed: 800
+    });
+  });
+
+  function closeGallery(){
+    galleryModal.classList.remove('open');
+    galleryModal.setAttribute('aria-hidden','true');
+    galleryWrapper.innerHTML = '';
+    if (gallerySwiper) { gallerySwiper.destroy(true,true); gallerySwiper = null; }
+
+    // ✅ restore project modal background blur if it’s still open
+    const projectModal = document.getElementById('projectModal');
+    if (projectModal.classList.contains('open')) {
+      document.querySelectorAll('body > *:not(.project-modal)').forEach(el => {
+        el.style.filter = 'blur(8px) brightness(1.5) contrast(1.2)';
+        el.style.pointerEvents = 'none';
+      });
+    } else {
+      // fully reset if no modal is open
+      document.querySelectorAll('body > *').forEach(el => {
+        el.style.filter = '';
+        el.style.pointerEvents = '';
+      });
+    }
+    document.body.classList.remove('gallery-open');
+  }
+
+  galleryClose.addEventListener('click', closeGallery);
+  galleryModal.addEventListener('click', (e)=>{ if(e.target === galleryModal) closeGallery(); });
+  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && galleryModal.classList.contains('open')) closeGallery(); });
+
+
+})();
+</script>
+
+<script>
+(function(){
+  const galleryModal = document.getElementById('galleryModal');
+  const galleryWrapper = document.getElementById('galleryWrapper');
+  const galleryClose = document.getElementById('galleryClose');
+  const pmGalleryBtn = document.getElementById('pmGalleryBtn');
+  let gallerySwiper;
+
+  // Open gallery
+  pmGalleryBtn.addEventListener('click', () => {
+    galleryWrapper.innerHTML = document.getElementById('pmGallery').innerHTML;
+    galleryModal.classList.add('open');
+    galleryModal.setAttribute('aria-hidden','false');
+
+    if (gallerySwiper) gallerySwiper.destroy(true,true);
+    gallerySwiper = new Swiper('.gallery-swiper', {
+      loop: true,
+      navigation: {
+        nextEl: '.gallery-swiper .swiper-button-next',
+        prevEl: '.gallery-swiper .swiper-button-prev'
+      },
+      slidesPerView: 1,
+      spaceBetween: 20,
+      speed: 800
+    });
+  });
+
+  // Close function
+  function closeGallery(){
+    galleryModal.classList.remove('open');
+    galleryModal.setAttribute('aria-hidden','true');
+    galleryWrapper.innerHTML = '';
+    if (gallerySwiper) { gallerySwiper.destroy(true,true); gallerySwiper = null; }
+  }
+
+  galleryClose.addEventListener('click', closeGallery);
+  galleryModal.addEventListener('click', (e)=>{ if(e.target === galleryModal) closeGallery(); });
+  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && galleryModal.classList.contains('open')) closeGallery(); });
+})();
+</script>
+
+<!-- your nav-panel HTML goes here -->
+
+<!-- other page content ... -->
+
+<script>
+  // const menuBtn  = document.getElementById('menuBtn');
+  // const navPanel = document.getElementById('navPanel');
+  // const navClose = document.getElementById('navClose');
+
+  function toggleNav(force){
+    const open = typeof force === 'boolean' ? force : !navPanel.classList.contains('open');
+    navPanel.classList.toggle('open', open);
+    navPanel.setAttribute('aria-hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  menuBtn.addEventListener('click', () => toggleNav(true));
+  navClose.addEventListener('click', () => toggleNav(false));
+  document.addEventListener('keydown', e => { if(e.key==='Escape') toggleNav(false); });
+
+  document.querySelectorAll('.nav-right a').forEach(a=>{
+    a.addEventListener('click', ()=> toggleNav(false));
+  });
+</script>
+<!-- (Optional) Font Awesome for brand icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<footer class="site-footer" id="footer">
+  <div class="footer-divider"></div>
+
+  <div class="footer-inner">
+    <!-- LEFT -->
+    <div class="footer-left">
+      <a class="footer-brand" href="/" aria-label="Home">
+        <img
+          src="../www.room.studio/Font Logo-Dark (1) - Copy.png"
+          
+          alt=""
+          class="brand-logo"
+          width="220" height="56"
+          loading="lazy" decoding="async">
+      </a>
+
+      <nav class="footer-nav">
+          <a href="/index.html">Home</a>
+        <a href="/work.html">Projects</a>
+        <a href="/about-us.html">About us</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+
+      <div class="footer-legal">
+        <a href="/legal.html">Legal and policies</a>
+        © <span id="footerYear"></span> Porous Delab. All Rights Reserved.
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="footer-right">
+      <div class="footer-social">
+        <!-- <a class="icon" href="#" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a> -->
+        <a class="icon" href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a class="icon" href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+         <a class="icon" href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <!-- <a class="icon" href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a class="icon" href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>  -->
+        <a class="icon" href="#" aria-label="Behance"><i class="fa-brands fa-behance"></i></a>
+      </div>
+
+      <a href="#" class="back-to-top" aria-label="Back to top">
+        Back To Top <span class="arrow">↑</span>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // auto-year + smooth scroll to top
+  document.getElementById('footerYear').textContent = new Date().getFullYear();
+  document.querySelector('.back-to-top').addEventListener('click', e => {
+    e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+<style>
+  :root { --brand-h: clamp(36px, 6vw, 64px); }
+.brand-logo { height: var(--brand-h); width: 300px; display: block; }
+
+  /* ========= EASY TUNING ========= */
+  :root{
+    --footer-bg: #fff;
+    --footer-fg: #111;
+    --footer-muted: #6a6a6a;
+
+    /* container + padding */
+                     /* width of content block */
+    --footer-xpad: clamp(20px, 4vw, 60px);   /* side padding */
+    --footer-ypad: 36px;                     /* vertical padding */
+    --footer-gap: 28px;                      /* spacing inside */
+
+    /* divider + icons */
+    --divider: rgba(0,0,0,0.10);
+    --icon-size: 42px;                       /* round icon button size */
+  }
+
+  .site-footer{ background:var(--footer-bg); color:var(--footer-fg); font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+  .footer-divider{ height:1px; background:var(--divider); margin: 0 var(--footer-xpad); }
+
+  .footer-inner{
+    max-width: var(--footer-max);
+    margin: 0 auto;
+    padding: var(--footer-ypad) var(--footer-xpad);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--footer-gap);
+    align-items: start;
+  }
+
+  /* LEFT */
+  .footer-brand{
+    display:inline-block;
+    font-weight: 800;
+    font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: .01em;
+    text-decoration: none;
+    color: var(--footer-fg);
+    margin-bottom: 14px;
+  }
+  .footer-nav{
+    display:flex; flex-wrap:wrap; gap: 22px;
+    margin-bottom: 18px;
+    text-transform: none;   
+  }
+  .footer-nav a{
+    color: var(--footer-fg);
+    text-decoration: none;
+    font-size: 18px;
+    opacity: .9;
+    text-transform: none;   
+  }
+  .footer-nav a:hover{ opacity: 1; text-decoration: underline; text-transform: none;    }
+
+  .footer-legal{
+    font-size: 11px;
+    color: var(--footer-muted);
+  }
+  .footer-legal a{
+    color: var(--footer-fg); text-decoration: none; border-bottom: 1px solid rgba(0,0,0,.18);
+  }
+  .footer-legal a:hover{ border-bottom-color: rgba(0,0,0,.4); }
+
+  /* RIGHT */
+  .footer-right{
+    display:grid;
+    justify-items:end;
+    align-content:start;
+    gap: 18px;
+  }
+  .footer-social{ display:flex; gap:12px; }
+  .footer-social .icon{
+    width: var(--icon-size); height: var(--icon-size);
+    display:grid; place-items:center;
+    border-radius: 999px;
+    background:#fff;
+    border:1px solid rgba(0,0,0,.14);
+    text-decoration:none;
+    color: var(--footer-fg);
+    transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  }
+  .footer-social .icon i{ font-size: 18px; line-height: 1; }
+  .footer-social .icon:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,.10);
+    border-color: rgba(0,0,0,.28);
+  }
+
+  .back-to-top{
+    display:inline-flex; align-items:center; gap:8px;
+    font-weight: 700; text-decoration:none; color: var(--footer-fg);
+  }
+  .back-to-top .arrow{ transition: transform .15s ease; }
+  .back-to-top:hover .arrow{ transform: translateY(-2px); }
+
+  /* MOBILE */
+  @media (max-width: 760px){
+    .footer-inner{
+      grid-template-columns: 1fr;
+      justify-items: start;
+      gap: 22px;
+    }
+    .footer-right{ justify-items:start; }
+  }
+  /* --- Centered layout variant --- */
+.footer-inner.is-centered{
+  /* empty left column, center content, right tools */
+  grid-template-columns: 1fr auto auto;
+}
+.footer-inner.is-centered .footer-left{
+  grid-column: 2;
+  text-align: center;
+}
+.footer-inner.is-centered .footer-legal{
+  text-align: center;
+}
+.footer-inner.is-centered .footer-right{
+  grid-column: 3;
+  justify-items: end;
+}
+
+/* --- Visual tweaks to match your screenshot --- */
+.footer-brand,
+.footer-nav a,
+.back-to-top{
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  text-transform: none;   
+}
+
+/* icon buttons: light ring, white fill */
+.footer-social .icon{
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.14);
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+/* divider line a little lighter / inset from edges */
+.footer-divider{
+  background: rgba(0,0,0,.10);
+  margin: 0 var(--footer-xpad);
+}
+
+/* Back to top under icons, smaller + bold like screenshot */
+.footer-right { gap: 16px; }
+.back-to-top{ font-size: 14px; font-weight: 800; }
+/* Use the same side padding as your grid/sections so edges line up */
+:root { --footer-pad-x: 60px; }         /* tweak this to match your layout */
+
+.site-footer .footer-inner {
+  padding-inline: var(--footer-pad-x);
+}
+
+/* Left column stacks + left-aligned */
+.site-footer .footer-left{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;              /* <-- puts brand on same left edge as nav */
+  gap: 18px;
+}
+
+/* Kill any inherited centering on the brand */
+.site-footer .footer-brand{
+  margin: 0;
+  text-align: left !important;
+}
+
+/* Optional: tiny nudge control if you want a manual offset */
+:root { --brand-nudge-left: 0px; }      /* e.g., 4px, 12px */
+.site-footer .footer-brand{ margin-left: var(--brand-nudge-left); }
+/* Your site gutter (the left/right page margin) */
+:root { --footer-gutter: 72px; }         /* adjust to match your layout */
+
+/* Apply the gutter to the footer container */
+.site-footer .footer-inner { 
+  padding-inline: var(--footer-gutter);
+}
+
+/* Reset any extra left spacing on the menu so both can line up */
+.site-footer .footer-nav { 
+  margin-left: 0; 
+  padding-left: 0; 
+  text-transform: none;   
+}
+
+/* Nudge ONLY the brand to the right so it starts at the same margin as the menu */
+:root { --brand-offset: 24px; }          /* ← tweak this until the left edges match */
+.site-footer .footer-brand { 
+  margin-left: var(--brand-offset);
+}
+/* --- ONE source of truth for the left margin (set to your black line) --- */
+:root { --page-gutter: 0px; } /* ← adjust until the left edge sits on your mark */
+
+/* container + divider use the same gutter */
+.site-footer .footer-inner{ padding-inline: var(--page-gutter); }
+.footer-divider{ margin-inline: var(--page-gutter); }
+
+/* normal layout: left column starts at the gutter */
+.site-footer .footer-inner{ grid-template-columns: 1fr auto; }
+.site-footer .footer-left{ grid-column: 1; align-items: flex-start; }
+
+/* kill all offsets so brand + menu share the same left edge */
+.site-footer .footer-brand{ margin-left: 0 !important; text-align: left !important; }
+.site-footer .footer-nav{ margin-left: 0; padding-left: 0; text-transform: none;   }
+
+/* If you must keep .is-centered on the element somewhere, force it left */
+.footer-inner.is-centered{ grid-template-columns: 1fr auto; }
+.footer-inner.is-centered .footer-left{ grid-column: 1; }
+
+
+</style>
+<script>
+  (function () {
+    // Smoothly scroll to #work after images/css load
+    window.addEventListener('load', () => {
+      if (location.hash === '#work') {
+        document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    const params = new URLSearchParams(location.search);
+    const cat = params.get('cat'); // e.g. "architecture"
+
+    // Elements
+    const filterButtons = document.querySelectorAll('.category-filters .category');
+    const tiles = document.querySelectorAll('.grid .tile');
+
+    function applyFilter(category) {
+      // 1) Active state on buttons
+      filterButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === category || (category === 'all' && btn.dataset.filter === 'all'));
+      });
+
+      // 2) Show/hide tiles by tile's class (architecture/interior/landscaping/3d-visualization)
+      tiles.forEach(tile => {
+        const isMatch = category === 'all' || tile.classList.contains(category);
+        tile.style.display = isMatch ? '' : 'none';
+      });
+    }
+
+    // If a cat was provided in the URL, use it; otherwise keep whatever is initially active
+    if (cat) {
+      applyFilter(cat);
+    }
+
+    // Make the on-page buttons work too (if you haven’t wired them yet)
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+    });
+  })();
+</script>
+
+</body>
+
+<script>
+  // 1) Ensure we scroll to #work after images load
+  window.addEventListener('load', () => {
+    if (location.hash === '#work') {
+      document.getElementById('work')?.scrollIntoView();
+    }
+  });
+
+  // 2) If ?cat= is present, activate that filter
+  (function () {
+    const params = new URLSearchParams(location.search);
+    const cat = params.get('cat'); // e.g., "architecture"
+    if (!cat) return;
+
+    // Find the filter button
+    const btn = document.querySelector(`.category[data-filter="${cat}"]`);
+    if (!btn) return;
+
+    // If you already have click logic wired, just click it:
+    btn.click();
+
+    // If not, here’s a minimal toggle (uncomment if needed):
+    /*
+    document.querySelectorAll('.category').forEach(el => el.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Show/hide items by data-category on your cards/grid
+    document.querySelectorAll('.portfolio-item').forEach(item => {
+      const itemCats = item.getAttribute('data-category') || '';
+      const show = (cat === 'all') || itemCats.split(' ').includes(cat);
+      item.style.display = show ? '' : 'none';
+    });
+    */
+  })();
+</script>
+
+
+
+</html>
