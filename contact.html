@@ -444,6 +444,36 @@ cubic-bezier(.2, .9, .3, 1);
     .nav-panel a{display:block;padding:12px 0;font-size:35px;color:var(--accent);opacity:.95}
 </style>
 
+<script id="sync-edges-to-header">
+(function(){
+  let raf;
+  function syncEdges(){
+    const header = document.querySelector('header');
+    const brand  = header && header.querySelector('.brand');
+    const burger = header && header.querySelector('.menu-btn');
+    if(!header || !brand || !burger) return;
+
+    const rb  = brand.getBoundingClientRect();
+    const rbu = burger.getBoundingClientRect();
+
+    const left  = Math.max(0, Math.round(rb.left));
+    const right = Math.max(0, Math.round(window.innerWidth - rbu.right));
+
+    document.documentElement.style.setProperty('--edge-left',  left + 'px');
+    document.documentElement.style.setProperty('--edge-right', right + 'px');
+  }
+  function schedule(){ cancelAnimationFrame(raf); raf = requestAnimationFrame(syncEdges); }
+
+  window.addEventListener('load', schedule);
+  window.addEventListener('resize', schedule);
+  window.addEventListener('orientationchange', schedule);
+  if ('ResizeObserver' in window){
+    const ro = new ResizeObserver(schedule);
+    const h = document.querySelector('header');
+    if (h) ro.observe(h);
+  }
+})();
+</script>
 
 </head>
 <body>
@@ -855,6 +885,67 @@ cubic-bezier(.2, .9, .3, 1);
 
 
 </style>
+<style id="edge-aligned-responsive-contact">
+/* Live edges from header (with safe fallbacks) */
+:root{
+  --edge-left: 30px;
+  --edge-right: 30px;
+  --span: min(1200px, calc(100vw - var(--edge-left) - var(--edge-right)));
+}
+
+/* Use the live span on all main sections (no visual style changes) */
+.page-heading,
+.contact-section,
+.social-gallery,
+.site-footer .footer-inner,
+.site-footer .footer-divider{
+  width: var(--span);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(12px, 2.6vw, 28px);
+  padding-right: clamp(12px, 2.6vw, 28px);
+  box-sizing: border-box;
+}
+
+/* Contact block: graceful mobile stack */
+@media (max-width: 900px){
+  .contact-section{ flex-direction: column; }
+  .contact-info{ padding: 28px; }
+  .map-container{ min-height: 320px; }
+}
+
+/* IG grid: fluid columns per breakpoint (keeps your look) */
+.ig-card{ flex: 1 1 calc(20% - 14px); }
+@media (max-width: 1200px){ .ig-card{ flex-basis: calc(25% - 14px); } }
+@media (max-width: 900px){  .ig-card{ flex-basis: calc(33.333% - 14px); } }
+@media (max-width: 640px){  .ig-card{ flex-basis: calc(50% - 14px); height: 200px; } }
+@media (max-width: 420px){  .ig-card{ flex-basis: 100%; height: 220px; } }
+
+/* Overlay menu: center the bottom icons on smaller screens */
+@media (max-width: 980px){
+  .social-icons{
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+    bottom: 28px !important;
+    gap: 16px;
+  }
+}
+
+/* Footer always uses the same live edges */
+.site-footer .footer-inner,
+.site-footer .footer-divider{
+  width: var(--span) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* A touch wider on ultrawide, still aligned to edges */
+@media (min-width: 1600px){
+  :root{ --span: min(1300px, calc(100vw - var(--edge-left) - var(--edge-right))); }
+}
+</style>
+
 </body>
 <script>
   const menuBtn  = document.getElementById('menuBtn');
