@@ -1183,6 +1183,49 @@ img{ max-width: 100%; height: auto; }
 </style>
 
 </head>
+<style id="grid-edge-tight">
+/* Keep existing page edge, but give the GRID a tighter edge on big screens */
+:root{
+  --edge:      clamp(16px, 2.5vw, 48px);   /* header/hero/footer */
+  --edge-grid: clamp(12px, 1.6vw, 28px);   /* portfolio grid only */
+}
+
+/* Extra tightening for wide/ultra-wide */
+@media (min-width: 1536px){ :root{ --edge-grid: 22px; } }
+@media (min-width: 1920px){ :root{ --edge-grid: 18px; } }
+@media (min-width: 2560px){ :root{ --edge-grid: 16px; } }
+
+/* Make the grid span almost full width between edges */
+.portfolio{ padding-left: 0 !important; padding-right: 0 !important; }
+.portfolio .container{ padding: 0 !important; margin: 0 !important; max-width: none !important; }
+
+.grid{
+  /* kill any old caps & paddings that were widening the margins */
+  max-width: none !important;
+  padding-left:  var(--edge-grid) !important;
+  padding-right: var(--edge-grid) !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box;
+}
+
+/* Some earlier rules forced 60px padding / 1600px cap — neutralize them */
+#a .w-dyn-items{ max-width: none !important; padding-inline: 0 !important; }
+.grid[style]{ padding-inline: var(--edge-grid) !important; } /* in case JS injects style */
+
+/* Keep filters aligned to the regular page edge (looks nicer) */
+.category-filters{
+  margin-left:  var(--edge) !important;
+  margin-right: var(--edge) !important;
+}
+
+/* Hero/overlay/footer still align to the normal edge */
+.hero, #navPanel .nav-inner, .site-footer .footer-inner{
+  padding-left:  var(--edge) !important;
+  padding-right: var(--edge) !important;
+}
+</style>
+
 <body>
 
   <!-- Preloader (progress will animate via JS) -->
