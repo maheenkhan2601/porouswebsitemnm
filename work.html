@@ -1225,6 +1225,47 @@ img{ max-width: 100%; height: auto; }
   padding-right: var(--edge) !important;
 }
 </style>
+<style id="edge-balance">
+/* Slightly wider, still controlled and consistent across devices */
+:root{
+  /* Laptops ≈ 28–36px; desktops get a touch more, but never huge */
+  --edge: clamp(18px, 2.2vw, 44px);
+}
+
+/* Gentle boosts on larger screens */
+@media (min-width: 1536px){ :root{ --edge: 38px; } }   /* big laptops / 2K */
+@media (min-width: 1920px){ :root{ --edge: 44px; } }   /* 1080p/4K desktops */
+@media (min-width: 2560px){ :root{ --edge: 52px; } }   /* ultrawide / 4K+ */
+
+/* Apply the edge everywhere (keeps alignment with logo/burger) */
+header,
+.hero,
+.category-filters,
+.grid,
+.site-footer .footer-inner,
+#navPanel .nav-inner{
+  padding-left: var(--edge) !important;
+  padding-right: var(--edge) !important;
+  box-sizing: border-box;
+}
+
+/* Make sure no inner container re-adds padding that would break the line */
+.hero .container,
+.portfolio .container{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Kill rogue header inline spacing so burger defines the right edge cleanly */
+header > div[style]{ padding-right: 0 !important; }
+header .menu-btn{ padding: 0 !important; margin: 0 !important; }
+
+/* Keep the hero slider flush with the right edge (no nudges) */
+@media (min-width: 981px){
+  .hero .container > div:first-child,
+  .hero .preview{ transform: none !important; }
+}
+</style>
 
 <body>
 
