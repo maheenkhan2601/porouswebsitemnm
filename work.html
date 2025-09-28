@@ -1266,6 +1266,77 @@ header .menu-btn{ padding: 0 !important; margin: 0 !important; }
   .hero .preview{ transform: none !important; }
 }
 </style>
+<style id="lock-grid-to-header-edges">
+/* --- One source of truth: left = logo line, right = burger line --- */
+:root{
+  /* Tune these once and everything follows */
+  --edge-left:  clamp(16px, 2.2vw, 44px);
+  --edge-right: clamp(16px, 2.2vw, 44px);
+}
+
+/* Header uses the edges (logo/burger sit on these lines) */
+header{
+  padding-left:  var(--edge-left)  !important;
+  padding-right: var(--edge-right) !important;
+}
+/* kill inline paddings that pushed the burger */
+header > div[style]{ padding-left: 0 !important; padding-right: 0 !important; }
+header .menu-btn{ padding: 0 !important; margin: 0 !important; }
+header .brand{ padding: 0 !important; margin: 0 !important; }
+header .brand img{ display:block; height:auto; max-width: clamp(120px,22vw,200px); }
+
+/* ---------- GRID hard lock to header edges ---------- */
+.grid{
+  /* exact same edges as header */
+  padding-left:  var(--edge-left)  !important;
+  padding-right: var(--edge-right) !important;
+
+  /* don’t cap width or re-center — we’re aligning to header lines */
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box;
+}
+
+/* Remove older rules that forced extra padding or caps */
+.portfolio{ padding-left: 0 !important; padding-right: 0 !important; }
+.portfolio .container{ padding: 0 !important; margin: 0 !important; max-width: none !important; }
+/* you had several earlier grid paddings — neutralize them */
+.grid[style]{ padding-left: var(--edge-left) !important; padding-right: var(--edge-right) !important; }
+#a .w-dyn-items{ max-width: none !important; padding-inline: 0 !important; }
+
+/* Keep filters aligned to the same edges as well */
+.category-filters{
+  margin-left:  var(--edge-left)  !important;
+  margin-right: var(--edge-right) !important;
+}
+
+/* Hero & preview: no nudges; align to edges too */
+.hero{
+  padding-left:  var(--edge-left)  !important;
+  padding-right: var(--edge-right) !important;
+}
+@media (min-width: 981px){
+  .hero .container > div:first-child,
+  .hero .preview{ transform: none !important; }
+}
+.hero .container{ margin: 0 !important; padding: 0 !important; }
+.preview{ width: 100%; margin: 0 !important; }
+
+/* Fullscreen nav + footer also respect the same edge lines */
+#navPanel .nav-inner,
+.site-footer .footer-inner{
+  padding-left:  var(--edge-left)  !important;
+  padding-right: var(--edge-right) !important;
+}
+.footer-divider{
+  margin-left:  var(--edge-left)  !important;
+  margin-right: var(--edge-right) !important;
+}
+
+/* Safety: no horizontal jiggles */
+html, body{ overflow-x: hidden; }
+</style>
 
 <body>
 
