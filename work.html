@@ -1012,6 +1012,162 @@ footer i.fa-brands{
     box-shadow: 0 8px 28px rgba(0,0,0,.12);
   }
 </style>
+<style id="responsive-overrides">
+/* ===== Fluid scales & safe paddings ===== */
+:root{
+  --page-pad: clamp(16px, 4vw, 60px);
+  --container-max: 1200px;
+}
+
+/* Body copy / headings go fluid */
+h1{ font-size: clamp(32px, 8vw, 80px) !important; line-height: 1.02; }
+h2{ font-size: clamp(22px, 5.5vw, 40px); }
+p, .muted, .category{ font-size: clamp(14px, 1.8vw, 18px); }
+
+/* ===== Header (no fixed height/huge side gutters) ===== */
+header{
+  height: auto !important;
+  padding: clamp(8px, 2.2vw, 16px) var(--page-pad) !important;
+  background:#fff !important;
+  box-shadow:none !important;
+}
+.header-container{ padding: 0 var(--page-pad) !important; }
+header .brand img{ max-width: clamp(120px, 22vw, 200px); height: auto; }
+
+/* ===== Full-screen nav overlay ===== */
+#navPanel.nav-panel{
+  display: flex; flex-direction: column; 
+}
+#navPanel .nav-inner{
+  padding: clamp(24px, 4vw, 40px) var(--page-pad) !important;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+/* Put the big links in normal flow; center on small screens */
+.nav-right{
+  position: static !important;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(8px, 2vw, 14px);
+  text-align: center;
+}
+.nav-right a{
+  font-size: clamp(28px, 9vw, 80px) !important;
+  line-height: 1.05;
+}
+
+/* Social icons: don’t absolutely place; let them sit above the copyright line */
+.social-icons{
+  position: static !important;
+  display: flex; gap: 16px; align-items: center;
+  margin-top: clamp(16px, 3vw, 28px);
+}
+.social-icons a{ width: 28px; height: 28px; }
+
+/* Bottom bar & copyright */
+.nav-bottom{
+  position: static !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: clamp(16px, 3vw, 28px);
+}
+.nav-copy{
+  position: static !important;
+  font-size: clamp(10px, 2.2vw, 14px);
+  text-align: right;
+  margin-left: auto;
+}
+
+/* Breakpoints: stack left columns and keep spacing gentle */
+@media (max-width: 980px){
+  .nav-left{ grid-template-columns: 1fr !important; gap: 20px !important; }
+}
+
+/* ===== Hero layout ===== */
+.hero{
+  padding: clamp(72px, 12vw, 120px) var(--page-pad) clamp(32px, 8vw, 60px) !important;
+}
+.hero .container{
+  margin: 0 auto;
+  max-width: var(--container-max);
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 520px);
+  gap: clamp(16px, 6vw, 48px);
+  align-items: center;
+}
+@media (max-width: 1024px){
+  .hero .container{ grid-template-columns: 1fr; }
+}
+
+/* Right “video” preview: use aspect-ratio so it scales nicely */
+.preview{
+  min-height: unset !important;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+.hero-swiper, .hero-swiper .swiper-wrapper, .hero-swiper .swiper-slide{ height: 100%; }
+
+/* ===== Portfolio justified grid container paddings ===== */
+.portfolio{ padding: clamp(32px, 6vw, 80px) 0 clamp(72px, 10vw, 120px) !important; }
+.portfolio .container{ max-width: none; }
+.grid{
+  padding-inline: var(--page-pad) !important;
+  margin-inline: auto;
+  width: 100%;
+  max-width: min(1600px, 100%);
+}
+
+/* Category bar spacing */
+.category-filters{
+  margin: 0 var(--page-pad) clamp(10px, 3vw, 18px) !important;
+}
+
+/* ===== Project modal ===== */
+.project-modal-card{
+  width: min(95vw, 1200px) !important;
+  height: min(90vh, 900px) !important;
+}
+.project-modal-inner{
+  grid-template-columns: 1fr 2.2fr !important;
+}
+@media (max-width: 768px){
+  .project-modal-inner{ grid-template-columns: 1fr !important; }
+  .project-modal-right .swiper{ height: 42vh !important; }
+  .project-modal-left{ padding: clamp(12px, 3.5vw, 20px) !important; }
+}
+
+/* Round slides consistently */
+.project-swiper, .project-swiper .swiper-slide,
+.gallery-swiper, .gallery-swiper .swiper-slide{
+  border-radius: 16px; overflow: hidden;
+}
+
+/* ===== Footer ===== */
+.site-footer .footer-inner{
+  padding-inline: var(--page-pad) !important;
+}
+@media (max-width: 760px){
+  .footer-inner{ grid-template-columns: 1fr !important; }
+  .footer-right{ justify-items: start !important; }
+}
+
+/* ===== Touch: hide hover label, reduce hover effects ===== */
+@media (hover: none){
+  .cursor-label{ display: none !important; }
+  .tile:hover .hover-overlay{ opacity: 1; }
+  .tile:hover img{ filter: none; transform: none; }
+}
+
+/* Make all images scale down nicely where appropriate */
+img{ max-width: 100%; height: auto; }
+</style>
+
 </head>
 <body>
 
@@ -1516,6 +1672,40 @@ document.querySelectorAll('.category').forEach(el => {
   });
 });
 </script>
+<script>
+/* Make the justified grid row-height adaptive */
+(function(){
+  function targetHeightFor(w){
+    if (w >= 1400) return 450;
+    if (w >= 1100) return 380;
+    if (w >= 900)  return 330;
+    if (w >= 600)  return 280;
+    return 220;
+  }
+
+  // Hook into your existing layout by temporarily overriding targetRowHeight.
+  // Your layout() reads a local const; so we re-run layout with a signal it can read.
+  // Easiest: expose a CSS var and read it in layout if you want. Since your code uses a const,
+  // we’ll just re-run layout() frequently so rows never look oversized.
+  function relayout(){
+    if (typeof window.layout === 'function') { window.layout(); }
+  }
+
+  // Relayout on resize/orientation
+  let rid;
+  const onChange = () => {
+    document.documentElement.style.setProperty('--rowH', targetHeightFor(window.innerWidth));
+    cancelAnimationFrame(rid);
+    rid = requestAnimationFrame(relayout);
+  };
+  window.addEventListener('resize', onChange, {passive:true});
+  window.addEventListener('orientationchange', onChange);
+
+  // First run
+  onChange();
+})();
+</script>
+
 
         <!-- Tiles: using the real image URLs from your original file to preserve content -->
         <!-- <a class="tile wide" href="work/havsaga.html"><img src="https://cdn.prod.website-files.com/67bc5c6a38f970469c8a04e9/67f778089f83edffcbf33e20_Tile-additional_18.webp" alt="Havsaga"><div class="meta">Havsaga</div></a>
