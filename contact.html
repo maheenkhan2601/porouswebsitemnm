@@ -88,6 +88,15 @@
   .footer-social .icon:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,.10); border-color:rgba(0,0,0,.28); }
   .back-to-top{ font-size:14px; font-weight:800; color:#111; }
   @media(max-width:760px){ .footer-inner{ grid-template-columns:1fr; justify-items:start; gap:22px; padding: 32px clamp(20px, 8vw, 96px); } .footer-right{ justify-items:start; } }
+  /* Footer logo size */
+.footer-brand img,
+.brand-logo{
+  height: clamp(26px, 5vw, 44px);
+  width: auto;          /* keep aspect ratio */
+  max-width: 220px;     /* hard cap */
+  display: block;
+}
+
 </style>
 </head>
 <body>
