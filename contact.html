@@ -474,35 +474,6 @@ cubic-bezier(.2, .9, .3, 1);
   }
 })();
 </script>
-<script id="sync-edges-to-header">
-(function(){
-  let raf;
-  function syncEdges(){
-    const header = document.querySelector('header');
-    const brand  = header && header.querySelector('.brand');
-    const burger = header && header.querySelector('.menu-btn');
-    if(!header || !brand || !burger) return;
-
-    const rb  = brand.getBoundingClientRect();
-    const rbu = burger.getBoundingClientRect();
-
-    const left  = Math.max(0, Math.round(rb.left));
-    const right = Math.max(0, Math.round(window.innerWidth - rbu.right));
-
-    document.documentElement.style.setProperty('--edge-left',  left + 'px');
-    document.documentElement.style.setProperty('--edge-right', right + 'px');
-  }
-  function schedule(){ cancelAnimationFrame(raf); raf = requestAnimationFrame(syncEdges); }
-  window.addEventListener('load', schedule);
-  window.addEventListener('resize', schedule);
-  window.addEventListener('orientationchange', schedule);
-  if ('ResizeObserver' in window){
-    const ro = new ResizeObserver(schedule);
-    const h = document.querySelector('header');
-    if (h) ro.observe(h);
-  }
-})();
-</script>
 
 </head>
 <body>
@@ -972,6 +943,81 @@ cubic-bezier(.2, .9, .3, 1);
 /* A touch wider on ultrawide, still aligned to edges */
 @media (min-width: 1600px){
   :root{ --span: min(1300px, calc(100vw - var(--edge-left) - var(--edge-right))); }
+}
+</style>
+<style id="contact-mobile-fixes">
+/* --- live edges from header (safe defaults) --- */
+:root{
+  --edge-left: 24px;
+  --edge-right: 24px;
+  --span: min(1200px, calc(100vw - var(--edge-left) - var(--edge-right)));
+}
+
+/* ====== ALIGN CONTAINERS TO HEADER RAILS ====== */
+.page-heading,
+.contact-section,
+.site-footer .footer-inner,
+.site-footer .footer-divider{
+  width: var(--span);
+  margin-inline: auto;
+  padding-inline: clamp(10px, 2.4vw, 24px);
+  box-sizing: border-box;
+}
+
+/* Social section: align the heading AND the gallery to the same rails */
+.social-section{
+  padding-left: 0;
+  padding-right: 0;
+}
+.social-section h3{
+  width: var(--span);
+  margin: 0 auto 20px;
+  padding-inline: clamp(10px, 2.4vw, 24px);
+  box-sizing: border-box;
+}
+.social-gallery{
+  width: var(--span);
+  margin: 0 auto;
+  padding-inline: clamp(10px, 2.4vw, 24px);
+  box-sizing: border-box;
+}
+
+/* ====== CONTACT BLOCK ====== */
+@media (max-width: 900px){
+  .contact-section{ flex-direction: column; gap: 16px; }
+  .contact-info{ padding: 28px; }
+  .map-container{ min-height: 280px; }
+}
+@media (max-width: 420px){
+  .contact-info{ padding: 22px; }
+}
+
+/* ====== IG GRID — keep look, step down cleanly ====== */
+.ig-card{ flex: 1 1 calc(20% - 14px); height: 220px; border-radius: 10px; }
+@media (max-width: 1200px){ .ig-card{ flex-basis: calc(25% - 14px); } }      /* 4-up */
+@media (max-width: 900px){  .ig-card{ flex-basis: calc(33.333% - 14px); } }  /* 3-up */
+@media (max-width: 640px){  .ig-card{ flex-basis: calc(50% - 14px); height: 200px; } } /* 2-up */
+@media (max-width: 420px){  .ig-card{ flex-basis: 100%; height: 220px; } }   /* 1-up */
+
+/* ====== HEADER – tame inline paddings on phones ====== */
+/* (your header has inline padding-left/right; override for small screens) */
+@media (max-width: 640px){
+  header .brand{ padding-left: 12px !important; }
+  header > div:last-child{ padding-right: 12px !important; }
+  header .menu-btn{ padding-right: 0 !important; }
+  header .brand img{ width: clamp(140px, 36vw, 200px); height: auto; }
+}
+
+/* Slightly wider content on ultra-wide while honoring rails */
+@media (min-width: 1600px){
+  :root{ --span: min(1300px, calc(100vw - var(--edge-left) - var(--edge-right))); }
+}
+
+/* Footer always uses the same live span */
+.site-footer .footer-inner,
+.site-footer .footer-divider{
+  width: var(--span) !important;
+  margin-inline: auto !important;
 }
 </style>
 
