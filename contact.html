@@ -562,6 +562,26 @@ html, body{ overflow-x: hidden; }
 /* No accidental horizontal scroll */
 html, body{ overflow-x: hidden; }
 </style>
+<style id="footer-align-to-header" >
+/* Compute the max usable width between logo (left) and burger (right) */
+:root{
+  --footer-span: min(1400px, calc(100vw - var(--edge-left) - var(--edge-right)));
+}
+
+/* Make footer container + divider match that span and stay centered */
+.site-footer .footer-inner,
+.site-footer .footer-divider{
+  width: var(--footer-span) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: clamp(16px, 2.2vw, 28px) !important;
+  padding-right: clamp(16px, 2.2vw, 28px) !important;
+  box-sizing: border-box;
+}
+
+/* Prevent accidental horizontal scroll on narrow viewports */
+html, body { overflow-x: hidden; }
+</style>
 
 <script id="sync-edges-to-header">
 (function(){
