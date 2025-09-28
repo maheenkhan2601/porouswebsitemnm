@@ -474,6 +474,35 @@ cubic-bezier(.2, .9, .3, 1);
   }
 })();
 </script>
+<script id="sync-edges-to-header">
+(function(){
+  let raf;
+  function syncEdges(){
+    const header = document.querySelector('header');
+    const brand  = header && header.querySelector('.brand');
+    const burger = header && header.querySelector('.menu-btn');
+    if(!header || !brand || !burger) return;
+
+    const rb  = brand.getBoundingClientRect();
+    const rbu = burger.getBoundingClientRect();
+
+    const left  = Math.max(0, Math.round(rb.left));
+    const right = Math.max(0, Math.round(window.innerWidth - rbu.right));
+
+    document.documentElement.style.setProperty('--edge-left',  left + 'px');
+    document.documentElement.style.setProperty('--edge-right', right + 'px');
+  }
+  function schedule(){ cancelAnimationFrame(raf); raf = requestAnimationFrame(syncEdges); }
+  window.addEventListener('load', schedule);
+  window.addEventListener('resize', schedule);
+  window.addEventListener('orientationchange', schedule);
+  if ('ResizeObserver' in window){
+    const ro = new ResizeObserver(schedule);
+    const h = document.querySelector('header');
+    if (h) ro.observe(h);
+  }
+})();
+</script>
 
 </head>
 <body>
@@ -944,6 +973,70 @@ cubic-bezier(.2, .9, .3, 1);
 @media (min-width: 1600px){
   :root{ --span: min(1300px, calc(100vw - var(--edge-left) - var(--edge-right))); }
 }
+</style>
+<style id="edge-align-overrides">
+/* Fallbacks in case JS hasn’t run yet */
+:root{ --edge-left: 30px; --edge-right: 30px; }
+
+/* Anything you want aligned to the header rails */
+.page-heading,
+.contact-section,
+.social-gallery,
+.site-footer .footer-inner,
+.site-footer .footer-divider{
+  box-sizing: border-box;
+  margin-left: var(--edge-left) !important;
+  margin-right: var(--edge-right) !important;
+  width: calc(100vw - var(--edge-left) - var(--edge-right)) !important;
+  padding-left: clamp(8px, 1.8vw, 20px);
+  padding-right: clamp(8px, 1.8vw, 20px);
+}
+
+/* Mobile niceties (keeps your look) */
+@media (max-width: 900px){
+  .contact-section{ flex-direction: column; }
+  .contact-info{ padding: 28px; }
+}
+
+/* IG grid stays fluid but aligned to the rails */
+.ig-card{ flex: 1 1 calc(20% - 14px); }
+@media (max-width:1200px){ .ig-card{ flex-basis: calc(25% - 14px); } }
+@media (max-width:900px){  .ig-card{ flex-basis: calc(33.333% - 14px); } }
+@media (max-width:640px){  .ig-card{ flex-basis: calc(50% - 14px); height: 200px; } }
+@media (max-width:420px){  .ig-card{ flex-basis: 100%; height: 220px; } }
+</style>
+<style id="edge-align-overrides">
+/* Fallbacks if the measurer hasn't run yet */
+:root{ --edge-left: 30px; --edge-right: 30px; }
+
+/* ✅ Align only the outer containers to the header rails */
+.page-heading,
+.contact-section,
+.social-section,               /* ← align the whole section, not the grid */
+.site-footer .footer-inner,
+.site-footer .footer-divider{
+  box-sizing: border-box;
+  margin-left:  var(--edge-left) !important;
+  margin-right: var(--edge-right) !important;
+  width: calc(100vw - var(--edge-left) - var(--edge-right)) !important;
+  padding-inline: clamp(8px, 1.6vw, 20px);
+}
+
+/* 🔒 Keep your gallery/card design exactly as-is */
+.social-gallery{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 14px;
+  /* no width forcing here – it inherits the aligned section width */
+}
+
+/* 5-up on desktop, then step down responsively */
+.ig-card{ flex: 1 1 calc(15% - 14px); height: 220px; border-radius: 10px; overflow: hidden; }
+@media (max-width:1200px){ .ig-card{ flex-basis: calc(25% - 14px); } }   /* 4-up */
+@media (max-width:900px){  .ig-card{ flex-basis: calc(33.333% - 14px); } }/* 3-up */
+@media (max-width:640px){  .ig-card{ flex-basis: calc(50% - 14px); height:200px; } } /* 2-up */
+@media (max-width:420px){  .ig-card{ flex-basis: 100%; height:220px; } }  /* 1-up */
 </style>
 
 </body>
