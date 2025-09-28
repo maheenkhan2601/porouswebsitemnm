@@ -615,6 +615,39 @@ cubic-bezier(.2, .9, .3, 1);
 }
     .nav-panel a{display:block;padding:12px 0;font-size:35px;color:var(--accent);opacity:.95}
   </style>
+  <script id="sync-edges-to-header">
+(function(){
+  let raf;
+  function syncEdges(){
+    const header = document.querySelector('header');
+    const brand  = header && header.querySelector('.brand');
+    const burger = header && header.querySelector('.menu-btn');
+    if(!header || !brand || !burger) return;
+
+    const rh  = header.getBoundingClientRect();
+    const rb  = brand.getBoundingClientRect();
+    const rbu = burger.getBoundingClientRect();
+
+    const left  = Math.max(0, Math.round(rb.left));
+    const right = Math.max(0, Math.round(window.innerWidth - rbu.right));
+
+    document.documentElement.style.setProperty('--edge-left',  left + 'px');
+    document.documentElement.style.setProperty('--edge-right', right + 'px');
+    document.documentElement.style.setProperty('--header-h',   rh.height + 'px');
+  }
+  function schedule(){ cancelAnimationFrame(raf); raf = requestAnimationFrame(syncEdges); }
+
+  window.addEventListener('load', schedule);
+  window.addEventListener('resize', schedule);
+  window.addEventListener('orientationchange', schedule);
+  if ('ResizeObserver' in window){
+    const ro = new ResizeObserver(schedule);
+    const h = document.querySelector('header');
+    if (h) ro.observe(h);
+  }
+})();
+</script>
+
 </head>
 <body>
 <header>
@@ -1134,6 +1167,82 @@ cubic-bezier(.2, .9, .3, 1);
 
 
 </style>
+<style id="mobile-rescue">
+/* Fallbacks + live span between the logo and burger */
+:root{
+  --edge-left: 30px;
+  --edge-right: 30px;
+  --span: min(1200px, calc(100vw - var(--edge-left) - var(--edge-right)));
+}
+
+/* Respect actual header height; stop sideways scroll on tiny screens */
+body{
+  padding-top: var(--header-h, 74px) !important;
+  overflow-x: hidden;
+}
+
+/* Center major blocks within the live edges (no design change) */
+.hero h1,
+.panel-copy,
+.section .wrap,
+.site-footer .footer-inner,
+.site-footer .footer-divider{
+  width: var(--span);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(12px, 2.6vw, 28px) !important;
+  padding-right: clamp(12px, 2.6vw, 28px) !important;
+  box-sizing: border-box;
+}
+
+/* Hero spacing/size on phones */
+@media (max-width: 680px){
+  .hero{ padding: 120px 0 90px; }
+  .hero h1{ font-size: clamp(26px, 7.5vw, 36px); }
+}
+
+/* Image panel text stacks earlier */
+@media (max-width: 1024px){
+  .panel-copy{ grid-template-columns: 1fr !important; gap: 18px; }
+}
+
+/* Founder row stacks cleanly on mobile */
+@media (max-width: 860px){
+  .founder-image{ grid-template-columns: 1fr !important; row-gap: 20px; }
+  .founder-card img{
+    width: 100% !important;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .founder-card .overlay-text{ max-width: 60ch; }
+}
+
+/* Overlay menu: keep icons centered on small screens */
+.nav-inner{ overflow: auto; }
+@media (max-width: 980px){
+  .social-icons{
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+    bottom: 28px !important;
+    gap: 16px;
+  }
+}
+
+/* Footer stays within the same live edges (logo ↔ burger) */
+.site-footer .footer-inner,
+.site-footer .footer-divider{
+  width: var(--span) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Slightly wider comfortable span on ultrawide */
+@media (min-width: 1600px){
+  :root{ --span: min(1300px, calc(100vw - var(--edge-left) - var(--edge-right))); }
+}
+</style>
+
 </body>
 <script>
   // Header shadow on scroll (optional – matches Work)
