@@ -1167,6 +1167,20 @@ header .brand img{ max-width: clamp(120px, 22vw, 200px); height: auto; }
 /* Make all images scale down nicely where appropriate */
 img{ max-width: 100%; height: auto; }
 </style>
+<style id="edge-tuning">
+/* Tighter, desktop-friendly gutter */
+  /* Laptops stay ~28–40px; big desktops won’t blow out */
+:root{ --edge: clamp(16px, 2vw, 42px); }
+
+
+/* Extra caps for very wide screens */
+@media (min-width: 1536px){ :root{ --edge: 36px; } }   /* 2K-ish */
+@media (min-width: 1920px){ :root{ --edge: 32px; } }   /* 1080p/4K desktops */
+@media (min-width: 2560px){ :root{ --edge: 28px; } }   /* ultrawide/4K+ */
+
+/* (Optional) make the hero gap breathe similarly */
+.hero .container{ column-gap: clamp(16px, 3.5vw, 40px) !important; }
+</style>
 
 </head>
 <body>
