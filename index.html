@@ -1166,6 +1166,25 @@ html, body {
   height: 400px; /* image height */
 }
 
+/* Mobile responsive category card heights */
+@media (max-width: 640px) {
+  .category-card {
+    height: 160px; /* Further increased height for mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .category-card {
+    height: 140px; /* Further increased height for mobile */
+  }
+}
+
+@media (max-width: 360px) {
+  .category-card {
+    height: 120px; /* Further increased height for small mobile */
+  }
+}
+
 .category-card img {
   width: 100%;
   height: 100%;
@@ -3115,10 +3134,11 @@ document.querySelectorAll("a").forEach(link => {
   
   function getTargetRowHeight() {
     const width = window.innerWidth;
-    if (width <= 360) return 200;
-    if (width <= 480) return 250;
-    if (width <= 640) return 300;
-    return 450; // Desktop
+    // More random heights for varied tile sizes
+    if (width <= 360) return Math.random() * 60 + 100; // 100-160px random
+    if (width <= 480) return Math.random() * 80 + 120; // 120-200px random
+    if (width <= 640) return Math.random() * 100 + 140; // 140-240px random
+    return 280; // Desktop - keep larger size
   }
   
   let gutter = getGutter();
@@ -3166,7 +3186,10 @@ document.querySelectorAll("a").forEach(link => {
       const rowWidthMinusGaps = cw - gutter * (row.length - 1);
       const h = rowWidthMinusGaps / arSum;
 
-      if (h <= targetRowHeight || row.length === 4 || i === items.length - 1) {
+      // Limit tiles per row based on screen size, but allow random sizes
+      const maxTilesPerRow = window.innerWidth <= 640 ? 2 : 4;
+      
+      if (h <= targetRowHeight || row.length === maxTilesPerRow || i === items.length - 1) {
         const jrow = document.createElement('div');
         jrow.className = 'j-row';
 
