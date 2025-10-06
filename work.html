@@ -2707,6 +2707,45 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
   })();
 </script>
 
+<style id="final-responsive-align">
+/* ===== Final alignment + responsiveness unifier ===== */
+/* One gutter to align header logo, burger, grid, and footer */
+ :root{ --edge-final: clamp(18px, 4vw, 60px); }
+
+/* Header: remove inline paddings and use the shared edge */
+ header{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+ header .brand{ padding: 0 !important; }
+ header > div:last-child{ padding: 0 !important; gap: 16px; }
+ header .menu-btn{ padding-right: 0 !important; }
+
+/* Grid and filters: use the same edge so tiles align under the logo/burger */
+ .grid{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+ .category-filters{ margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
+
+/* Hero: align text and slider edges with header/logo/burger */
+ .hero{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+ .hero .container{ max-width: none !important; padding: 0 !important; }
+
+/* Footer: divider and content align to the same edge */
+ .site-footer .footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+ .footer-divider{ margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
+
+/* Make sure footer left elements start at the same left edge */
+ .site-footer .footer-brand{ margin-left: 0 !important; }
+ .site-footer .footer-nav{ margin-left: 0 !important; padding-left: 0 !important; }
+
+/* Nav overlay (opened via burger): align its inner padding to the same edge */
+ #navPanel .nav-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+
+/* Mobile: keep everything consistent and stacked nicely */
+ @media (max-width: 760px){
+   header{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+   .grid{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+   .category-filters{ margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
+   .site-footer .footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+ }
+</style>
+
 </body>
 
 <script>
@@ -2747,4 +2786,4 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
 
 
 
-</html>
+ </html>
