@@ -2104,11 +2104,13 @@ html, body {
   display: block;
 }
 
-/* Make slider images square on mobile */
+/* Make slider images square on mobile with reduced height and gap */
 @media (max-width: 640px) {
   .hero-swiper {
     aspect-ratio: 1/1; /* Square aspect ratio */
     height: auto !important;
+    max-height: 40vh; /* Further reduced height on mobile */
+    margin-top: clamp(20px, 4vw, 30px) !important; /* Add gap from text */
   }
   
   .hero-swiper .swiper-slide {
