@@ -644,14 +644,16 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
 /* Nav Panel: align with the same edge */
 #navPanel .nav-inner{ padding: clamp(24px, 4vw, 40px) var(--edge-final) !important; }
 #navPanel .nav-right{
-  position: static !important; /* Force static positioning */
-  margin: 0 auto; /* Center horizontally */
+  position: absolute !important; /* Keep absolute positioning for overlay */
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center; /* Center items vertically */
   justify-content: center; /* Center content vertically */
-  height: 100%; /* Take full height */
   text-align: center;
   gap: clamp(12px, 3vw, 24px); /* Spacing between links */
 }
@@ -666,12 +668,14 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
   position: static !important;
   display: flex;
   gap: 16px;
-  margin-top: clamp(20px, 4vw, 32px); /* Space above social icons */
   justify-content: center; /* Center social icons */
 }
 #navPanel .nav-bottom{
-  position: static !important;
-  margin-top: clamp(20px, 4vw, 32px); /* Space above nav bottom */
+  position: absolute !important;
+  bottom: clamp(40px, 6vw, 60px) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex;
   justify-content: center; /* Center nav bottom content */
   flex-wrap: wrap; /* Allow wrapping on small screens */
 }

@@ -2773,29 +2773,29 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
 #navPanel .nav-inner{ padding: clamp(24px, 4vw, 40px) var(--edge-final) !important; }
 #navPanel .nav-right{ position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; margin:0; padding:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap: clamp(12px, 3vw, 20px); text-align:center; list-style:none !important; }
 #navPanel .nav-right li{ list-style:none !important; }
-#navPanel .nav-right a{ padding:0 !important; font-size: clamp(28px, 6vw, 56px) !important; line-height:1.08; font-weight:800; color:#fff !important; opacity:1 !important; text-decoration:none !important; }
-#navPanel .nav-bottom{ position: absolute !important; bottom: clamp(20px, 3vw, 35px) !important; left: 50% !important; transform: translateX(-50%) !important; display:flex; justify-content:center; }
-#navPanel .social-icons{ position: static !important; display:flex; gap: clamp(12px, 3vw, 20px); justify-content:center; align-items:center; }
+#navPanel .nav-right a{ padding:0 !important; font-size: clamp(42px, 9vw, 80px) !important; line-height:1.05; font-weight:700; color:#fff !important; opacity:1 !important; text-decoration:none !important; }
+#navPanel .nav-bottom{ position: absolute !important; bottom: clamp(40px, 6vw, 60px) !important; left: 50% !important; transform: translateX(-20%) !important; display:flex; justify-content:center; width: 100%; max-width: 400px; }
+#navPanel .social-icons{ position: static !important; display:flex; gap: 16px; justify-content:center; align-items:center; }
 
 /* Mobile responsiveness */
 @media (max-width: 768px){
   #navPanel .nav-right a{ font-size: clamp(24px, 8vw, 48px) !important; }
   #navPanel .nav-right{ gap: clamp(8px, 2.5vw, 16px); }
-  #navPanel .nav-bottom{ bottom: clamp(15px, 2.5vw, 30px) !important; }
+  #navPanel .nav-bottom{ bottom: clamp(30px, 5vw, 50px) !important; transform: translateX(-25%) !important; }
   #navPanel .social-icons{ gap: clamp(10px, 2.5vw, 16px); }
 }
 
 @media (max-width: 480px){
   #navPanel .nav-right a{ font-size: clamp(20px, 9vw, 40px) !important; }
   #navPanel .nav-right{ gap: clamp(6px, 2vw, 12px); }
-  #navPanel .nav-bottom{ bottom: clamp(12px, 2vw, 25px) !important; }
+  #navPanel .nav-bottom{ bottom: clamp(25px, 4vw, 40px) !important; transform: translateX(-30%) !important; }
   #navPanel .social-icons{ gap: clamp(8px, 2vw, 14px); }
 }
 
 @media (max-width: 360px){
   #navPanel .nav-right a{ font-size: clamp(18px, 10vw, 36px) !important; }
   #navPanel .nav-right{ gap: clamp(4px, 1.5vw, 10px); }
-  #navPanel .nav-bottom{ bottom: clamp(10px, 1.5vw, 20px) !important; }
+  #navPanel .nav-bottom{ bottom: clamp(20px, 3vw, 35px) !important; transform: translateX(-35%) !important; }
   #navPanel .social-icons{ gap: clamp(6px, 1.5vw, 12px); }
 }
 </style>
