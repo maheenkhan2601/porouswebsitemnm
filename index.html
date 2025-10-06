@@ -575,7 +575,7 @@ header .btn{ padding-right: 0 !important; }
   
   /* Fix overlapping and spacing issues on tablets - match work.html */
   .grid{ gap: 0 !important; } /* Remove gap - justified grid handles spacing */
-  .j-row{ gap: clamp(10px, 2.5vw, 16px) !important; margin-bottom: clamp(10px, 2.5vw, 16px) !important; }
+  .j-row{ gap: 2px !important; margin-bottom: 2px !important; } /* Same as work.html */
   .tile{ margin-bottom: 0 !important; } /* Remove margin since j-row handles spacing */
   .category-filters{ gap: clamp(10px, 2.5vw, 16px) !important; margin-bottom: clamp(20px, 4vw, 30px) !important; }
   
@@ -586,7 +586,12 @@ header .btn{ padding-right: 0 !important; }
   .header_text{ margin-bottom: clamp(12px, 2.5vw, 20px) !important; }
   
   /* Remove excessive height from services section */
-  .section_services{ min-height: auto !important; height: auto !important; }
+  .section_services{ 
+    min-height: auto !important; 
+    height: auto !important; 
+    padding-top: clamp(20px, 4vw, 30px) !important;
+    padding-bottom: clamp(20px, 4vw, 30px) !important;
+  }
   
   /* Fix header height on mobile */
   :root{ --header-h: clamp(50px, 8vw, 60px); }
@@ -603,7 +608,7 @@ header .btn{ padding-right: 0 !important; }
   
   /* Fix grid gaps and overlapping on mobile - match work.html */
   .grid{ gap: 0 !important; } /* Remove gap - justified grid handles spacing */
-  .j-row{ gap: clamp(8px, 2vw, 12px) !important; margin-bottom: clamp(8px, 2vw, 12px) !important; }
+  .j-row{ gap: 2px !important; margin-bottom: 2px !important; } /* Same as work.html */
   .tile{ margin-bottom: 0 !important; } /* Remove margin since j-row handles spacing */
   .category-filters{ gap: clamp(8px, 2vw, 12px) !important; margin-bottom: clamp(16px, 3vw, 24px) !important; }
   
@@ -624,7 +629,12 @@ header .btn{ padding-right: 0 !important; }
   .featured-bar{ margin-top: clamp(8px, 1.5vw, 15px) !important; }
   
   /* Remove excessive height from services section */
-  .section_services{ min-height: auto !important; height: auto !important; }
+  .section_services{ 
+    min-height: auto !important; 
+    height: auto !important; 
+    padding-top: clamp(20px, 4vw, 30px) !important;
+    padding-bottom: clamp(20px, 4vw, 30px) !important;
+  }
 }
 
 @media (max-width: 360px){
@@ -637,7 +647,7 @@ header .btn{ padding-right: 0 !important; }
   
   /* Ultra-compact mobile layout - match work.html */
   .grid{ gap: 0 !important; } /* Remove gap - justified grid handles spacing */
-  .j-row{ gap: clamp(6px, 1.5vw, 10px) !important; margin-bottom: clamp(6px, 1.5vw, 10px) !important; }
+  .j-row{ gap: 2px !important; margin-bottom: 2px !important; } /* Same as work.html */
   .tile{ margin-bottom: 0 !important; } /* Remove margin since j-row handles spacing */
   .category-filters{ gap: clamp(6px, 1.5vw, 10px) !important; margin-bottom: clamp(12px, 2.5vw, 20px) !important; }
   
@@ -654,7 +664,12 @@ header .btn{ padding-right: 0 !important; }
   .featured-bar{ margin-top: clamp(5px, 1vw, 10px) !important; }
   
   /* Remove excessive height from services section */
-  .section_services{ min-height: auto !important; height: auto !important; }
+  .section_services{ 
+    min-height: auto !important; 
+    height: auto !important; 
+    padding-top: clamp(20px, 4vw, 30px) !important;
+    padding-bottom: clamp(20px, 4vw, 30px) !important;
+  }
 }
 </style>
 </head>
@@ -3089,13 +3104,13 @@ document.querySelectorAll("a").forEach(link => {
 (function () {
   const container = document.getElementById('grid');
   
-  // Responsive gutter and row height based on screen size
+  // Responsive gutter and row height based on screen size - match work.html
   function getGutter() {
     const width = window.innerWidth;
-    if (width <= 360) return 6;
-    if (width <= 480) return 8;
-    if (width <= 640) return 10;
-    return 2; // Desktop
+    if (width <= 360) return 2;
+    if (width <= 480) return 2;
+    if (width <= 640) return 2;
+    return 2; // Desktop - same as work.html
   }
   
   function getTargetRowHeight() {
