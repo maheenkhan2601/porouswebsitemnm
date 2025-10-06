@@ -39,7 +39,7 @@ header {
   position: fixed;
   left: 0; right: 0; top: 0;
   height: 30px;
-  padding: 26px 30px;
+  padding: 26px var(--edge-final);
   background: rgb(255, 255, 255) !important;
   display: flex;
   align-items: center;
@@ -74,6 +74,7 @@ body { padding-top: 74px; } /* header 30px + 26px top/btm = ~74px */
     :root{
       --max:1200px;
       --pad:24px;
+      --edge-final: clamp(18px, 4vw, 60px); /* unified page gutter */
       --text:#111;
       --muted:#6c6c6c;
       --line:#e7e7e7;
@@ -110,7 +111,7 @@ body { padding-top: 74px; } /* header 30px + 26px top/btm = ~74px */
 
     /* HERO QUOTE */
     .hero{
-      padding:175px var(--pad) 175px;
+      padding:175px var(--edge-final) 175px;
       border-bottom:1px solid var(--line);
     }
     .hero h1{
@@ -142,7 +143,7 @@ body { padding-top: 74px; } /* header 30px + 26px top/btm = ~74px */
       width:100%;
       max-width:var(--max);
       margin:0 auto;
-      padding:28px var(--pad) 46px;
+      padding:28px var(--edge-final) 46px;
       display:grid; grid-template-columns:1fr 3fr; gap:32px;
     }
     .panel-copy h6{
@@ -167,7 +168,7 @@ body { padding-top: 74px; } /* header 30px + 26px top/btm = ~74px */
 
     /* SECTION WRAPPER */
     .section{
-      padding:80px var(--pad);
+      padding:80px var(--edge-final);
     }
     .section .wrap{max-width:var(--max); margin:0 auto}
     .kicker{
