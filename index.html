@@ -2104,6 +2104,24 @@ html, body {
   display: block;
 }
 
+/* Make slider images square on mobile */
+@media (max-width: 640px) {
+  .hero-swiper {
+    aspect-ratio: 1/1; /* Square aspect ratio */
+    height: auto !important;
+  }
+  
+  .hero-swiper .swiper-slide {
+    aspect-ratio: 1/1; /* Square aspect ratio */
+    height: auto !important;
+  }
+  
+  .hero-swiper .swiper-slide img {
+    aspect-ratio: 1/1; /* Square aspect ratio */
+    object-fit: cover;
+  }
+}
+
 /* Preloader logo */
 .preloader .logo {
   width: 450px;   /* adjust as needed */
