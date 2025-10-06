@@ -494,23 +494,17 @@ html, body {
 /* One gutter to align header logo, burger, grid, and footer */
 :root{
   --edge-final: clamp(18px, 4vw, 60px);
-  --burger-nudge-x: 32px; /* Adjusted for index page */
+  --burger-nudge-x: 56px; /* Shifted further right to align with grid edge */
 }
 
 /* Header: remove inline paddings and use the shared edge */
 header{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
 header .brand{ padding: 0 !important; }
-header > div:last-child{ padding-right: var(--burger-nudge-x) !important; gap: 16px; } /* Adjusted for nudge */
-header .btn{ padding-right: 0 !important; } /* Ensure email button has no extra right padding */
-header .menu-btn{ padding-right: 0 !important; }
-/* Tiny nudge to align burger exactly with grid edge */
-:root{ --burger-nudge-x: 36px; }
- /* Shift the entire right control group (Email + burger) to the right */
- header > div:last-child{ padding-right: 0 !important; margin-right: calc(var(--burger-nudge-x) * -1) !important; }
- /* Keep individual elements tight */
- header .menu-btn{ margin-right: 0 !important; }
- header .btn{ padding-right: 0 !important; }
- @media (max-width: 980px){ :root{ --burger-nudge-x: 18px; } }
+/* Shift the entire right control group (Email + burger) to align with grid edge */
+header > div:last-child{ padding-right: 0 !important; margin-right: calc(var(--burger-nudge-x) * -1) !important; gap: 16px; }
+/* Keep individual elements tight */
+header .menu-btn{ margin-right: 0 !important; }
+header .btn{ padding-right: 0 !important; }
 
 /* Grid and filters: use the same edge so tiles align under the logo/burger */
 .grid{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
@@ -574,24 +568,93 @@ header .menu-btn{ padding-right: 0 !important; }
 
 /* Mobile: keep everything consistent and stacked nicely */
 @media (max-width: 980px){
-  :root{ --burger-nudge-x: 14px; } /* Adjusted for smaller screens */
-  header > div:last-child{ padding-right: var(--burger-nudge-x) !important; }
+  :root{ --burger-nudge-x: 32px; } /* Shifted further right for alignment */
 }
 @media (max-width: 640px){
   #navPanel .nav-right a{ font-size: clamp(32px, 10vw, 58px) !important; }
+  
+  /* Fix overlapping and spacing issues on tablets - match work.html */
+  .grid{ gap: 0 !important; } /* Remove gap - justified grid handles spacing */
+  .j-row{ gap: clamp(10px, 2.5vw, 16px) !important; margin-bottom: clamp(10px, 2.5vw, 16px) !important; }
+  .tile{ margin-bottom: 0 !important; } /* Remove margin since j-row handles spacing */
+  .category-filters{ gap: clamp(10px, 2.5vw, 16px) !important; margin-bottom: clamp(20px, 4vw, 30px) !important; }
+  
+  /* Adjust hero spacing - reduce gaps */
+  .hero{ padding-top: clamp(25px, 5vw, 40px) !important; padding-bottom: clamp(20px, 4vw, 30px) !important; }
+  .hero .container{ margin-top: clamp(12px, 2.5vw, 20px) !important; }
+  .header_title{ margin-bottom: clamp(10px, 2vw, 16px) !important; }
+  .header_text{ margin-bottom: clamp(12px, 2.5vw, 20px) !important; }
+  
+  /* Remove excessive height from services section */
+  .section_services{ min-height: auto !important; height: auto !important; }
+  
+  /* Fix header height on mobile */
+  :root{ --header-h: clamp(50px, 8vw, 60px); }
 }
 
 /* Additional responsive breakpoints for better mobile experience */
 @media (max-width: 480px){
-  :root{ --edge-final: clamp(12px, 3vw, 24px); }
+  :root{ 
+    --edge-final: clamp(12px, 3vw, 24px);
+    --burger-nudge-x: 24px; /* Shifted further right for mobile alignment */
+  }
   .hero h1{ font-size: clamp(28px, 8vw, 48px) !important; }
   #navPanel .nav-right a{ font-size: clamp(28px, 9vw, 44px) !important; }
+  
+  /* Fix grid gaps and overlapping on mobile - match work.html */
+  .grid{ gap: 0 !important; } /* Remove gap - justified grid handles spacing */
+  .j-row{ gap: clamp(8px, 2vw, 12px) !important; margin-bottom: clamp(8px, 2vw, 12px) !important; }
+  .tile{ margin-bottom: 0 !important; } /* Remove margin since j-row handles spacing */
+  .category-filters{ gap: clamp(8px, 2vw, 12px) !important; margin-bottom: clamp(16px, 3vw, 24px) !important; }
+  
+  /* Fix hero section spacing - reduce gaps */
+  .hero{ padding-top: clamp(20px, 4vw, 30px) !important; padding-bottom: clamp(15px, 3vw, 25px) !important; }
+  .hero .container{ margin-top: clamp(10px, 2vw, 15px) !important; }
+  .header_title{ margin-bottom: clamp(8px, 1.5vw, 12px) !important; }
+  .header_text{ margin-bottom: clamp(10px, 2vw, 15px) !important; }
+  
+  /* Fix footer spacing */
+  .site-footer{ padding: clamp(20px, 4vw, 30px) 0 !important; }
+  
+  /* Fix any overlapping elements */
+  .preview{ margin-top: clamp(20px, 4vw, 30px) !important; }
+  .hero-swiper{ margin-top: clamp(16px, 3vw, 24px) !important; }
+  
+  /* Reduce gap before Featured Works */
+  .featured-bar{ margin-top: clamp(8px, 1.5vw, 15px) !important; }
+  
+  /* Remove excessive height from services section */
+  .section_services{ min-height: auto !important; height: auto !important; }
 }
 
 @media (max-width: 360px){
-  :root{ --edge-final: clamp(10px, 2.5vw, 20px); }
+  :root{ 
+    --edge-final: clamp(10px, 2.5vw, 20px);
+    --burger-nudge-x: 20px; /* Shifted further right for small mobile alignment */
+  }
   .hero h1{ font-size: clamp(24px, 9vw, 40px) !important; }
   #navPanel .nav-right a{ font-size: clamp(24px, 10vw, 36px) !important; }
+  
+  /* Ultra-compact mobile layout - match work.html */
+  .grid{ gap: 0 !important; } /* Remove gap - justified grid handles spacing */
+  .j-row{ gap: clamp(6px, 1.5vw, 10px) !important; margin-bottom: clamp(6px, 1.5vw, 10px) !important; }
+  .tile{ margin-bottom: 0 !important; } /* Remove margin since j-row handles spacing */
+  .category-filters{ gap: clamp(6px, 1.5vw, 10px) !important; margin-bottom: clamp(12px, 2.5vw, 20px) !important; }
+  
+  /* Minimal hero spacing - ultra compact */
+  .hero{ padding-top: clamp(15px, 3vw, 25px) !important; padding-bottom: clamp(10px, 2vw, 20px) !important; }
+  .hero .container{ margin-top: clamp(8px, 1.5vw, 12px) !important; }
+  .header_title{ margin-bottom: clamp(6px, 1vw, 10px) !important; }
+  .header_text{ margin-bottom: clamp(8px, 1.5vw, 12px) !important; }
+  
+  /* Compact footer */
+  .site-footer{ padding: clamp(15px, 3vw, 25px) 0 !important; }
+  
+  /* Ultra-compact gap before Featured Works */
+  .featured-bar{ margin-top: clamp(5px, 1vw, 10px) !important; }
+  
+  /* Remove excessive height from services section */
+  .section_services{ min-height: auto !important; height: auto !important; }
 }
 </style>
 </head>
@@ -971,11 +1034,8 @@ html, body {
               });
               </script>
               
-               <h1 id="w-node-b640b3d5-ed6f-5a7c-bcb7-ffc80f55781f-8caed4df" class="header_title u-title1"><span class="header_title_span left">3D</span> <span class="header_title_span center">Visualization</span> <span class="header_title_span right">Studio</span></h1>
+               <h1 id="w-node-b640b3d5-ed6f-5a7c-bcb7-ffc80f55781f-8caed4df" class="header_title u-title1"><span class="header_title_span left">3D</span> <span class="header_title_span center"></span> <span class="header_title_span right"></span></h1>
                <div id="w-node-b4ac294e-7ef9-b5bd-8db3-72b1c80f28b6-8caed4df" class="header_text u-text-s"></div>
-               <a data-popup="" id="w-node-_54654fff-2777-4e7e-60d2-a700f150583e-8caed4df" href="../index.html#" class="btn_header u-btn-round w-inline-block">
-                  <div>Get in touch</div>
-               </a>
             </div>
             <!-- <div class="slider_header">
                <div class="slider_header_wrapper swiper-wrapper">
@@ -1779,7 +1839,7 @@ html, body {
 
 /* === Justified grid === */
 .grid{
-  padding-inline: 60px !important;
+  /* padding-inline removed - using --edge-final variable for responsive alignment */
   margin-inline: auto;
   width: 100%;
   max-width: none;
@@ -1787,6 +1847,51 @@ html, body {
   background: #fff;
 }
 .j-row{ display:flex; gap:2px; margin-bottom:2px; background:#fff; }
+
+/* Justified grid styling like work.html */
+.grid > *{ max-width: 100%; }
+.j-row .tile { flex: none; width: auto; height: auto; } /* JS sets size */
+
+.tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #111;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.tile:hover {
+  transform: translateY(-2px);
+}
+
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.05);
+  transition: transform 0.9s cubic-bezier(.2,.9,.3,1);
+}
+
+.tile:hover img {
+  transform: scale(1.12);
+}
+
+.tile .meta {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  font-weight: 600;
+  background: linear-gradient(90deg, rgba(0,0,0,0.6), rgba(0,0,0,0.2));
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+}
+
+/* Grid background for clean gaps */
+.grid, .j-row { background: #fff; }
 
 .tile{
   position:relative; overflow:hidden; border-radius:6px; background:#111; flex:none;
@@ -2077,6 +2182,7 @@ header .brand img {
     flex-direction: column;
     align-items: flex-start;
     gap:12px;
+    margin-top: clamp(10px, 2vw, 20px) !important; /* Reduce top margin */
   }
 }
 
@@ -2982,8 +3088,26 @@ document.querySelectorAll("a").forEach(link => {
 <script>
 (function () {
   const container = document.getElementById('grid');
-  const targetRowHeight = 450;
-  const gutter = 2;
+  
+  // Responsive gutter and row height based on screen size
+  function getGutter() {
+    const width = window.innerWidth;
+    if (width <= 360) return 6;
+    if (width <= 480) return 8;
+    if (width <= 640) return 10;
+    return 2; // Desktop
+  }
+  
+  function getTargetRowHeight() {
+    const width = window.innerWidth;
+    if (width <= 360) return 200;
+    if (width <= 480) return 250;
+    if (width <= 640) return 300;
+    return 450; // Desktop
+  }
+  
+  let gutter = getGutter();
+  let targetRowHeight = getTargetRowHeight();
 
   const MASTER = Array.from(container.querySelectorAll('.tile'));
   MASTER.forEach(t => t.dataset.show = '1');
@@ -3001,6 +3125,10 @@ document.querySelectorAll("a").forEach(link => {
   }
 
   function layout() {
+    // Update gutter and row height for current screen size
+    gutter = getGutter();
+    targetRowHeight = getTargetRowHeight();
+    
     const tiles = getVisibleTiles();
     container.innerHTML = '';
 
