@@ -2726,8 +2726,13 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
  header > div:last-child{ padding: 0 !important; gap: 16px; }
  header .menu-btn{ padding-right: 0 !important; }
  /* Tiny nudge to align burger exactly with grid edge */
- :root{ --burger-nudge-x: 2px; }
- header .menu-btn{ margin-right: calc(var(--burger-nudge-x) * -1); }
+ :root{ --burger-nudge-x: 36px; }
+  /* Shift the entire right control group (Email + burger) to the right */
+  header > div:last-child{ padding-right: 0 !important; margin-right: calc(var(--burger-nudge-x) * -1) !important; }
+  /* Keep individual elements tight */
+  header .menu-btn{ margin-right: 0 !important; }
+  header .btn{ padding-right: 0 !important; }
+  @media (max-width: 980px){ :root{ --burger-nudge-x: 18px; } }
 
 /* Grid and filters: use the same edge so tiles align under the logo/burger */
  .grid{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
