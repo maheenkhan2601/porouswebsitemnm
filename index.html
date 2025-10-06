@@ -2921,10 +2921,18 @@ document.querySelectorAll("a").forEach(link => {
       if (h <= targetRowHeight || row.length === 4 || i === items.length - 1) {
         const jrow = document.createElement('div');
         jrow.className = 'j-row';
+        // Last row: use natural height so the row stretches to exact width
+        const isLastRow = (i === items.length - 1);
+        const finalH = isLastRow ? h : Math.min(targetRowHeight, h);
 
-        const finalH = Math.min(targetRowHeight, h);
-        row.forEach(it => {
-          const w = finalH * it.ar;
+        // Distribute rounding remainder to the last tile to avoid trailing gap
+        let usedWidth = 0;
+        row.forEach((it, idx) => {
+          let w = finalH * it.ar;
+          if (idx < row.length - 1) {
+            w = Math.round(w);
+            usedWidth += w + (idx ? 0 : 0);
+          }
           it.el.style.width  = w + 'px';
           it.el.style.height = finalH + 'px';
           jrow.appendChild(it.el);
@@ -3547,5 +3555,44 @@ document.querySelectorAll('#grid a.tile').forEach(a => {
 </body>
 
 </html>
+
+<style id="final-responsive-align-index">
+/* ===== Site-wide unified gutter for alignment (Index) ===== */
+ :root{ --edge-final: clamp(18px, 4vw, 60px); }
+
+/* Header: align to shared gutter */
+ header{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+ header .brand{ padding: 0 !important; }
+ header > div:last-child{ padding: 0 !important; gap: 16px; }
+ header .menu-btn{ padding-right: 0 !important; }
+ /* Tiny nudge so burger aligns exactly with grid edge */
+ :root{ --burger-nudge-x: 2px; }
+ header .menu-btn{ margin-right: calc(var(--burger-nudge-x) * -1); }
+
+/* Hero: text block and slider edges align with header */
+ .hero{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+ .hero .container{ max-width: none !important; padding: 0 !important; }
+ .hero h1{ font-size: clamp(34px, 6.5vw, 92px) !important; line-height: 1.02; }
+
+/* Grids/filters: use the same edge */
+ .grid{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+ .category-filters{ margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
+
+/* Footer + divider aligned */
+ .site-footer .footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+ .footer-divider{ margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
+
+/* Nav overlay panel aligned */
+ #navPanel .nav-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+
+/* Mobile: keep consistency */
+ @media (max-width: 760px){
+   header{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+   .hero{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+   .grid{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+   .category-filters{ margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
+   .site-footer .footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+ }
+</style>
 
 

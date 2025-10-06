@@ -1729,10 +1729,18 @@ function layout() {
       if (h <= targetRowHeight || row.length === 4 || i === items.length - 1) {
         const jrow = document.createElement('div');
         jrow.className = 'j-row';
+        // If this is the last row, use its natural height so it stretches full width
+        const isLastRow = (i === items.length - 1);
+        const finalH = isLastRow ? h : Math.min(targetRowHeight, h);
 
-        const finalH = Math.min(targetRowHeight, h);
-        row.forEach(it => {
-          const w = finalH * it.ar;
+        // Compute widths and distribute any rounding remainder to the last tile
+        const widths = row.map(it => finalH * it.ar);
+        const total = widths.reduce((a,b)=>a+b,0);
+        const remainder = cw - (total + gutter * (row.length - 1));
+
+        row.forEach((it, idx) => {
+          const add = (idx === row.length - 1) ? remainder : 0;
+          const w = widths[idx] + add;
           it.el.style.width = w + 'px';
           it.el.style.height = finalH + 'px';
           jrow.appendChild(it.el);
@@ -2717,6 +2725,9 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
  header .brand{ padding: 0 !important; }
  header > div:last-child{ padding: 0 !important; gap: 16px; }
  header .menu-btn{ padding-right: 0 !important; }
+ /* Tiny nudge to align burger exactly with grid edge */
+ :root{ --burger-nudge-x: 2px; }
+ header .menu-btn{ margin-right: calc(var(--burger-nudge-x) * -1); }
 
 /* Grid and filters: use the same edge so tiles align under the logo/burger */
  .grid{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
@@ -2725,6 +2736,8 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
 /* Hero: align text and slider edges with header/logo/burger */
  .hero{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
  .hero .container{ max-width: none !important; padding: 0 !important; }
+ /* Responsive title size */
+ .hero h1{ font-size: clamp(34px, 6.5vw, 92px) !important; line-height: 1.02; }
 
 /* Footer: divider and content align to the same edge */
  .site-footer .footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
