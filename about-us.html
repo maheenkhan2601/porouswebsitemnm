@@ -39,7 +39,7 @@ header {
   position: fixed;
   left: 0; right: 0; top: 0;
   height: 30px;
-  padding: 26px var(--edge-final);
+  padding: 26px 30px;
   background: rgb(255, 255, 255) !important;
   display: flex;
   align-items: center;
@@ -74,7 +74,6 @@ body { padding-top: 74px; } /* header 30px + 26px top/btm = ~74px */
     :root{
       --max:1200px;
       --pad:24px;
-      --edge-final: clamp(18px, 4vw, 60px); /* unified page gutter */
       --text:#111;
       --muted:#6c6c6c;
       --line:#e7e7e7;
@@ -111,7 +110,7 @@ body { padding-top: 74px; } /* header 30px + 26px top/btm = ~74px */
 
     /* HERO QUOTE */
     .hero{
-      padding:175px var(--edge-final) 175px;
+      padding:175px var(--pad) 175px;
       border-bottom:1px solid var(--line);
     }
     .hero h1{
@@ -143,7 +142,7 @@ body { padding-top: 74px; } /* header 30px + 26px top/btm = ~74px */
       width:100%;
       max-width:var(--max);
       margin:0 auto;
-      padding:28px var(--edge-final) 46px;
+      padding:28px var(--pad) 46px;
       display:grid; grid-template-columns:1fr 3fr; gap:32px;
     }
     .panel-copy h6{
@@ -168,7 +167,7 @@ body { padding-top: 74px; } /* header 30px + 26px top/btm = ~74px */
 
     /* SECTION WRAPPER */
     .section{
-      padding:80px var(--edge-final);
+      padding:80px var(--pad);
     }
     .section .wrap{max-width:var(--max); margin:0 auto}
     .kicker{
@@ -616,6 +615,104 @@ cubic-bezier(.2, .9, .3, 1);
 }
     .nav-panel a{display:block;padding:12px 0;font-size:35px;color:var(--accent);opacity:.95}
   </style>
+<style id="final-responsive-align">
+/* ===== Final alignment + responsiveness unifier ===== */
+/* One gutter to align header logo, burger, content, and footer */
+:root{
+  --edge-final: clamp(18px, 4vw, 60px);
+  --burger-nudge-x: 32px; /* Adjusted for about-us page */
+}
+
+/* Header: remove inline paddings and use the shared edge */
+header{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+header .brand{ padding: 0 !important; }
+header .actions{ padding-right: var(--burger-nudge-x) !important; gap: 16px; }
+header .btn{ padding-right: 0 !important; }
+header .menu-btn{ padding-right: 0 !important; }
+
+/* Main content: use the same edge so content aligns under the logo/burger */
+main{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+.hero{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+.about-content{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+.team-section{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+.image-panel{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+
+/* Footer: divider and content align to the same edge */
+footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+.footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+
+/* Nav Panel: align with the same edge */
+#navPanel .nav-inner{ padding: clamp(24px, 4vw, 40px) var(--edge-final) !important; }
+#navPanel .nav-right{
+  position: static !important; /* Force static positioning */
+  margin: 0 auto; /* Center horizontally */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center content vertically */
+  height: 100%; /* Take full height */
+  text-align: center;
+  gap: clamp(12px, 3vw, 24px); /* Spacing between links */
+}
+#navPanel .nav-right a{
+  padding: 0 !important;
+  font-size: clamp(42px, 9vw, 80px) !important; /* Unified font size */
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.02em; /* Slight letter spacing */
+}
+#navPanel .social-icons{
+  position: static !important;
+  display: flex;
+  gap: 16px;
+  margin-top: clamp(20px, 4vw, 32px); /* Space above social icons */
+  justify-content: center; /* Center social icons */
+}
+#navPanel .nav-bottom{
+  position: static !important;
+  margin-top: clamp(20px, 4vw, 32px); /* Space above nav bottom */
+  justify-content: center; /* Center nav bottom content */
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+#navPanel .nav-copy{
+  text-align: center !important;
+  margin-left: 0 !important; /* Remove auto margin */
+  width: 100%; /* Take full width */
+}
+
+/* Responsive typography for about content */
+.hero h1{ font-size: clamp(32px, 6vw, 64px) !important; line-height: 1.1; }
+.hero p{ font-size: clamp(16px, 3vw, 20px) !important; line-height: 1.6; }
+.about-content h2{ font-size: clamp(24px, 4vw, 36px) !important; line-height: 1.2; }
+.about-content p{ font-size: clamp(14px, 2.5vw, 16px) !important; line-height: 1.5; }
+.team-section h2{ font-size: clamp(24px, 4vw, 36px) !important; line-height: 1.2; }
+.image-panel h3{ font-size: clamp(20px, 3.5vw, 28px) !important; line-height: 1.3; }
+
+/* Mobile: keep everything consistent and stacked nicely */
+@media (max-width: 980px){
+  :root{ --burger-nudge-x: 14px; } /* Adjusted for smaller screens */
+  header .actions{ padding-right: var(--burger-nudge-x) !important; }
+}
+@media (max-width: 640px){
+  #navPanel .nav-right a{ font-size: clamp(32px, 10vw, 58px) !important; }
+}
+
+/* Additional responsive breakpoints for better mobile experience */
+@media (max-width: 480px){
+  :root{ --edge-final: clamp(12px, 3vw, 24px); }
+  #navPanel .nav-right a{ font-size: clamp(28px, 9vw, 44px) !important; }
+  .hero h1{ font-size: clamp(28px, 8vw, 48px) !important; }
+  .about-content h2{ font-size: clamp(20px, 5vw, 28px) !important; }
+}
+
+@media (max-width: 360px){
+  :root{ --edge-final: clamp(10px, 2.5vw, 20px); }
+  #navPanel .nav-right a{ font-size: clamp(24px, 10vw, 36px) !important; }
+  .hero h1{ font-size: clamp(24px, 9vw, 40px) !important; }
+  .about-content h2{ font-size: clamp(18px, 6vw, 24px) !important; }
+}
+</style>
   <script id="sync-edges-to-header">
 (function(){
   let raf;

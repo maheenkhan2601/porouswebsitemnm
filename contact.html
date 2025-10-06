@@ -10,8 +10,7 @@
 <style>
   :root{
     --page-max: 1400px;
-    --gutter: clamp(18px, 4vw, 60px);
-    --edge-final: clamp(18px, 4vw, 60px); /* unify with other pages */
+    --gutter: clamp(16px, 4vw, 60px);
     --radius: 10px;
 
     --bg: #ffffff;
@@ -36,7 +35,7 @@
 
   a{ color: inherit; text-decoration: none; }
 
-  header{ position: fixed; inset: 0 0 auto 0; z-index: 1100; display: flex; align-items: center; justify-content: space-between; height: var(--header-h); padding-inline: var(--edge-final); background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+  header{ position: fixed; inset: 0 0 auto 0; z-index: 1100; display: flex; align-items: center; justify-content: space-between; height: var(--header-h); padding-inline: var(--gutter); background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.06); }
   .brand img{ width: clamp(140px, 24vw, 220px); height: auto; display:block; }
   .actions{ display:flex; gap: 16px; align-items:center; }
   .btn{ font-weight: 600; }
@@ -46,7 +45,7 @@
   .nav-panel{ position: fixed; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.82), rgba(0,0,0,.78)); color: #fff; z-index: 2000; transform: translateY(-100%); transition: transform .45s cubic-bezier(.2,.9,.3,1); }
   .nav-panel.open{ transform: translateY(0); }
   .nav-close{ position: fixed; top: 18px; right: 18px; z-index: 3000; background: none; border: 0; color: #fff; font-size: 36px; cursor: pointer; }
-  .nav-inner{ height: 100%; padding: clamp(24px, 4vw, 60px) var(--edge-final); display:grid; grid-template-rows: 1fr auto; }
+  .nav-inner{ height: 100%; padding: clamp(24px, 4vw, 60px); display:grid; grid-template-rows: 1fr auto; }
   .nav-right{ list-style:none; margin:0; padding:0; position:absolute; inset:0; display:flex; justify-content:center; align-items:center; text-align:center; }
   .nav-right a{ display:block; padding:12px 0; font-weight:700; font-size:clamp(32px, 9vw, 72px); color:#fff; opacity:.95; }
   .nav-right a:hover{ opacity:.8; }
@@ -54,10 +53,10 @@
   .social-icons{ display:flex; gap:14px; }
   .social-icons img{ width:26px; height:26px; filter:brightness(0) invert(1); }
 
-  .page-heading{ max-width: var(--page-max); margin-inline:auto; padding: clamp(18px, 4vw, 28px) var(--edge-final) 0; }
+  .page-heading{ max-width: var(--page-max); margin-inline:auto; padding: clamp(18px, 4vw, 28px) var(--gutter) 0; }
   .page-heading h1{ margin:0; font-weight:600; font-size: clamp(34px, 6vw, 56px); }
 
-  .contact-section{ max-width: var(--page-max); margin: 24px auto 40px; padding-inline: var(--edge-final); }
+  .contact-section{ max-width: var(--page-max); margin: 24px auto 40px; padding-inline: var(--gutter); }
   .contact-wrap{ display:flex; gap:24px; align-items:stretch; flex-wrap: nowrap; }
   .contact-info{ background:#555; color:#eee; padding: clamp(28px, 4vw, 48px); border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,.12); flex: 0 0 360px; max-width:360px; line-height:1.7; }
   .contact-info h2{ margin:0 0 18px; font-weight:600; color:#fff; }
@@ -66,7 +65,7 @@
   .map-container{ flex:1 1 auto; min-height:360px; border-radius:10px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,.06); }
   .map-container iframe{ width:100%; height:100%; border:0; display:block; }
 
-  .social-section{ background:#f9f9f9; padding:32px var(--edge-final) 44px; }
+  .social-section{ background:#f9f9f9; padding:32px var(--gutter) 44px; }
   .social-section h3{ text-align:center; margin:0 0 20px; font-weight:800; font-size:clamp(18px, 3.5vw, 26px); }
   .social-gallery{ display:flex; flex-wrap:wrap; gap:14px; max-width:var(--page-max); margin:0 auto; justify-content:space-between; }
   .ig-card{ flex:1 1 clamp(140px, 18%, 220px); height:220px; border-radius:6px; overflow:hidden; }
@@ -76,8 +75,8 @@
   @media(max-width:640px){ .page-heading h1{ font-size:clamp(28px,9vw,40px);} .ig-card{ flex-basis:calc(50% - 10px); height:180px; } }
 
   .site-footer{ background:#fff; color:#111; }
-  .footer-divider{ height:1px; background:var(--divider); margin-inline: var(--edge-final); }
-  .footer-inner{ max-width: var(--page-max); margin:0 auto; padding: 32px var(--edge-final); display:grid; grid-template-columns:1fr auto; gap:20px; align-items:start; }
+  .footer-divider{ height:1px; background:var(--divider); margin-inline: var(--gutter); }
+  .footer-inner{ max-width: var(--page-max); margin:0 auto; padding: 32px clamp(24px, 6vw, 88px); display:grid; grid-template-columns:1fr auto; gap:20px; align-items:start; }
   .footer-left{ display:flex; flex-direction:column; gap:18px; align-items:flex-start; }
   .footer-nav{ display:flex; flex-wrap:wrap; gap:22px; }
   .footer-nav a{ color:#111; font-size:18px; opacity:.9; }
@@ -98,6 +97,115 @@
   display: block;
 }
 
+  </style>
+<style id="final-responsive-align">
+/* ===== Final alignment + responsiveness unifier ===== */
+/* One gutter to align header logo, burger, content, and footer */
+:root{
+  --edge-final: clamp(18px, 4vw, 60px);
+  --burger-nudge-x: 32px; /* Adjusted for contact page */
+}
+
+/* Header: remove inline paddings and use the shared edge */
+header{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+header .brand{ padding: 0 !important; }
+header .actions{ padding-right: var(--burger-nudge-x) !important; gap: 16px; }
+header .btn{ padding-right: 0 !important; }
+header .menu-btn{ padding-right: 0 !important; }
+
+/* Main content: use the same edge so content aligns under the logo/burger */
+main{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+.contact-hero{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+.contact-form{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+.contact-info{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+
+/* Footer: divider and content align to the same edge */
+footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+
+/* Nav Panel: align with the same edge */
+#navPanel .nav-inner{ padding: clamp(24px, 4vw, 40px) var(--edge-final) !important; }
+#navPanel .nav-right{
+  position: static !important; /* Force static positioning */
+  margin: 0 auto; /* Center horizontally */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center content vertically */
+  height: 100%; /* Take full height */
+  text-align: center;
+  gap: clamp(12px, 3vw, 24px); /* Spacing between links */
+}
+#navPanel .nav-right a{
+  padding: 0 !important;
+  font-size: clamp(42px, 9vw, 80px) !important; /* Unified font size */
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.02em; /* Slight letter spacing */
+}
+#navPanel .social-icons{
+  position: static !important;
+  display: flex;
+  gap: 16px;
+  margin-top: clamp(20px, 4vw, 32px); /* Space above social icons */
+  justify-content: center; /* Center social icons */
+}
+#navPanel .nav-bottom{
+  position: static !important;
+  margin-top: clamp(20px, 4vw, 32px); /* Space above nav bottom */
+  justify-content: center; /* Center nav bottom content */
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+#navPanel .nav-copy{
+  text-align: center !important;
+  margin-left: 0 !important; /* Remove auto margin */
+  width: 100%; /* Take full width */
+}
+
+/* Mobile: keep everything consistent and stacked nicely */
+@media (max-width: 980px){
+  :root{ --burger-nudge-x: 14px; } /* Adjusted for smaller screens */
+  header .actions{ padding-right: var(--burger-nudge-x) !important; }
+}
+@media (max-width: 640px){
+  #navPanel .nav-right a{ font-size: clamp(32px, 10vw, 58px) !important; }
+}
+
+/* Responsive typography for contact content */
+.contact-hero h1{ font-size: clamp(32px, 6vw, 64px) !important; line-height: 1.1; }
+.contact-hero p{ font-size: clamp(16px, 3vw, 20px) !important; line-height: 1.6; }
+.contact-form h2{ font-size: clamp(24px, 4vw, 36px) !important; line-height: 1.2; }
+.contact-info h3{ font-size: clamp(20px, 3.5vw, 28px) !important; line-height: 1.3; }
+.contact-info p{ font-size: clamp(14px, 2.5vw, 16px) !important; line-height: 1.5; }
+
+/* Form responsiveness */
+.form-group{ margin-bottom: clamp(16px, 3vw, 24px) !important; }
+.form-group label{ font-size: clamp(14px, 2.5vw, 16px) !important; margin-bottom: clamp(6px, 1vw, 8px) !important; }
+.form-group input, .form-group textarea{ 
+  font-size: clamp(14px, 2.5vw, 16px) !important; 
+  padding: clamp(12px, 2.5vw, 16px) !important; 
+  border-radius: clamp(6px, 1vw, 8px) !important;
+}
+.btn-submit{ 
+  font-size: clamp(14px, 2.5vw, 16px) !important; 
+  padding: clamp(12px, 2.5vw, 16px) clamp(24px, 4vw, 32px) !important;
+  border-radius: clamp(6px, 1vw, 8px) !important;
+}
+
+/* Additional responsive breakpoints for better mobile experience */
+@media (max-width: 480px){
+  :root{ --edge-final: clamp(12px, 3vw, 24px); }
+  #navPanel .nav-right a{ font-size: clamp(28px, 9vw, 44px) !important; }
+  .contact-hero h1{ font-size: clamp(28px, 8vw, 48px) !important; }
+  .contact-form h2{ font-size: clamp(20px, 5vw, 28px) !important; }
+}
+
+@media (max-width: 360px){
+  :root{ --edge-final: clamp(10px, 2.5vw, 20px); }
+  #navPanel .nav-right a{ font-size: clamp(24px, 10vw, 36px) !important; }
+  .contact-hero h1{ font-size: clamp(24px, 9vw, 40px) !important; }
+  .contact-form h2{ font-size: clamp(18px, 6vw, 24px) !important; }
+}
 </style>
 </head>
 <body>

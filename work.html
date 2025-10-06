@@ -246,14 +246,16 @@ header .menu-btn svg rect{
   background: transparent !important;
 }
 /* Overlay base */
-.nav-panel{
-  position: fixed; inset: 0;
-  background: #000;        /* solid black like the ref */
-  color: #fff;
-  z-index: 2000;
-  transform: translateY(-100%);
-  transition: transform .45s cubic-bezier(.2,.9,.3,1);
-}
+  .nav-panel{
+    position: fixed; inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.571) 0%, rgba(0, 0, 0, 0.571) 40%, rgba(0, 0, 0, 0.571) 100%) !important;
+    backdrop-filter: blur(18px) saturate(120%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(120%) !important;
+    color: #fff;
+    z-index: 2000;
+    transform: translateY(-100%);
+    transition: transform .45s cubic-bezier(.2,.9,.3,1);
+  }
 .nav-panel.open{ transform: translateY(0); }
 
 /* Close button */
@@ -1055,10 +1057,11 @@ header .brand img{ max-width: clamp(120px, 22vw, 200px); height: auto; }
   gap: clamp(8px, 2vw, 14px);
   text-align: center;
 }
-.nav-right a{
-  font-size: clamp(28px, 9vw, 80px) !important;
-  line-height: 1.05;
-}
+  .nav-right a{
+    font-size: clamp(42px, 9vw, 80px) !important;
+    line-height: 1.05;
+    font-weight: 800 !important;
+  }
 
 /* Social icons: don’t absolutely place; let them sit above the copyright line */
 .social-icons{
@@ -1729,20 +1732,21 @@ function layout() {
       if (h <= targetRowHeight || row.length === 4 || i === items.length - 1) {
         const jrow = document.createElement('div');
         jrow.className = 'j-row';
-        // If this is the last row, use its natural height so it stretches full width
-        const isLastRow = (i === items.length - 1);
-        const finalH = isLastRow ? h : Math.min(targetRowHeight, h);
 
-        // Compute widths and distribute any rounding remainder to the last tile
-        const widths = row.map(it => finalH * it.ar);
-        const total = widths.reduce((a,b)=>a+b,0);
-        const remainder = cw - (total + gutter * (row.length - 1));
+         // If this is the last row, use its natural height so it stretches full width
+         const isLastRow = (i === items.length - 1);
+         const finalH = isLastRow ? h : Math.min(targetRowHeight, h);
 
-        row.forEach((it, idx) => {
-          const add = (idx === row.length - 1) ? remainder : 0;
-          const w = widths[idx] + add;
-          it.el.style.width = w + 'px';
-          it.el.style.height = finalH + 'px';
+         // Compute widths and distribute any rounding remainder to the last tile
+         const widths = row.map(it => finalH * it.ar);
+         const total = widths.reduce((a,b)=>a+b,0);
+         const remainder = cw - (total + gutter * (row.length - 1));
+
+         row.forEach((it, idx) => {
+           const add = (idx === row.length - 1) ? remainder : 0;
+           const w = widths[idx] + add;
+           it.el.style.width = w + 'px';
+           it.el.style.height = finalH + 'px';
           jrow.appendChild(it.el);
         });
 
@@ -2723,16 +2727,16 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
 /* Header: remove inline paddings and use the shared edge */
  header{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
  header .brand{ padding: 0 !important; }
- header > div:last-child{ padding: 0 !important; gap: 16px; }
- header .menu-btn{ padding-right: 0 !important; }
- /* Tiny nudge to align burger exactly with grid edge */
- :root{ --burger-nudge-x: 36px; }
-  /* Shift the entire right control group (Email + burger) to the right */
-  header > div:last-child{ padding-right: 0 !important; margin-right: calc(var(--burger-nudge-x) * -1) !important; }
-  /* Keep individual elements tight */
-  header .menu-btn{ margin-right: 0 !important; }
-  header .btn{ padding-right: 0 !important; }
-  @media (max-width: 980px){ :root{ --burger-nudge-x: 18px; } }
+  header > div:last-child{ padding: 0 !important; gap: 16px; }
+  header .menu-btn{ padding-right: 0 !important; }
+  /* Tiny nudge to align burger exactly with grid edge */
+  :root{ --burger-nudge-x: 36px; }
+   /* Shift the entire right control group (Email + burger) to the right */
+   header > div:last-child{ padding-right: 0 !important; margin-right: calc(var(--burger-nudge-x) * -1) !important; }
+   /* Keep individual elements tight */
+   header .menu-btn{ margin-right: 0 !important; }
+   header .btn{ padding-right: 0 !important; }
+   @media (max-width: 980px){ :root{ --burger-nudge-x: 18px; } }
 
 /* Grid and filters: use the same edge so tiles align under the logo/burger */
  .grid{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
@@ -2750,18 +2754,50 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
 
 /* Make sure footer left elements start at the same left edge */
  .site-footer .footer-brand{ margin-left: 0 !important; }
- .site-footer .footer-nav{ margin-left: 0 !important; padding-left: 0 !important; }
+  .site-footer .footer-nav{ margin-left: 0 !important; padding-left: 0 !important; }
 
 /* Nav overlay (opened via burger): align its inner padding to the same edge */
- #navPanel .nav-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+  #navPanel .nav-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
 
 /* Mobile: keep everything consistent and stacked nicely */
  @media (max-width: 760px){
    header{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
    .grid{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
    .category-filters{ margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
-   .site-footer .footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
- }
+     .site-footer .footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+   }
+ </style>
+<style id="nav-overlay-unify">
+/* Unify full-screen overlay: big centered links + centered social icons */
+#navPanel.nav-panel{ display:flex; flex-direction:column; }
+#navPanel .nav-inner{ padding: clamp(24px, 4vw, 40px) var(--edge-final) !important; }
+#navPanel .nav-right{ position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; margin:0; padding:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap: clamp(12px, 3vw, 20px); text-align:center; list-style:none !important; }
+#navPanel .nav-right li{ list-style:none !important; }
+#navPanel .nav-right a{ padding:0 !important; font-size: clamp(28px, 6vw, 56px) !important; line-height:1.08; font-weight:800; color:#fff !important; opacity:1 !important; text-decoration:none !important; }
+#navPanel .nav-bottom{ position: absolute !important; bottom: clamp(20px, 3vw, 35px) !important; left: 50% !important; transform: translateX(-50%) !important; display:flex; justify-content:center; }
+#navPanel .social-icons{ position: static !important; display:flex; gap: clamp(12px, 3vw, 20px); justify-content:center; align-items:center; }
+
+/* Mobile responsiveness */
+@media (max-width: 768px){
+  #navPanel .nav-right a{ font-size: clamp(24px, 8vw, 48px) !important; }
+  #navPanel .nav-right{ gap: clamp(8px, 2.5vw, 16px); }
+  #navPanel .nav-bottom{ bottom: clamp(15px, 2.5vw, 30px) !important; }
+  #navPanel .social-icons{ gap: clamp(10px, 2.5vw, 16px); }
+}
+
+@media (max-width: 480px){
+  #navPanel .nav-right a{ font-size: clamp(20px, 9vw, 40px) !important; }
+  #navPanel .nav-right{ gap: clamp(6px, 2vw, 12px); }
+  #navPanel .nav-bottom{ bottom: clamp(12px, 2vw, 25px) !important; }
+  #navPanel .social-icons{ gap: clamp(8px, 2vw, 14px); }
+}
+
+@media (max-width: 360px){
+  #navPanel .nav-right a{ font-size: clamp(18px, 10vw, 36px) !important; }
+  #navPanel .nav-right{ gap: clamp(4px, 1.5vw, 10px); }
+  #navPanel .nav-bottom{ bottom: clamp(10px, 1.5vw, 20px) !important; }
+  #navPanel .social-icons{ gap: clamp(6px, 1.5vw, 12px); }
+}
 </style>
 
 </body>
