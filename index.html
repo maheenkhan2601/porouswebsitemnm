@@ -494,7 +494,7 @@ html, body {
 /* One gutter to align header logo, burger, grid, and footer */
 :root{
   --edge-final: clamp(18px, 4vw, 60px);
-  --burger-nudge-x: 56px; /* Shifted further right to align with grid edge */
+  --burger-nudge-x: 64px; /* Moved further right for better alignment */
 }
 
 /* Header: remove inline paddings and use the shared edge */
@@ -568,7 +568,7 @@ header .btn{ padding-right: 0 !important; }
 
 /* Mobile: keep everything consistent and stacked nicely */
 @media (max-width: 980px){
-  :root{ --burger-nudge-x: 32px; } /* Shifted further right for alignment */
+  :root{ --burger-nudge-x: 36px; } /* Moved further right */
 }
 @media (max-width: 640px){
   #navPanel .nav-right a{ font-size: clamp(32px, 10vw, 58px) !important; }
@@ -601,7 +601,7 @@ header .btn{ padding-right: 0 !important; }
 @media (max-width: 480px){
   :root{ 
     --edge-final: clamp(12px, 3vw, 24px);
-    --burger-nudge-x: 24px; /* Shifted further right for mobile alignment */
+    --burger-nudge-x: 28px; /* Moved further right for mobile */
   }
   .hero h1{ font-size: clamp(28px, 8vw, 48px) !important; }
   #navPanel .nav-right a{ font-size: clamp(28px, 9vw, 44px) !important; }
@@ -640,7 +640,7 @@ header .btn{ padding-right: 0 !important; }
 @media (max-width: 360px){
   :root{ 
     --edge-final: clamp(10px, 2.5vw, 20px);
-    --burger-nudge-x: 20px; /* Shifted further right for small mobile alignment */
+    --burger-nudge-x: 24px; /* Moved further right for small mobile */
   }
   .hero h1{ font-size: clamp(24px, 9vw, 40px) !important; }
   #navPanel .nav-right a{ font-size: clamp(24px, 10vw, 36px) !important; }
@@ -709,7 +709,7 @@ header .btn{ padding-right: 0 !important; }
     <a class="btn" href="mailto:porousdelab@gmail.com">Email</a>
 
     <!-- Burger that will trigger the Webflow menu -->
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu" style="padding-right:30px ;">
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" style="padding-right:10px ;">
       <svg width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect x="0" y="0"  width="22" height="2" rx="1" />
         <rect x="0" y="7"  width="22" height="2" rx="1" />
