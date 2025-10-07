@@ -39,8 +39,18 @@
   .brand img{ width: clamp(140px, 24vw, 220px); height: auto; display:block; }
   .actions{ display:flex; gap: 16px; align-items:center; }
   .btn{ font-weight: 600; }
-  .menu-btn{ background: transparent; border: 0; cursor: pointer; padding: 8px; display:grid; place-items:center; }
-  .menu-btn svg rect{ fill:#000; }
+  .menu-btn{ 
+    background: transparent !important; 
+    border: 0 !important; 
+    cursor: pointer !important; 
+    padding: 8px !important; 
+    display: grid !important; 
+    place-items: center !important; 
+    z-index: 9999 !important; /* HARSH CSS - Force above everything */
+    position: relative !important; /* HARSH CSS - Ensure positioning */
+    pointer-events: auto !important; /* HARSH CSS - Force clickable */
+  }
+  .menu-btn svg rect{ fill:#000 !important; }
 
   .nav-panel{ position: fixed; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.82), rgba(0,0,0,.78)); color: #fff; z-index: 2000; transform: translateY(-100%); transition: transform .45s cubic-bezier(.2,.9,.3,1); }
   .nav-panel.open{ transform: translateY(0); }
@@ -217,10 +227,11 @@
   /* Footer logo size */
 .footer-brand img,
 .brand-logo{
-  height: clamp(18px, 2.5vw, 24px) !important; /* Smaller footer logo */
+  height: 16px !important; /* HARSH CSS - Force tiny footer logo */
   width: auto !important;          /* keep aspect ratio */
-  max-width: 120px !important;     /* smaller hard cap */
+  max-width: 80px !important;     /* HARSH CSS - Force tiny max width */
   display: block !important;
+  transform: scale(0.8) !important; /* HARSH CSS - Force smaller scale */
 }
 /* @media (max-width: 768px) {
     .site-footer { 
@@ -420,7 +431,15 @@ header{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
 header .brand{ padding: 0 !important; }
 header .actions{ padding-right: var(--burger-nudge-x) !important; gap: 16px; }
 header .btn{ padding-right: 0 !important; }
-header .menu-btn{ padding-right: 0 !important; }
+header .menu-btn{ 
+  padding-right: 0 !important; 
+  z-index: 9999 !important; /* HARSH CSS - Force above everything */
+  position: relative !important; /* HARSH CSS - Ensure positioning */
+  pointer-events: auto !important; /* HARSH CSS - Force clickable */
+  cursor: pointer !important; /* HARSH CSS - Force cursor */
+  display: grid !important; /* HARSH CSS - Force display */
+  place-items: center !important; /* HARSH CSS - Force centering */
+}
 
 /* Main content: use the same edge so content aligns under the logo/burger */
 main{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
