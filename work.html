@@ -49,17 +49,61 @@ h1, h2 {
 
 
 
-/* === Justified grid === */
+/* === Justified grid - SAME AS INDEX.HTML === */
 .grid{
-  /* even side padding, centered */
-  padding-inline: 60px !important;
+  /* padding-inline removed - using --edge-final variable for responsive alignment */
   margin-inline: auto;
   width: 100%;
   max-width: none;
   box-sizing: border-box;
-  background: #fff; /* clean seams */
+  background: #fff;
 }
 .j-row{ display:flex; gap:2px; margin-bottom:2px; background:#fff; }
+
+/* Justified grid styling like index.html */
+.grid > *{ max-width: 100%; }
+.j-row .tile { flex: none; width: auto; height: auto; } /* JS sets size */
+
+.tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #111;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.tile:hover {
+  transform: translateY(-2px);
+}
+
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.05);
+  transition: transform 0.9s cubic-bezier(.2,.9,.3,1);
+}
+
+.tile:hover img {
+  transform: scale(1.12);
+}
+
+.tile .meta {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  font-weight: 600;
+  background: linear-gradient(90deg, rgba(0,0,0,0.6), rgba(0,0,0,0.2));
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+}
+
+/* Grid background for clean gaps */
+.grid, .j-row { background: #fff; }
 
 .tile{
   position:relative; overflow:hidden; border-radius:6px; background:#111; flex:none;
@@ -90,28 +134,155 @@ h1, h2 {
 .category:hover{ color:#000; }
 .category.active{ color:#000; font-weight:700; }
 
-/* === Project modal (square card, left text + right vertical swiper) === */
-.project-modal{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
-  z-index:2000; pointer-events:none; opacity:0; background:rgba(0,0,0,.72); transition:opacity .3s ease;
-}
-.project-modal.open{ pointer-events:auto; opacity:1; }
-.project-modal-card{
-  width:95%; max-width:1200px; height:90vh; margin:20px 0; background:#fff; color:#000;
-  border-radius:12px; box-shadow:0 30px 90px rgba(0,0,0,.15); overflow:hidden; position:relative; display:flex; flex-direction:column;
-}
-.project-modal-close{ position:absolute; top:10px; right:14px; background:none; border:0; font-size:28px; cursor:pointer; z-index:10; }
-.project-modal-inner{ display:grid; grid-template-columns: 1fr 2.5fr; height:100%; }
-.project-modal-left{ padding:20px; display:flex; flex-direction:column; justify-content:center; }
-.project-modal-title{ font-size:22px; font-weight:700; margin:0; }
-.project-modal-desc{ color:#444; margin-top:10px; line-height:1.6; }
-.project-modal-right{ position:relative; overflow:hidden; }
-.project-modal-right .swiper{ height:100%; }
-.project-modal-right .swiper-slide img{ width:100%; height:100%; object-fit:cover; }
+/* —— POPUP CARD: lock the look so it matches screenshot #1 —— */
 
-@media (max-width:768px){
-  .project-modal-inner{ grid-template-columns:1fr; }
-  .project-modal-right .swiper{ height:240px; }
+/* Card frame & layout */
+/* Popup slider images (inside modal) */
+.project-modal .swiper-slide img {
+  border-radius: 16px;   /* adjust to taste: 8px, 12px, 24px, 50% for circle */
+  overflow: hidden;      /* ensure rounded corners cut off content */
 }
+
+.project-modal { background: rgba(0,0,0,0.72) !important; }
+.project-modal-card{
+  width: 95% !important;
+  max-width: 1300px !important;
+  height: 90vh !important;
+  margin: 20px auto !important;
+  background: #fff !important;
+  color: #000 !important;
+  border-radius: 12px !important;
+  /* white "frame" like screenshot #1 */
+  box-shadow:
+     0 0 0 8px rgba(255,255,255,0.95) inset,
+     0 30px 90px rgba(0,0,0,0.15) !important;
+  overflow: hidden !important;
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Two-column, image heavier on right */
+.project-modal-inner{
+  display: grid !important;
+  grid-template-columns: 1fr 2.2fr !important;
+  height: 100% !important;
+}
+
+/* Left text column */
+.project-modal-left{
+  padding: 28px 32px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  /* kill any global transforms (uppercase / letter-spacing) */
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial !important;
+}
+
+.project-modal-desc{
+  margin-top: 10px !important;
+  color: #444 !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  font-family: inherit !important;
+}
+
+/* Right image column – full bleed, no borders */
+.project-modal-right{ 
+  position: relative !important; 
+  overflow: hidden !important; 
+  padding: 0 0 0px 0 !important; /* HARSH CSS - match top padding (same as left column) */
+  padding-bottom: 0px !important; /* HARSH CSS - match top padding */
+  margin-bottom: 0 !important; /* Prevent margin conflicts */
+  box-sizing: border-box !important; /* Include padding in calculations */
+}
+.project-modal-right .swiper{ 
+  height: 100% !important; /* HARSH CSS - Full height since no bottom padding */
+  max-height: 100% !important; /* HARSH CSS - force max height */
+  min-height: 100% !important; /* HARSH CSS - force min height */
+}
+.project-modal-right .swiper-slide{
+  height: 100% !important; /* Harsh CSS - force slide height */
+  max-height: 100% !important; /* Harsh CSS - prevent overflow */
+}
+.project-modal-right .swiper-slide img{
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 100% !important; /* Harsh CSS - prevent image overflow */
+  object-fit: cover !important;
+  border-radius: 16px !important;
+  filter: none !important;
+  display: block !important;
+  margin: 0 !important; /* Harsh CSS - remove any margins */
+  padding: 0 !important; /* Harsh CSS - remove any padding */
+}
+
+/* Close + "Gallery" button placement */
+.project-modal-close{
+  position: absolute !important;
+  top: 12px !important; right: 16px !important;
+  background: none !important; border: 0 !important;
+  color: #000 !important; font-size: 28px !important; cursor: pointer !important; z-index: 10 !important;
+}
+.project-gallery-btn{
+  position: absolute !important;
+  top: 16px !important; left: 16px !important;
+  font-size: 11px !important; padding: 4px 8px !important;
+  border-radius: 4px !important; cursor: pointer !important; z-index: 20 !important;
+  color: #000 !important; background: rgba(0,0,0,0.05) !important; border: 1px solid rgba(0,0,0,0.25) !important;
+}
+
+/* Mobile stack */
+@media (max-width: 768px){
+  .project-modal-inner{ grid-template-columns: 1fr !important; }
+  .project-modal-right{ 
+    padding: 0 0 130px 0 !important; /* HARSH CSS - ULTRA EXTREME MASSIVE mobile bottom padding */
+    padding-bottom: 130px !important; /* HARSH CSS - NUCLEAR ULTRA EXTREME mobile bottom padding */
+    margin-bottom: 0 !important; /* Prevent margin conflicts */
+    box-sizing: border-box !important; /* Include padding in calculations */
+  }
+  .project-modal-right .swiper{ 
+    height: 320px !important; /* HARSH CSS - Reduce height for ULTRA EXTREME massive mobile padding */
+    max-height: 320px !important; /* HARSH CSS - force max height */
+    min-height: 320px !important; /* HARSH CSS - force min height */
+  }
+  .project-modal-right .swiper-slide{
+    height: 100% !important; /* Harsh CSS - force slide height */
+    max-height: 100% !important; /* Harsh CSS - prevent overflow */
+  }
+  .project-modal-right .swiper-slide img{
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important; /* Harsh CSS - prevent image overflow */
+    object-fit: cover !important;
+    border-radius: 16px !important;
+    display: block !important;
+    margin: 0 !important; /* Harsh CSS - remove any margins */
+    padding: 0 !important; /* Harsh CSS - remove any padding */
+  }
+  .project-modal-card{ box-shadow: 0 0 0 6px rgba(255,255,255,0.95) inset, 0 20px 60px rgba(0,0,0,0.18) !important; }
+  .project-modal-left{ 
+    padding: clamp(20px, 4vw, 28px) clamp(24px, 5vw, 32px) !important;
+    padding-top: clamp(50px, 8vw, 60px) !important; /* Start after gallery button */
+    text-align: center !important;
+  }
+  .project-modal-title{
+    font-size: clamp(18px, 4vw, 24px) !important;
+  }
+  .project-modal-desc{
+    font-size: clamp(14px, 3vw, 16px) !important;
+  }
+}
+
+/* Make sure grid tiles keep their own hover blur but DO NOT affect modal */
+.project-modal .tile img,
+.project-modal img{ filter: none !important; transform: none !important; }
 
 /* Fullscreen gallery (from the modal's slider) */
 .gallery-modal{
@@ -246,16 +417,14 @@ header .menu-btn svg rect{
   background: transparent !important;
 }
 /* Overlay base */
-  .nav-panel{
-    position: fixed; inset: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.571) 0%, rgba(0, 0, 0, 0.571) 40%, rgba(0, 0, 0, 0.571) 100%) !important;
-    backdrop-filter: blur(18px) saturate(120%) !important;
-    -webkit-backdrop-filter: blur(18px) saturate(120%) !important;
-    color: #fff;
-    z-index: 2000;
-    transform: translateY(-100%);
-    transition: transform .45s cubic-bezier(.2,.9,.3,1);
-  }
+.nav-panel{
+  position: fixed; inset: 0;
+  background: #000;        /* solid black like the ref */
+  color: #fff;
+  z-index: 2000;
+  transform: translateY(-100%);
+  transition: transform .45s cubic-bezier(.2,.9,.3,1);
+}
 .nav-panel.open{ transform: translateY(0); }
 
 /* Close button */
@@ -608,7 +777,15 @@ header{ z-index:1500; }
       .project-modal-inner{grid-template-columns:1fr}
       header{padding:18px}
       .project-modal-card{width:95%;padding:14px}
-      .project-modal-right .swiper{height:240px}
+      .project-modal-right .swiper{height:400px !important; }
+      .project-modal-left{
+        padding: clamp(16px, 3vw, 24px) !important;
+        padding-top: clamp(45px, 7vw, 55px) !important; /* Start after gallery button */
+        text-align: center !important;
+      }
+      .project-modal-close{ color: #000 !important; } /* Black close button on mobile */
+      .project-modal-title{ font-size: clamp(16px, 3.5vw, 20px) !important; }
+      .project-modal-desc{ font-size: clamp(13px, 2.8vw, 15px) !important; }
     }
 
     /* small touches */
@@ -1057,11 +1234,10 @@ header .brand img{ max-width: clamp(120px, 22vw, 200px); height: auto; }
   gap: clamp(8px, 2vw, 14px);
   text-align: center;
 }
-  .nav-right a{
-    font-size: clamp(42px, 9vw, 80px) !important;
-    line-height: 1.05;
-    font-weight: 800 !important;
-  }
+.nav-right a{
+  font-size: clamp(28px, 9vw, 80px) !important;
+  line-height: 1.05;
+}
 
 /* Social icons: don’t absolutely place; let them sit above the copyright line */
 .social-icons{
@@ -1141,8 +1317,15 @@ header .brand img{ max-width: clamp(120px, 22vw, 200px); height: auto; }
 }
 @media (max-width: 768px){
   .project-modal-inner{ grid-template-columns: 1fr !important; }
-  .project-modal-right .swiper{ height: 42vh !important; }
-  .project-modal-left{ padding: clamp(12px, 3.5vw, 20px) !important; }
+  .project-modal-right .swiper{ height: 450px !important; }
+  .project-modal-left{ 
+    padding: clamp(20px, 4vw, 28px) clamp(24px, 5vw, 32px) !important;
+    padding-top: clamp(50px, 8vw, 60px) !important; /* Start after gallery button */
+    text-align: center !important;
+  }
+  .project-modal-close{ color: #000 !important; } /* Black close button on mobile */
+  .project-modal-title{ font-size: clamp(18px, 4vw, 24px) !important; }
+  .project-modal-desc{ font-size: clamp(14px, 3vw, 16px) !important; }
 }
 
 /* Round slides consistently */
@@ -1155,10 +1338,358 @@ header .brand img{ max-width: clamp(120px, 22vw, 200px); height: auto; }
 .site-footer .footer-inner{
   padding-inline: var(--page-pad) !important;
 }
-@media (max-width: 760px){
-  .footer-inner{ grid-template-columns: 1fr !important; }
-  .footer-right{ justify-items: start !important; }
+/* Mobile footer same as desktop - removed override */
+
+/* ===== COMPREHENSIVE RESPONSIVE DESIGN ===== */
+
+/* Large Desktop (1400px+) */
+@media (min-width: 1400px) {
+  .container { max-width: 1400px; }
+  .grid { padding-inline: var(--edge-final); }
+  .hero .container { max-width: 1400px; }
 }
+
+/* Desktop (1200px - 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .container { max-width: 1200px; }
+  .grid { padding-inline: var(--edge-final); }
+  .hero .container { max-width: 1200px; }
+}
+
+/* Large Tablet (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .container { max-width: 992px; }
+  .grid { padding-inline: var(--edge-final); }
+  .hero .container { max-width: 992px; }
+  .nav-left { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .nav-right { right: 20px; }
+}
+
+/* Tablet (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .container { max-width: 768px; }
+  .grid { padding-inline: var(--edge-final); }
+  .hero .container { max-width: 768px; }
+  .nav-left { grid-template-columns: 1fr; gap: 20px; }
+  .nav-right { right: 18px; }
+  .hero .container { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* Mobile Large (576px - 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .container { max-width: 576px; }
+  .grid { padding-inline: var(--edge-final); }
+  .hero .container { max-width: 576px; }
+  .nav-left { grid-template-columns: 1fr; gap: 18px; }
+  .nav-right { right: 16px; }
+  .nav-right a { font-size: clamp(28px, 8vw, 48px); }
+  .hero .container { grid-template-columns: 1fr; gap: 20px; }
+}
+
+/* Mobile Medium (480px - 575px) */
+@media (min-width: 480px) and (max-width: 575px) {
+  .container { max-width: 480px; }
+  .grid { padding-inline: var(--edge-final); }
+  .hero .container { max-width: 480px; }
+  .nav-left { grid-template-columns: 1fr; gap: 16px; }
+  .nav-right { right: 14px; }
+  .nav-right a { font-size: clamp(24px, 7vw, 42px); }
+  .hero .container { grid-template-columns: 1fr; gap: 18px; }
+}
+
+/* Mobile Small (360px - 479px) */
+@media (min-width: 360px) and (max-width: 479px) {
+  .container { max-width: 360px; }
+  .grid { padding-inline: var(--edge-final); }
+  .hero .container { max-width: 360px; }
+  .nav-left { grid-template-columns: 1fr; gap: 14px; }
+  .nav-right { right: 12px; }
+  .nav-right a { font-size: clamp(20px, 6vw, 36px); }
+  .hero .container { grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* Mobile Extra Small (320px - 359px) */
+@media (max-width: 359px) {
+  .container { max-width: 320px; }
+  .grid { padding-inline: var(--edge-final); }
+  .hero .container { max-width: 320px; }
+  .nav-left { grid-template-columns: 1fr; gap: 12px; }
+  .nav-right { right: 10px; }
+  .nav-right a { font-size: clamp(18px, 5.5vw, 32px); }
+  .hero .container { grid-template-columns: 1fr; gap: 14px; }
+}
+
+/* ===== RESPONSIVE TYPOGRAPHY ===== */
+@media (max-width: 768px) {
+  .hero h1 { font-size: clamp(32px, 8vw, 48px) !important; }
+  .hero p { font-size: clamp(16px, 4vw, 20px) !important; }
+  .services_title { font-size: clamp(24px, 6vw, 32px) !important; }
+  .category-filters button { font-size: clamp(14px, 3.5vw, 18px) !important; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: clamp(28px, 7vw, 40px) !important; }
+  .hero p { font-size: clamp(14px, 3.5vw, 18px) !important; }
+  .services_title { font-size: clamp(20px, 5vw, 28px) !important; }
+  .category-filters button { font-size: clamp(12px, 3vw, 16px) !important; }
+}
+
+@media (max-width: 360px) {
+  .hero h1 { font-size: clamp(24px, 6vw, 36px) !important; }
+  .hero p { font-size: clamp(12px, 3vw, 16px) !important; }
+  .services_title { font-size: clamp(18px, 4.5vw, 24px) !important; }
+  .category-filters button { font-size: clamp(11px, 2.8vw, 14px) !important; }
+}
+
+/* ===== RESPONSIVE SPACING ===== */
+@media (max-width: 768px) {
+  .hero { padding: clamp(40px, 8vw, 60px) 0 !important; }
+  .section_services { padding: clamp(30px, 6vw, 50px) 0 !important; }
+  .category-filters { margin-bottom: clamp(20px, 4vw, 30px) !important; }
+}
+
+@media (max-width: 480px) {
+  .hero { padding: clamp(30px, 6vw, 50px) 0 !important; }
+  .section_services { padding: clamp(20px, 4vw, 40px) 0 !important; }
+  .category-filters { margin-bottom: clamp(16px, 3vw, 24px) !important; }
+}
+
+@media (max-width: 360px) {
+  .hero { padding: clamp(20px, 4vw, 40px) 0 !important; }
+  .section_services { padding: clamp(15px, 3vw, 30px) 0 !important; }
+  .category-filters { margin-bottom: clamp(12px, 2.5vw, 20px) !important; }
+}
+
+/* ===== RESPONSIVE HEADER ===== */
+@media (max-width: 768px) {
+  header { padding: clamp(12px, 3vw, 18px) var(--edge-final) !important; }
+  .header-logo img { max-height: clamp(24px, 5vw, 32px) !important; }
+  .burger-menu { width: clamp(24px, 5vw, 32px) !important; height: clamp(24px, 5vw, 32px) !important; }
+}
+
+@media (max-width: 480px) {
+  header { padding: clamp(10px, 2.5vw, 16px) var(--edge-final) !important; }
+  .header-logo img { max-height: clamp(20px, 4vw, 28px) !important; }
+  .burger-menu { width: clamp(20px, 4vw, 28px) !important; height: clamp(20px, 4vw, 28px) !important; }
+}
+
+@media (max-width: 360px) {
+  header { padding: clamp(8px, 2vw, 14px) var(--edge-final) !important; }
+  .header-logo img { max-height: clamp(18px, 3.5vw, 24px) !important; }
+  .burger-menu { width: clamp(18px, 3.5vw, 24px) !important; height: clamp(18px, 3.5vw, 24px) !important; }
+}
+
+/* ===== BASIC FOOTER CSS (FROM CONTACT.HTML) ===== */
+.site-footer{ background:#fff; color:#111; }
+.footer-divider{ height:1px; background:var(--divider); margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
+.footer-inner{ max-width: var(--page-max); margin:0 auto; padding: 32px var(--edge-final) !important; display:grid; grid-template-columns:1fr auto; gap:20px; align-items:start; }
+.footer-left{ display:flex; flex-direction:column; gap:18px; align-items:flex-start; }
+.footer-nav{ display:flex; flex-wrap:wrap; gap:22px; }
+.footer-nav a{ color:#111; font-size:18px; opacity:.9; }
+.footer-nav a:hover{ opacity:1; text-decoration:underline; }
+.footer-legal{ font-size:11px; color:var(--muted); }
+.footer-right{ display:grid; justify-items:end; align-content:start; gap:16px; }
+.footer-social{ display:flex; gap:12px; }
+.footer-social .icon{ width:42px; height:42px; display:grid; place-items:center; border-radius:999px; background:#fff; border:1px solid rgba(0,0,0,.14); color:#111; transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease; }
+.footer-social .icon:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,.10); border-color:rgba(0,0,0,.28); }
+.back-to-top{ font-size:14px; font-weight:800; color:#111; }
+
+/* ===== RESPONSIVE FOOTER - SAME DESIGN AS DESKTOP ===== */
+/* Keep desktop 2-column layout on all devices but make it responsive */
+
+@media (max-width: 768px) {
+  .site-footer { 
+    padding: clamp(20px, 4vw, 30px) 0 !important; 
+  }
+  .footer-inner { 
+    padding-inline: var(--edge-final) !important; 
+    grid-template-columns: 1fr auto !important; /* Same as desktop */
+    gap: clamp(16px, 3vw, 24px) !important; /* Responsive gap */
+  }
+  .footer-brand, .footer-nav { 
+    font-size: clamp(12px, 3vw, 16px) !important; 
+  }
+  .footer-left {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: clamp(8px, 1.5vw, 12px) !important;
+  }
+  .footer-right {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-footer { 
+    padding: clamp(18px, 3.5vw, 28px) 0 !important; 
+  }
+  .footer-inner { 
+    gap: clamp(14px, 2.5vw, 20px) !important; 
+  }
+  .footer-brand, .footer-nav { 
+    font-size: clamp(11px, 2.8vw, 15px) !important; 
+  }
+  .footer-left {
+    gap: clamp(6px, 1.2vw, 10px) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-footer { 
+    padding: clamp(15px, 3vw, 25px) 0 !important; 
+  }
+  .footer-inner { 
+    gap: clamp(12px, 2vw, 18px) !important; 
+  }
+  .footer-brand, .footer-nav { 
+    font-size: clamp(10px, 2.5vw, 14px) !important; 
+  }
+  .footer-left {
+    gap: clamp(5px, 1vw, 8px) !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-footer { 
+    padding: clamp(12px, 2.5vw, 20px) 0 !important; 
+  }
+  .footer-inner { 
+    gap: clamp(10px, 1.8vw, 16px) !important; 
+  }
+  .footer-brand, .footer-nav { 
+    font-size: clamp(9px, 2.2vw, 12px) !important; 
+  }
+  .footer-left {
+    gap: clamp(4px, 0.8vw, 6px) !important;
+  }
+}
+
+ /* ===== UNIFIED MOBILE FOOTER CSS - SAME ACROSS ALL PAGES ===== */
+ @media (max-width: 768px) {
+    /* Reset and force unified footer structure */
+    .site-footer { 
+      background: #fff !important; 
+      color: #111 !important; 
+      padding: 20px 0 !important; 
+    }
+    .footer-divider { 
+      height: 1px !important; 
+      background: rgba(0,0,0,0.1) !important; 
+      margin: 0 var(--edge-final) !important; 
+    }
+    .footer-inner { 
+      max-width: 100% !important; 
+      margin: 0 auto !important; 
+      padding: 20px var(--edge-final) !important; 
+      display: grid !important; 
+      grid-template-columns: 1fr auto !important; 
+      gap: 20px !important; 
+      align-items: start !important; 
+    }
+    
+    /* LEFT SIDE - Brand and Navigation */
+    .footer-left { 
+      display: flex !important; 
+      flex-direction: column !important; 
+      gap: 12px !important; 
+      align-items: flex-start !important; 
+    }
+    .footer-brand { 
+      font-size: 16px !important; 
+      font-weight: 600 !important; 
+      color: #111 !important; 
+      text-decoration: none !important; 
+      margin-bottom: 8px !important; 
+    }
+    .footer-brand img { 
+      height: 24px !important; 
+      width: auto !important; 
+    }
+    
+    /* Navigation - HORIZONTAL LAYOUT */
+    .footer-nav { 
+      display: flex !important; 
+      flex-direction: row !important; 
+      flex-wrap: wrap !important; 
+      gap: 16px !important; 
+      margin-bottom: 8px !important; 
+    }
+    .footer-nav a { 
+      color: #111 !important; 
+      font-size: 14px !important; 
+      opacity: 0.8 !important; 
+      text-decoration: none !important; 
+      white-space: nowrap !important; 
+    }
+    .footer-nav a:hover { 
+      opacity: 1 !important; 
+      text-decoration: underline !important; 
+    }
+    
+    /* Legal text */
+    .footer-legal { 
+      font-size: 11px !important; 
+      color: #666 !important; 
+      line-height: 1.4 !important; 
+    }
+    
+    /* RIGHT SIDE - Social Icons */
+    .footer-right { 
+      display: flex !important; 
+      flex-direction: column !important; 
+      align-items: flex-end !important; 
+      gap: 12px !important; 
+    }
+    .footer-social { 
+      display: flex !important; 
+      gap: 8px !important; 
+    }
+    .footer-social .icon { 
+      width: 32px !important; 
+      height: 32px !important; 
+      display: flex !important; 
+      align-items: center !important; 
+      justify-content: center !important; 
+      border-radius: 50% !important; 
+      background: #fff !important; 
+      border: 1px solid rgba(0,0,0,0.1) !important; 
+      color: #111 !important; 
+      text-decoration: none !important; 
+      transition: all 0.2s ease !important; 
+    }
+    .footer-social .icon:hover { 
+      transform: translateY(-1px) !important; 
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important; 
+      border-color: rgba(0,0,0,0.2) !important; 
+    }
+    .footer-social .icon i { 
+      font-size: 14px !important; 
+    }
+    
+    /* Back to top button */
+    .back-to-top { 
+      font-size: 12px !important; 
+      font-weight: 600 !important; 
+      color: #111 !important; 
+      text-decoration: none !important; 
+      padding: 4px 8px !important; 
+      border: 1px solid rgba(0,0,0,0.1) !important; 
+      border-radius: 4px !important; 
+    }
+  }
+    .footer-social .icon{
+      width: clamp(36px, 8vw, 42px) !important;
+      height: clamp(36px, 8vw, 42px) !important;
+    }
+    .footer-social .icon i{
+      font-size: clamp(14px, 3vw, 18px) !important;
+    }
+    .back-to-top{
+      font-size: clamp(12px, 2.5vw, 14px) !important;
+    }
+  }
 
 /* ===== Touch: hide hover label, reduce hover effects ===== */
 @media (hover: none){
@@ -1169,6 +1700,104 @@ header .brand img{ max-width: clamp(120px, 22vw, 200px); height: auto; }
 
 /* Make all images scale down nicely where appropriate */
 img{ max-width: 100%; height: auto; }
+
+/* ===== RESPONSIVE MODAL IMPROVEMENTS ===== */
+@media (max-width: 768px) {
+  .project-modal-card { 
+    width: 95% !important; 
+    max-width: 95vw !important; 
+    height: 90vh !important; 
+    margin: 10px auto !important; 
+  }
+  .project-modal-right .swiper { 
+    height: 320px !important; 
+    max-height: 320px !important; 
+  }
+  .project-modal-left { 
+    padding: clamp(20px, 4vw, 28px) clamp(24px, 5vw, 32px) !important; 
+    padding-top: clamp(50px, 8vw, 60px) !important; 
+  }
+}
+
+@media (max-width: 480px) {
+  .project-modal-card { 
+    width: 98% !important; 
+    max-width: 98vw !important; 
+    height: 95vh !important; 
+    margin: 5px auto !important; 
+  }
+  .project-modal-right .swiper { 
+    height: 280px !important; 
+    max-height: 280px !important; 
+  }
+  .project-modal-left { 
+    padding: clamp(16px, 3vw, 24px) !important; 
+    padding-top: clamp(45px, 7vw, 55px) !important; 
+  }
+}
+
+@media (max-width: 360px) {
+  .project-modal-card { 
+    width: 100% !important; 
+    max-width: 100vw !important; 
+    height: 100vh !important; 
+    margin: 0 !important; 
+    border-radius: 0 !important; 
+  }
+  .project-modal-right .swiper { 
+    height: 250px !important; 
+    max-height: 250px !important; 
+  }
+  .project-modal-left { 
+    padding: clamp(12px, 2.5vw, 20px) !important; 
+    padding-top: clamp(40px, 6vw, 50px) !important; 
+  }
+}
+
+/* ===== RESPONSIVE OVERFLOW PREVENTION ===== */
+@media (max-width: 768px) {
+  body, html { 
+    overflow-x: hidden !important; 
+    max-width: 100vw !important; 
+  }
+  .container, .hero, .grid, .site-footer, header { 
+    max-width: 100vw !important; 
+    overflow-x: hidden !important; 
+  }
+}
+
+/* ===== RESPONSIVE CATEGORY FILTERS ===== */
+@media (max-width: 768px) {
+  .category-filters { 
+    flex-wrap: wrap !important; 
+    gap: clamp(8px, 2vw, 12px) !important; 
+    justify-content: center !important; 
+  }
+  .category-filters button { 
+    padding: clamp(8px, 2vw, 12px) clamp(12px, 3vw, 16px) !important; 
+    border-radius: clamp(4px, 1vw, 6px) !important; 
+  }
+}
+
+@media (max-width: 480px) {
+  .category-filters { 
+    gap: clamp(6px, 1.5vw, 10px) !important; 
+  }
+  .category-filters button { 
+    padding: clamp(6px, 1.5vw, 10px) clamp(10px, 2.5vw, 14px) !important; 
+    font-size: clamp(11px, 2.8vw, 14px) !important; 
+  }
+}
+
+@media (max-width: 360px) {
+  .category-filters { 
+    gap: clamp(4px, 1vw, 8px) !important; 
+  }
+  .category-filters button { 
+    padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 12px) !important; 
+    font-size: clamp(10px, 2.5vw, 12px) !important; 
+  }
+}
 </style>
 <style id="edge-tuning">
 /* Tighter, desktop-friendly gutter */
@@ -1278,10 +1907,9 @@ header .menu-btn{ padding: 0 !important; margin: 0 !important; }
     <div class="bar"><i id="bar-fill"></i></div>
     <div class="percent" id="percent">0%</div>
   </div>
- 
-  
 
-<header>
+  <!-- Header -->
+  <header>
     <div class="brand" style="padding-left: 22px;">
       <a href="../index.html"><img src="../Font Logo-Dark (1).png" alt="Room"></a>
     </div>
@@ -1682,8 +2310,27 @@ header .menu-btn{ padding: 0 !important; margin: 0 !important; }
 <script>
 (function () {
   const container = document.getElementById('grid');
-  const targetRowHeight = 450;
-  const gutter = 2; // must match CSS
+  
+  // Responsive functions - SAME AS INDEX.HTML
+  function getGutter() {
+    const width = window.innerWidth;
+    if (width <= 360) return 2;
+    if (width <= 480) return 2;
+    if (width <= 640) return 2;
+    return 2; // Desktop - same as work.html
+  }
+  
+  function getTargetRowHeight() {
+    const width = window.innerWidth;
+    // More random heights for varied tile sizes - called each time for more randomness
+    if (width <= 360) return Math.random() * 80 + 80; // 80-160px random
+    if (width <= 480) return Math.random() * 100 + 100; // 100-200px random
+    if (width <= 640) return Math.random() * 120 + 120; // 120-240px random
+    return Math.random() * 100 + 200; // Desktop - 200-300px random
+  }
+  
+  let gutter = getGutter();
+  let targetRowHeight = getTargetRowHeight();
 
   // Master list of tiles (never changes)
   const MASTER = Array.from(container.querySelectorAll('.tile'));
@@ -1705,9 +2352,13 @@ header .menu-btn{ padding: 0 !important; margin: 0 !important; }
   }
 
 function layout() {
-  const tiles = getVisibleTiles();
+  // Update gutter and row height for current screen size
+  gutter = getGutter();
+  targetRowHeight = getTargetRowHeight();
 
+  const tiles = getVisibleTiles();
   container.innerHTML = '';
+
   let row = [], arSum = 0;
 
   // ✅ use content width only (not including padding)
@@ -1729,25 +2380,29 @@ function layout() {
       const rowWidthMinusGaps = cw - gutter * (row.length - 1);
       const h = rowWidthMinusGaps / arSum;
 
-      // finalize row at ~target height OR 4 items OR end
-      if (h <= targetRowHeight || row.length === 4 || i === items.length - 1) {
+      // finalize row at ~target height OR 3 items (for desktop) OR 2 items (for mobile) OR end
+      const isMobile = window.innerWidth <= 768;
+      const maxItemsPerRow = isMobile ? 2 : 3;
+      if (h <= targetRowHeight || row.length === maxItemsPerRow || i === items.length - 1) {
         const jrow = document.createElement('div');
         jrow.className = 'j-row';
 
-         // If this is the last row, use its natural height so it stretches full width
-         const isLastRow = (i === items.length - 1);
-         const finalH = isLastRow ? h : Math.min(targetRowHeight, h);
+        // If this is the last row, use its natural height so it stretches full width
+        const isLastRow = (i === items.length - 1);
+        // Use more random heights for each row
+        const randomHeight = getTargetRowHeight();
+        const finalH = isLastRow ? h : Math.min(randomHeight, h);
 
-         // Compute widths and distribute any rounding remainder to the last tile
-         const widths = row.map(it => finalH * it.ar);
-         const total = widths.reduce((a,b)=>a+b,0);
-         const remainder = cw - (total + gutter * (row.length - 1));
+        // Compute widths and distribute any rounding remainder to the last tile
+        const widths = row.map(it => finalH * it.ar);
+        const total = widths.reduce((a,b)=>a+b,0);
+        const remainder = cw - (total + gutter * (row.length - 1));
 
-         row.forEach((it, idx) => {
-           const add = (idx === row.length - 1) ? remainder : 0;
-           const w = widths[idx] + add;
-           it.el.style.width = w + 'px';
-           it.el.style.height = finalH + 'px';
+        row.forEach((it, idx) => {
+          const add = (idx === row.length - 1) ? remainder : 0;
+          const w = widths[idx] + add;
+          it.el.style.width = w + 'px';
+          it.el.style.height = finalH + 'px';
           jrow.appendChild(it.el);
         });
 
@@ -1890,12 +2545,12 @@ document.querySelectorAll('.category').forEach(el => {
 }
 
 .project-modal-card {
-  width: 95%;           /* wider card */
-  max-width: 1300px;    /* bigger max width */
-  height: 90vh;         /* taller */
-  margin: 20px 0;       /* smaller vertical margin */
-  background: #ffffff;
-  color: #000000;
+  width: 95% !important;           /* wider card */
+  max-width: 1300px !important;    /* bigger max width */
+  height: 90vh !important;         /* taller */
+  margin: 20px auto !important;    /* smaller vertical margin */
+  background: #ffffff !important;
+  color: #000000 !important;
   border-radius: 12px;
   box-shadow: 0 30px 90px rgba(0,0,0,0.15);
   overflow: hidden;
@@ -2475,7 +3130,7 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
 
     /* container + padding */
                      /* width of content block */
-    --footer-xpad: var(--edge-final);   /* side padding - use same as header */
+    --footer-xpad: clamp(20px, 4vw, 60px);   /* side padding */
     --footer-ypad: 36px;                     /* vertical padding */
     --footer-gap: 28px;                      /* spacing inside */
 
@@ -2485,12 +3140,12 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
   }
 
   .site-footer{ background:var(--footer-bg); color:var(--footer-fg); font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
-  .footer-divider{ height:1px; background:var(--divider); margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
+  .footer-divider{ height:1px; background:var(--divider); margin: 0 var(--footer-xpad); }
 
   .footer-inner{
     max-width: var(--footer-max);
     margin: 0 auto;
-    padding: var(--footer-ypad) var(--edge-final) !important;
+    padding: var(--footer-ypad) var(--footer-xpad);
     display: grid;
     grid-template-columns: 1fr auto;
     gap: var(--footer-gap);
@@ -2728,16 +3383,8 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
 /* Header: remove inline paddings and use the shared edge */
  header{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
  header .brand{ padding: 0 !important; }
-  header > div:last-child{ padding: 0 !important; gap: 16px; }
-  header .menu-btn{ padding-right: 0 !important; }
-  /* Tiny nudge to align burger exactly with grid edge */
-  :root{ --burger-nudge-x: 36px; }
-   /* Shift the entire right control group (Email + burger) to the right */
-   header > div:last-child{ padding-right: 0 !important; margin-right: calc(var(--burger-nudge-x) * -1) !important; }
-   /* Keep individual elements tight */
-   header .menu-btn{ margin-right: 0 !important; }
-   header .btn{ padding-right: 0 !important; }
-   @media (max-width: 980px){ :root{ --burger-nudge-x: 18px; } }
+ header > div:last-child{ padding: 0 !important; gap: 16px; }
+ header .menu-btn{ padding-right: 0 !important; }
 
 /* Grid and filters: use the same edge so tiles align under the logo/burger */
  .grid{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
@@ -2746,80 +3393,46 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
 /* Hero: align text and slider edges with header/logo/burger */
  .hero{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
  .hero .container{ max-width: none !important; padding: 0 !important; }
- /* Responsive title size */
- .hero h1{ font-size: clamp(34px, 6.5vw, 92px) !important; line-height: 1.02; }
 
 /* Footer: divider and content align to the same edge */
-.site-footer .footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
-.footer-divider{ margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
-
-/* Ensure footer alignment matches header across all devices */
-@media (max-width: 640px) {
-  :root {
-    --edge-final: clamp(18px, 4vw, 24px);
-    --burger-nudge-x: 30px;
-  }
-}
-
-@media (min-width: 641px) and (max-width: 1024px) {
-  :root {
-    --edge-final: clamp(24px, 4vw, 40px);
-    --burger-nudge-x: 50px;
-  }
-}
-
-@media (min-width: 1025px) {
-  :root {
-    --edge-final: clamp(40px, 4vw, 60px);
-    --burger-nudge-x: 100px;
-  }
-}
+ .site-footer .footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+ .footer-divider{ margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
 
 /* Make sure footer left elements start at the same left edge */
  .site-footer .footer-brand{ margin-left: 0 !important; }
-  .site-footer .footer-nav{ margin-left: 0 !important; padding-left: 0 !important; }
-
-/* Nav overlay (opened via burger): align its inner padding to the same edge */
-  #navPanel .nav-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+ .site-footer .footer-nav{ margin-left: 0 !important; padding-left: 0 !important; }
 
 /* Mobile: keep everything consistent and stacked nicely */
  @media (max-width: 760px){
    header{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
    .grid{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
    .category-filters{ margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
-     .site-footer .footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
-   }
- </style>
-<style id="nav-overlay-unify">
-/* Unify full-screen overlay: big centered links + centered social icons */
-#navPanel.nav-panel{ display:flex; flex-direction:column; }
-#navPanel .nav-inner{ padding: clamp(24px, 4vw, 40px) var(--edge-final) !important; }
-#navPanel .nav-right{ position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; margin:0; padding:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap: clamp(12px, 3vw, 20px); text-align:center; list-style:none !important; }
-#navPanel .nav-right li{ list-style:none !important; }
-#navPanel .nav-right a{ padding:0 !important; font-size: clamp(42px, 9vw, 80px) !important; line-height:1.05; font-weight:700; color:#fff !important; opacity:1 !important; text-decoration:none !important; }
-#navPanel .nav-bottom{ position: absolute !important; bottom: clamp(40px, 6vw, 60px) !important; left: 50% !important; transform: translateX(-20%) !important; display:flex; justify-content:center; width: 100%; max-width: 400px; }
-#navPanel .social-icons{ position: static !important; display:flex; gap: 16px; justify-content:center; align-items:center; }
+   .site-footer .footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+ }
 
-/* Mobile responsiveness */
-@media (max-width: 768px){
-  #navPanel .nav-right a{ font-size: clamp(24px, 8vw, 48px) !important; }
-  #navPanel .nav-right{ gap: clamp(8px, 2.5vw, 16px); }
-  #navPanel .nav-bottom{ bottom: clamp(30px, 5vw, 50px) !important; transform: translateX(-25%) !important; }
-  #navPanel .social-icons{ gap: clamp(10px, 2.5vw, 16px); }
+/* === MOBILE RESPONSIVE GRID - SAME AS INDEX.HTML === */
+@media (max-width: 640px){
+  /* Fix overlapping and spacing issues on tablets - match index.html */
+  .grid{ gap: 0 !important; } /* Remove gap - justified grid handles spacing */
+  .j-row{ gap: 2px !important; margin-bottom: 2px !important; } /* Same as index.html */
+  .tile{ margin-bottom: 0 !important; } /* Remove margin since j-row handles spacing */
+  .category-filters{ gap: clamp(10px, 2.5vw, 16px) !important; margin-bottom: clamp(20px, 4vw, 30px) !important; }
 }
 
 @media (max-width: 480px){
-  #navPanel .nav-right a{ font-size: clamp(20px, 9vw, 40px) !important; }
-  #navPanel .nav-right{ gap: clamp(6px, 2vw, 12px); }
-  #navPanel .nav-bottom{ bottom: clamp(25px, 4vw, 40px) !important; transform: translateX(-30%) !important; }
-  #navPanel .social-icons{ gap: clamp(8px, 2vw, 14px); }
+  /* Fix grid gaps and overlapping on mobile - match index.html */
+  .grid{ gap: 0 !important; } /* Remove gap - justified grid handles spacing */
+  .j-row{ gap: 2px !important; margin-bottom: 2px !important; } /* Same as index.html */
+  .tile{ margin-bottom: 0 !important; } /* Remove margin since j-row handles spacing */
+  .category-filters{ gap: clamp(8px, 2vw, 12px) !important; margin-bottom: clamp(16px, 3vw, 24px) !important; }
 }
 
 @media (max-width: 360px){
-  #navPanel .nav-right a{ font-size: clamp(18px, 10vw, 36px) !important; }
-  #navPanel .nav-right{ gap: clamp(4px, 1.5vw, 10px); }
-  #navPanel .nav-bottom{ bottom: clamp(20px, 3vw, 35px) !important; transform: translateX(-35%) !important; }
-  #navPanel .social-icons{ gap: clamp(6px, 1.5vw, 12px); }
+  /* Ultra-compact mobile layout - match index.html */
+  .grid{ gap: 0 !important; } /* Remove gap - justified grid handles spacing */
+  .j-row{ gap: 2px !important; margin-bottom: 2px !important; } /* Same as index.html */
+  .tile{ margin-bottom: 0 !important; } /* Remove margin since j-row handles spacing */
+  .category-filters{ gap: clamp(6px, 1.5vw, 10px) !important; margin-bottom: clamp(12px, 2.5vw, 20px) !important; }
 }
 </style>
 
@@ -2863,4 +3476,4 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
 
 
 
- </html>
+</html>

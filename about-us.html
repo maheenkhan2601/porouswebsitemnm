@@ -731,6 +731,31 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
   #navPanel .nav-right a{ font-size: clamp(28px, 9vw, 44px) !important; }
   .hero h1{ font-size: clamp(28px, 8vw, 48px) !important; }
   .about-content h2{ font-size: clamp(20px, 5vw, 28px) !important; }
+  
+  /* Mobile footer improvements */
+  .footer-inner{
+    grid-template-columns: 1fr auto !important;
+    gap: clamp(12px, 2.5vw, 20px) !important;
+    padding: clamp(16px, 3vw, 24px) var(--edge-final) !important;
+  }
+  .footer-right{
+    justify-items: end !important;
+  }
+  .footer-nav{
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: clamp(6px, 1.2vw, 10px) !important;
+  }
+  .footer-nav a{
+    font-size: clamp(13px, 2.8vw, 16px) !important;
+  }
+  .footer-brand{
+    font-size: clamp(16px, 3.5vw, 24px) !important;
+  }
+  .footer-social .icon{
+    width: clamp(32px, 7vw, 38px) !important;
+    height: clamp(32px, 7vw, 38px) !important;
+  }
 }
 
 @media (max-width: 360px){
@@ -738,6 +763,34 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
   #navPanel .nav-right a{ font-size: clamp(24px, 10vw, 36px) !important; }
   .hero h1{ font-size: clamp(24px, 9vw, 40px) !important; }
   .about-content h2{ font-size: clamp(18px, 6vw, 24px) !important; }
+  
+  /* Ultra-compact mobile footer */
+  .footer-inner{
+    grid-template-columns: 1fr auto !important;
+    gap: clamp(10px, 2vw, 16px) !important;
+    padding: clamp(12px, 2.5vw, 20px) var(--edge-final) !important;
+  }
+  .footer-right{
+    justify-items: end !important;
+  }
+  .footer-nav{
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: clamp(4px, 1vw, 8px) !important;
+  }
+  .footer-nav a{
+    font-size: clamp(12px, 2.5vw, 14px) !important;
+  }
+  .footer-brand{
+    font-size: clamp(14px, 3vw, 20px) !important;
+  }
+  .footer-social .icon{
+    width: clamp(28px, 6vw, 34px) !important;
+    height: clamp(28px, 6vw, 34px) !important;
+  }
+  .footer-legal{
+    font-size: clamp(9px, 1.8vw, 11px) !important;
+  }
 }
 </style>
   <script id="sync-edges-to-header">
@@ -1033,7 +1086,7 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
           
           alt=""
           class="brand-logo"
-     
+          width="220" height="56"
           loading="lazy" decoding="async">
       </a>
 
@@ -1177,13 +1230,215 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
   .back-to-top:hover .arrow{ transform: translateY(-2px); }
 
   /* MOBILE */
-  @media (max-width: 760px){
-    .footer-inner{
-      grid-template-columns: 1fr;
-      justify-items: start;
-      gap: 22px;
+  /* ===== BASIC FOOTER CSS (FROM CONTACT.HTML) ===== */
+  .site-footer{ background:#fff; color:#111; }
+  .footer-divider{ height:1px; background:var(--divider); margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
+  .footer-inner{ max-width: var(--page-max); margin:0 auto; padding: 32px var(--edge-final) !important; display:grid; grid-template-columns:1fr auto; gap:20px; align-items:start; }
+  .footer-left{ display:flex; flex-direction:column; gap:18px; align-items:flex-start; }
+  .footer-nav{ display:flex; flex-wrap:wrap; gap:22px; }
+  .footer-nav a{ color:#111; font-size:18px; opacity:.9; }
+  .footer-nav a:hover{ opacity:1; text-decoration:underline; }
+  .footer-legal{ font-size:11px; color:var(--muted); }
+  .footer-right{ display:grid; justify-items:end; align-content:start; gap:16px; }
+  .footer-social{ display:flex; gap:12px; }
+  .footer-social .icon{ width:42px; height:42px; display:grid; place-items:center; border-radius:999px; background:#fff; border:1px solid rgba(0,0,0,.14); color:#111; transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease; }
+  .footer-social .icon:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,.10); border-color:rgba(0,0,0,.28); }
+  .back-to-top{ font-size:14px; font-weight:800; color:#111; }
+
+  /* ===== RESPONSIVE FOOTER - SAME DESIGN AS DESKTOP ===== */
+  /* Keep desktop 2-column layout on all devices but make it responsive */
+
+  @media (max-width: 768px) {
+    .site-footer { 
+      padding: clamp(20px, 4vw, 30px) 0 !important; 
     }
-    .footer-right{ justify-items:start; }
+    .footer-inner { 
+      padding-inline: var(--edge-final) !important; 
+      grid-template-columns: 1fr auto !important; /* Same as desktop */
+      gap: clamp(16px, 3vw, 24px) !important; /* Responsive gap */
+    }
+    .footer-brand, .footer-nav { 
+      font-size: clamp(12px, 3vw, 16px) !important; 
+    }
+    .footer-left {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: clamp(8px, 1.5vw, 12px) !important;
+    }
+    .footer-right {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .site-footer { 
+      padding: clamp(18px, 3.5vw, 28px) 0 !important; 
+    }
+    .footer-inner { 
+      gap: clamp(14px, 2.5vw, 20px) !important; 
+    }
+    .footer-brand, .footer-nav { 
+      font-size: clamp(11px, 2.8vw, 15px) !important; 
+    }
+    .footer-left {
+      gap: clamp(6px, 1.2vw, 10px) !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .site-footer { 
+      padding: clamp(15px, 3vw, 25px) 0 !important; 
+    }
+    .footer-inner { 
+      gap: clamp(12px, 2vw, 18px) !important; 
+    }
+    .footer-brand, .footer-nav { 
+      font-size: clamp(10px, 2.5vw, 14px) !important; 
+    }
+    .footer-left {
+      gap: clamp(5px, 1vw, 8px) !important;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .site-footer { 
+      padding: clamp(12px, 2.5vw, 20px) 0 !important; 
+    }
+    .footer-inner { 
+      gap: clamp(10px, 1.8vw, 16px) !important; 
+    }
+    .footer-brand, .footer-nav { 
+      font-size: clamp(9px, 2.2vw, 12px) !important; 
+    }
+    .footer-left {
+      gap: clamp(4px, 0.8vw, 6px) !important;
+    }
+  }
+
+  /* ===== UNIFIED MOBILE FOOTER CSS - SAME ACROSS ALL PAGES ===== */
+  @media (max-width: 768px) {
+    /* Reset and force unified footer structure */
+    .site-footer { 
+      background: #fff !important; 
+      color: #111 !important; 
+      padding: 20px 0 !important; 
+    }
+    .footer-divider { 
+      height: 1px !important; 
+      background: rgba(0,0,0,0.1) !important; 
+      margin: 0 var(--edge-final) !important; 
+    }
+    .footer-inner { 
+      max-width: 100% !important; 
+      margin: 0 auto !important; 
+      padding: 20px var(--edge-final) !important; 
+      display: grid !important; 
+      grid-template-columns: 1fr auto !important; 
+      gap: 20px !important; 
+      align-items: start !important; 
+    }
+    
+    /* LEFT SIDE - Brand and Navigation */
+    .footer-left { 
+      display: flex !important; 
+      flex-direction: column !important; 
+      gap: 12px !important; 
+      align-items: flex-start !important; 
+    }
+    .footer-brand { 
+      font-size: 16px !important; 
+      font-weight: 600 !important; 
+      color: #111 !important; 
+      text-decoration: none !important; 
+      margin-bottom: 8px !important; 
+      display: inline-block !important; 
+      visibility: visible !important; 
+      opacity: 1 !important; 
+    }
+    .footer-brand img { 
+      height: 24px !important; 
+      width: auto !important; 
+      display: block !important; 
+      visibility: visible !important; 
+      opacity: 1 !important; 
+    }
+    
+    /* Navigation - HORIZONTAL LAYOUT */
+    .footer-nav { 
+      display: flex !important; 
+      flex-direction: row !important; 
+      flex-wrap: wrap !important; 
+      gap: 16px !important; 
+      margin-bottom: 8px !important; 
+    }
+    .footer-nav a { 
+      color: #111 !important; 
+      font-size: 14px !important; 
+      opacity: 0.8 !important; 
+      text-decoration: none !important; 
+      white-space: nowrap !important; 
+    }
+    .footer-nav a:hover { 
+      opacity: 1 !important; 
+      text-decoration: underline !important; 
+    }
+    
+    /* Legal text */
+    .footer-legal { 
+      font-size: 11px !important; 
+      color: #666 !important; 
+      line-height: 1.4 !important; 
+    }
+    
+    /* RIGHT SIDE - Social Icons */
+    .footer-right { 
+      display: flex !important; 
+      flex-direction: column !important; 
+      align-items: flex-end !important; 
+      gap: 12px !important; 
+    }
+    .footer-social { 
+      display: flex !important; 
+      gap: 8px !important; 
+    }
+    .footer-social .icon { 
+      width: 32px !important; 
+      height: 32px !important; 
+      display: flex !important; 
+      align-items: center !important; 
+      justify-content: center !important; 
+      border-radius: 50% !important; 
+      background: #fff !important; 
+      border: 1px solid rgba(0,0,0,0.1) !important; 
+      color: #111 !important; 
+      text-decoration: none !important; 
+      transition: all 0.2s ease !important; 
+    }
+    .footer-social .icon:hover { 
+      transform: translateY(-1px) !important; 
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important; 
+      border-color: rgba(0,0,0,0.2) !important; 
+    }
+    .footer-social .icon i { 
+      font-size: 14px !important; 
+    }
+    
+    /* Back to top button */
+    .back-to-top { 
+      font-size: 12px !important; 
+      font-weight: 600 !important; 
+      color: #111 !important; 
+      text-decoration: none !important; 
+      padding: 4px 8px !important; 
+      border: 1px solid rgba(0,0,0,0.1) !important; 
+      border-radius: 4px !important; 
+    }
+  }
+    .back-to-top{
+      font-size: clamp(12px, 2.5vw, 14px) !important;
+    }
   }
   /* --- Centered layout variant --- */
 .footer-inner.is-centered{
@@ -1434,12 +1689,45 @@ body{
 /* Mobile tweaks */
 @media (max-width: 760px){
   .footer-inner{
-    grid-template-columns: 1fr;
-    justify-items: start;
-    gap: 22px;
-    padding: 32px clamp(20px, 8vw, 96px);   /* extra side padding on phones */
+    grid-template-columns: 1fr auto !important;
+    justify-items: start !important;
+    gap: clamp(16px, 3vw, 24px) !important;
+    padding: clamp(20px, 4vw, 30px) var(--edge-final) !important;
   }
-  .footer-right{ justify-items:start; }
+  .footer-right{ 
+    justify-items: end !important; 
+    gap: clamp(12px, 2vw, 18px) !important;
+  }
+  .footer-nav{
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: clamp(8px, 1.5vw, 12px) !important;
+    margin-bottom: clamp(12px, 2vw, 18px) !important;
+  }
+  .footer-nav a{
+    font-size: clamp(14px, 3vw, 18px) !important;
+  }
+  .footer-brand{
+    font-size: clamp(18px, 4vw, 28px) !important;
+    margin-bottom: clamp(10px, 2vw, 14px) !important;
+  }
+  .footer-legal{
+    font-size: clamp(10px, 2vw, 12px) !important;
+    line-height: 1.4 !important;
+  }
+  .footer-social{
+    gap: clamp(8px, 1.5vw, 12px) !important;
+  }
+  .footer-social .icon{
+    width: clamp(36px, 8vw, 42px) !important;
+    height: clamp(36px, 8vw, 42px) !important;
+  }
+  .footer-social .icon i{
+    font-size: clamp(14px, 3vw, 18px) !important;
+  }
+  .back-to-top{
+    font-size: clamp(12px, 2.5vw, 14px) !important;
+  }
 }
 
 </style>
