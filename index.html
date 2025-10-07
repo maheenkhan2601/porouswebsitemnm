@@ -494,7 +494,7 @@ html, body {
 /* One gutter to align header logo, burger, grid, and footer */
 :root{
   --edge-final: clamp(18px, 4vw, 60px);
-  --burger-nudge-x: 64px; /* Moved further right for better alignment */
+  --burger-nudge-x: 50px; /* Unified alignment across all pages */
 }
 
 /* Header: remove inline paddings and use the shared edge */
@@ -538,7 +538,7 @@ header .btn{ padding-right: 0 !important; }
 @media (min-width: 1025px) {
   :root {
     --edge-final: clamp(40px, 4vw, 60px);
-    --burger-nudge-x: 100px;
+    --burger-nudge-x: 50px; /* Unified alignment across all pages */
   }
 }
 
@@ -623,7 +623,7 @@ header .btn{ padding-right: 0 !important; }
 @media (max-width: 480px){
   :root{ 
     --edge-final: clamp(12px, 3vw, 24px);
-    --burger-nudge-x: 28px; /* Moved further right for mobile */
+    --burger-nudge-x: 30px; /* Unified alignment across all pages */
   }
   .hero h1{ font-size: clamp(28px, 8vw, 48px) !important; }
   #navPanel .nav-right a{ font-size: clamp(28px, 9vw, 44px) !important; }
@@ -687,7 +687,7 @@ header .btn{ padding-right: 0 !important; }
 @media (max-width: 360px){
   :root{ 
     --edge-final: clamp(10px, 2.5vw, 20px);
-    --burger-nudge-x: 24px; /* Moved further right for small mobile */
+    --burger-nudge-x: 30px; /* Unified alignment across all pages */
   }
   .hero h1{ font-size: clamp(24px, 9vw, 40px) !important; }
   #navPanel .nav-right a{ font-size: clamp(24px, 10vw, 36px) !important; }
@@ -988,12 +988,14 @@ html, body {
   height: 100vh;
   overflow: hidden;
 }
-/* ----- Overlay copy (left by default) ----- */
+/* ----- Overlay copy (right-aligned to match burger menu) ----- */
 .slider-copy{
   position: absolute;
-  /* left/bottom padding from the edges */
-  left: clamp(28px, 300vh, 58px);
+  /* right/bottom padding from the edges - aligned with burger menu */
+  right: var(--edge-final);
+  left: auto;
   bottom: clamp(2px, 275vh, -23px);
+  text-align: right;
 
   max-width: min(54rem, 78vw);
   color: #fff;
@@ -1001,7 +1003,6 @@ html, body {
 
   /* still let users swipe the slider */
   pointer-events: none;
-  text-align: left;
 }
 
 /* Right-aligned variant: add .is-right on the wrapper if desired */

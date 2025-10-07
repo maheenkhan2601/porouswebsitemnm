@@ -3378,13 +3378,53 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
 <style id="final-responsive-align">
 /* ===== Final alignment + responsiveness unifier ===== */
 /* One gutter to align header logo, burger, grid, and footer */
- :root{ --edge-final: clamp(18px, 4vw, 60px); }
+ :root{ 
+   --edge-final: clamp(18px, 4vw, 60px);
+   --burger-nudge-x: 50px; /* Unified alignment across all pages */
+ }
 
 /* Header: remove inline paddings and use the shared edge */
  header{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
  header .brand{ padding: 0 !important; }
- header > div:last-child{ padding: 0 !important; gap: 16px; }
+ header .actions{ padding-right: var(--burger-nudge-x) !important; gap: 16px; }
+ header .btn{ padding-right: 0 !important; }
  header .menu-btn{ padding-right: 0 !important; }
+
+/* Responsive breakpoints for unified alignment */
+@media (max-width: 640px) {
+  :root {
+    --edge-final: clamp(18px, 4vw, 24px);
+    --burger-nudge-x: 30px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  :root {
+    --edge-final: clamp(24px, 4vw, 40px);
+    --burger-nudge-x: 50px;
+  }
+}
+
+@media (min-width: 1025px) {
+  :root {
+    --edge-final: clamp(40px, 4vw, 60px);
+    --burger-nudge-x: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root{ 
+    --edge-final: clamp(12px, 3vw, 24px);
+    --burger-nudge-x: 30px;
+  }
+}
+
+@media (max-width: 360px) {
+  :root{ 
+    --edge-final: clamp(10px, 2.5vw, 20px);
+    --burger-nudge-x: 30px;
+  }
+}
 
 /* Grid and filters: use the same edge so tiles align under the logo/burger */
  .grid{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }

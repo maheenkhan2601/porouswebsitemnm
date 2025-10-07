@@ -620,7 +620,7 @@ cubic-bezier(.2, .9, .3, 1);
 /* One gutter to align header logo, burger, content, and footer */
 :root{
   --edge-final: clamp(18px, 4vw, 60px);
-  --burger-nudge-x: 32px; /* Adjusted for about-us page */
+  --burger-nudge-x: 50px; /* Unified alignment across all pages */
 }
 
 /* Header: remove inline paddings and use the shared edge */
@@ -660,7 +660,7 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
 @media (min-width: 1025px) {
   :root {
     --edge-final: clamp(40px, 4vw, 60px);
-    --burger-nudge-x: 100px;
+    --burger-nudge-x: 50px; /* Unified alignment across all pages */
   }
 }
 
@@ -727,7 +727,10 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
 
 /* Additional responsive breakpoints for better mobile experience */
 @media (max-width: 480px){
-  :root{ --edge-final: clamp(12px, 3vw, 24px); }
+  :root{ 
+    --edge-final: clamp(12px, 3vw, 24px);
+    --burger-nudge-x: 30px; /* Unified alignment across all pages */
+  }
   #navPanel .nav-right a{ font-size: clamp(28px, 9vw, 44px) !important; }
   .hero h1{ font-size: clamp(28px, 8vw, 48px) !important; }
   .about-content h2{ font-size: clamp(20px, 5vw, 28px) !important; }
@@ -759,7 +762,10 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
 }
 
 @media (max-width: 360px){
-  :root{ --edge-final: clamp(10px, 2.5vw, 20px); }
+  :root{ 
+    --edge-final: clamp(10px, 2.5vw, 20px);
+    --burger-nudge-x: 30px; /* Unified alignment across all pages */
+  }
   #navPanel .nav-right a{ font-size: clamp(24px, 10vw, 36px) !important; }
   .hero h1{ font-size: clamp(24px, 9vw, 40px) !important; }
   .about-content h2{ font-size: clamp(18px, 6vw, 24px) !important; }
@@ -1319,6 +1325,18 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
 
   /* ===== UNIFIED MOBILE FOOTER CSS - SAME ACROSS ALL PAGES ===== */
   @media (max-width: 768px) {
+    /* HARSH CSS - FORCE FOOTER LOGO TO SHOW */
+    .site-footer .footer-brand,
+    .site-footer .footer-brand img,
+    .footer-brand,
+    .footer-brand img {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      position: relative !important;
+      z-index: 9999 !important;
+    }
+    
     /* Reset and force unified footer structure */
     .site-footer { 
       background: #fff !important; 
@@ -1346,6 +1364,9 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
       flex-direction: column !important; 
       gap: 12px !important; 
       align-items: flex-start !important; 
+      visibility: visible !important;
+      opacity: 1 !important;
+      position: relative !important;
     }
     .footer-brand { 
       font-size: 16px !important; 
@@ -1652,9 +1673,9 @@ body{
 .footer-left{ display:flex; flex-direction:column; gap:18px; align-items:flex-start; }
 .footer-brand{ display:inline-block; margin:0; text-align:left; }
 .footer-brand img{
-  height: clamp(26px, 5vw, 44px);   /* 🔒 keeps logo small on all devices */
+  height: clamp(20px, 3vw, 28px);   /* 🔒 keeps logo small on all devices */
   width: auto;                      /* preserve aspect ratio */
-  max-width: 200px;                 /* hard cap */
+  max-width: 150px;                 /* hard cap */
   display: block;
 }
 .footer-nav{ display:flex; flex-wrap:wrap; gap:22px; margin: 4px 0 12px; }
