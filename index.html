@@ -3347,11 +3347,11 @@ document.querySelectorAll("a").forEach(link => {
   
   function getTargetRowHeight() {
     const width = window.innerWidth;
-    // More random heights for varied tile sizes
-    if (width <= 360) return Math.random() * 60 + 100; // 100-160px random
-    if (width <= 480) return Math.random() * 80 + 120; // 120-200px random
-    if (width <= 640) return Math.random() * 100 + 140; // 140-240px random
-    return 280; // Desktop - keep larger size
+    // More random heights for varied tile sizes - called each time for more randomness
+    if (width <= 360) return Math.random() * 80 + 80; // 80-160px random
+    if (width <= 480) return Math.random() * 100 + 100; // 100-200px random
+    if (width <= 640) return Math.random() * 120 + 120; // 120-240px random
+    return Math.random() * 100 + 200; // Desktop - 200-300px random
   }
   
   let gutter = getGutter();
@@ -3408,7 +3408,9 @@ document.querySelectorAll("a").forEach(link => {
 
         // If this is the last row, use its natural height so it stretches full width
         const isLastRow = (i === items.length - 1);
-        const finalH = isLastRow ? h : Math.min(targetRowHeight, h);
+        // Use more random heights for each row
+        const randomHeight = getTargetRowHeight();
+        const finalH = isLastRow ? h : Math.min(randomHeight, h);
 
         // Compute widths and distribute any rounding remainder to the last tile
         const widths = row.map(it => finalH * it.ar);
