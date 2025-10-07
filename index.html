@@ -2287,17 +2287,18 @@ html, body {
     overflow: hidden !important;
   }
   
-  /* Position slider-copy text on the image for mobile */
+  /* Position slider-copy text on the image for mobile - right aligned with burger menu */
   .slider-copy {
     position: absolute !important;
     top: 20% !important; /* Move text down from the top */
-    left: 0 !important;
-    right: 0 !important;
+    right: var(--edge-final) !important; /* Align with burger menu */
+    left: auto !important;
     height: 70% !important; /* Match the image height */
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important;
+    align-items: flex-end !important; /* Right align text */
     justify-content: center !important;
+    text-align: right !important; /* Right align text content */
     z-index: 10 !important;
     padding: 20px !important;
     box-sizing: border-box !important;
@@ -2305,7 +2306,7 @@ html, body {
   
   .slider-title {
     color: white !important;
-    text-align: center !important;
+    text-align: right !important; /* Right align title */
     margin-bottom: 15px !important;
     font-size: clamp(24px, 5vw, 48px) !important;
     line-height: 1.2 !important;
@@ -2314,7 +2315,7 @@ html, body {
   
   .slider-sub {
     color: white !important;
-    text-align: center !important;
+    text-align: right !important; /* Right align subtitle */
     font-size: clamp(14px, 3vw, 18px) !important;
     line-height: 1.4 !important;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.7) !important;
