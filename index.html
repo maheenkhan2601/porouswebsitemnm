@@ -2104,23 +2104,128 @@ html, body {
   display: block;
 }
 
-/* Make slider images square on mobile with reduced height and gap */
+/* Make slider images show half height on mobile */
 @media (max-width: 640px) {
+  .preview {
+    height: auto !important; /* Override fixed height */
+    min-height: auto !important;
+  }
+  
   .hero-swiper {
-    aspect-ratio: 1/1; /* Square aspect ratio */
-    height: auto !important;
-    max-height: 40vh; /* Further reduced height on mobile */
-    margin-top: clamp(20px, 4vw, 30px) !important; /* Add gap from text */
+    height: 40vh !important; /* 40% viewport height on mobile */
+    max-height: 40vh !important;
+    margin-top: clamp(15px, 3vw, 20px) !important; /* Reduced gap from text */
+  }
+  
+  .hero-swiper .swiper-wrapper {
+    height: 100% !important;
   }
   
   .hero-swiper .swiper-slide {
-    aspect-ratio: 1/1; /* Square aspect ratio */
-    height: auto !important;
+    height: 100% !important;
   }
   
   .hero-swiper .swiper-slide img {
-    aspect-ratio: 1/1; /* Square aspect ratio */
-    object-fit: cover;
+    height: 70% !important; /* Show 70% height of the image */
+    width: 100% !important;
+    object-fit: cover !important;
+    object-position: center 30% !important; /* Show image up to the black line mark */
+    max-height: 70% !important;
+    min-height: 70% !important;
+  }
+  
+  /* Override any other height rules */
+  .slider_header .swiper-slide img {
+    height: 70% !important;
+    max-height: 70% !important;
+    min-height: 70% !important;
+  }
+  
+  /* Force override all possible image height rules */
+  .preview img,
+  .hero-swiper img,
+  .swiper-slide img,
+  .slider_header img {
+    height: 70% !important;
+    max-height: 70% !important;
+    min-height: 70% !important;
+  }
+  
+  /* Ensure text displays on slider like desktop - match image height */
+  .hero-swiper .swiper-slide .container {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 70% !important; /* Match the image height */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 2 !important;
+    overflow: hidden !important; /* Prevent text from going outside */
+  }
+  
+  .hero-swiper .swiper-slide .header_title,
+  .hero-swiper .swiper-slide .header_text {
+    position: relative !important;
+    z-index: 3 !important;
+    text-align: center !important;
+    max-width: 85% !important; /* Ensure text doesn't overflow */
+    padding: 0 10px !important; /* Add some padding from edges */
+    word-wrap: break-word !important; /* Allow text to wrap */
+  }
+  
+  /* Ensure the slider slide itself doesn't overflow */
+  .hero-swiper .swiper-slide {
+    overflow: hidden !important;
+  }
+  
+  /* Position slider-copy text on the image for mobile */
+  .slider-copy {
+    position: absolute !important;
+    top: 20% !important; /* Move text down from the top */
+    left: 0 !important;
+    right: 0 !important;
+    height: 70% !important; /* Match the image height */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 10 !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+  }
+  
+  .slider-title {
+    color: white !important;
+    text-align: center !important;
+    margin-bottom: 15px !important;
+    font-size: clamp(24px, 5vw, 48px) !important;
+    line-height: 1.2 !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;
+  }
+  
+  .slider-sub {
+    color: white !important;
+    text-align: center !important;
+    font-size: clamp(14px, 3vw, 18px) !important;
+    line-height: 1.4 !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7) !important;
+    max-width: 90% !important;
+  }
+  
+  /* Reduce gap between slider and next section on mobile */
+  .hero {
+    margin-bottom: 20px !important;
+  }
+  
+  .section_services {
+    margin-top: 20px !important;
+    padding-top: 20px !important;
+  }
+  
+  .featured-bar {
+    margin-top: 20px !important;
   }
 }
 
