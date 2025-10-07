@@ -2214,18 +2214,106 @@ html, body {
     max-width: 90% !important;
   }
   
-  /* Reduce gap between slider and next section on mobile */
+  /* Remove all empty space between slider and next section on mobile */
   .hero {
-    margin-bottom: 20px !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
   }
   
   .section_services {
-    margin-top: 20px !important;
-    padding-top: 20px !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
   
   .featured-bar {
+    margin-top: 0 !important;
+  }
+  
+  /* Remove any additional spacing */
+  .hero .container {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  
+  .hero-swiper {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  
+  /* Remove spacing from all hero elements */
+  .hero * {
+    margin-bottom: 0 !important;
+  }
+  
+  /* Remove white space between slider and services title */
+  .services_title {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  .u-title5 {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  /* Target the specific section containing the 3D visuals text */
+  .section_services .container {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  /* Remove any spacing from the services section wrapper */
+  .services {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  /* Target the specific section_services and its containers */
+  .section_services {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  .section_services .w-layout-blockcontainer,
+  .section_services .u-container,
+  .section_services .w-container {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  .section_services .u-grid {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* Remove spacing from the grid icon */
+  .grid_icon {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* Specifically target only the gap between slider and services title */
+  .slider_header {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  
+  /* Only target the services section spacing */
+  .section_services {
+    margin-top: -100px !important;
+  }
+  
+  /* Keep proper spacing for category cards */
+  .categories-grid {
     margin-top: 20px !important;
+  }
+  
+  /* Preserve loader and other elements */
+  .preloader,
+  .loader,
+  .loading {
+    margin: auto !important;
+    padding: auto !important;
   }
 }
 
