@@ -2475,7 +2475,7 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
 
     /* container + padding */
                      /* width of content block */
-    --footer-xpad: clamp(20px, 4vw, 60px);   /* side padding */
+    --footer-xpad: var(--edge-final);   /* side padding - use same as header */
     --footer-ypad: 36px;                     /* vertical padding */
     --footer-gap: 28px;                      /* spacing inside */
 
@@ -2485,12 +2485,12 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
   }
 
   .site-footer{ background:var(--footer-bg); color:var(--footer-fg); font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
-  .footer-divider{ height:1px; background:var(--divider); margin: 0 var(--footer-xpad); }
+  .footer-divider{ height:1px; background:var(--divider); margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
 
   .footer-inner{
     max-width: var(--footer-max);
     margin: 0 auto;
-    padding: var(--footer-ypad) var(--footer-xpad);
+    padding: var(--footer-ypad) var(--edge-final) !important;
     display: grid;
     grid-template-columns: 1fr auto;
     gap: var(--footer-gap);
@@ -2750,8 +2750,30 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
  .hero h1{ font-size: clamp(34px, 6.5vw, 92px) !important; line-height: 1.02; }
 
 /* Footer: divider and content align to the same edge */
- .site-footer .footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
- .footer-divider{ margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
+.site-footer .footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+.footer-divider{ margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
+
+/* Ensure footer alignment matches header across all devices */
+@media (max-width: 640px) {
+  :root {
+    --edge-final: clamp(18px, 4vw, 24px);
+    --burger-nudge-x: 30px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  :root {
+    --edge-final: clamp(24px, 4vw, 40px);
+    --burger-nudge-x: 50px;
+  }
+}
+
+@media (min-width: 1025px) {
+  :root {
+    --edge-final: clamp(40px, 4vw, 60px);
+    --burger-nudge-x: 100px;
+  }
+}
 
 /* Make sure footer left elements start at the same left edge */
  .site-footer .footer-brand{ margin-left: 0 !important; }

@@ -520,6 +520,28 @@ header .btn{ padding-right: 0 !important; }
 .site-footer .footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
 .footer-divider{ margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
 
+/* Ensure footer alignment matches header across all devices */
+@media (max-width: 640px) {
+  :root {
+    --edge-final: clamp(18px, 4vw, 24px);
+    --burger-nudge-x: 30px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  :root {
+    --edge-final: clamp(24px, 4vw, 40px);
+    --burger-nudge-x: 50px;
+  }
+}
+
+@media (min-width: 1025px) {
+  :root {
+    --edge-final: clamp(40px, 4vw, 60px);
+    --burger-nudge-x: 100px;
+  }
+}
+
 /* Nav Panel: align with the same edge */
 #navPanel .nav-inner{ padding: clamp(24px, 4vw, 40px) var(--edge-final) !important; }
 #navPanel .nav-right{
@@ -3801,7 +3823,7 @@ document.querySelectorAll('#grid a.tile').forEach(a => {
 
     /* container + padding */
                      /* width of content block */
-    --footer-xpad: clamp(20px, 4vw, 60px);   /* side padding */
+    --footer-xpad: var(--edge-final);   /* side padding - use same as header */
     --footer-ypad: 36px;                     /* vertical padding */
     --footer-gap: 28px;                      /* spacing inside */
 
@@ -3811,12 +3833,12 @@ document.querySelectorAll('#grid a.tile').forEach(a => {
   }
 
   .site-footer{ background:var(--footer-bg); color:var(--footer-fg); font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
-  .footer-divider{ height:1px; background:var(--divider); margin: 0 var(--footer-xpad); }
+  .footer-divider{ height:1px; background:var(--divider); margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
 
   .footer-inner{
     max-width: var(--footer-max);
     margin: 0 auto;
-    padding: var(--footer-ypad) var(--footer-xpad);
+    padding: var(--footer-ypad) var(--edge-final) !important;
     display: grid;
     grid-template-columns: 1fr auto;
     gap: var(--footer-gap);
@@ -3933,7 +3955,8 @@ document.querySelectorAll('#grid a.tile').forEach(a => {
 /* divider line a little lighter / inset from edges */
 .footer-divider{
   background: rgba(0,0,0,.10);
-  margin: 0 var(--footer-xpad);
+  margin-left: var(--edge-final) !important;
+  margin-right: var(--edge-final) !important;
 }
 
 /* Back to top under icons, smaller + bold like screenshot */
@@ -3987,8 +4010,8 @@ document.querySelectorAll('#grid a.tile').forEach(a => {
 :root { --page-gutter: 0px; } /* ← adjust until the left edge sits on your mark */
 
 /* container + divider use the same gutter */
-.site-footer .footer-inner{ padding-inline: var(--page-gutter); }
-.footer-divider{ margin-inline: var(--page-gutter); }
+.site-footer .footer-inner{ padding-inline: var(--edge-final) !important; }
+.footer-divider{ margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
 
 /* normal layout: left column starts at the gutter */
 .site-footer .footer-inner{ grid-template-columns: 1fr auto; }
