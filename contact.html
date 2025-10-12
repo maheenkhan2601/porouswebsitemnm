@@ -56,12 +56,20 @@
   .nav-panel.open{ transform: translateY(0); }
   .nav-close{ position: fixed; top: 18px; right: 18px; z-index: 3000; background: none; border: 0; color: #fff; font-size: 36px; cursor: pointer; }
   .nav-inner{ height: 100%; padding: clamp(24px, 4vw, 60px); display:grid; grid-template-rows: 1fr auto; }
-  .nav-right{ list-style:none; margin:0; padding:0; position:absolute; inset:0; display:flex; justify-content:center; align-items:center; text-align:center; }
+  .nav-right{ list-style:none; margin:0; padding:0; position:absolute; inset:0; display:flex; justify-content:center; align-items:center; text-align:center; flex-direction:column; gap: clamp(16px, 4vw, 24px); }
   .nav-right a{ display:block; padding:12px 0; font-weight:700; font-size:clamp(32px, 9vw, 72px); color:#fff; opacity:.95; }
   .nav-right a:hover{ opacity:.8; }
   .nav-bottom{ position:absolute; left:clamp(16px,4vw,40px); right:clamp(16px,4vw,40px); bottom:24px; display:flex; align-items:center; justify-content:space-between; gap: 16px; flex-wrap: wrap; }
-  .social-icons{ display:flex; gap:14px; }
-  .social-icons img{ width:26px; height:26px; filter:brightness(0) invert(1); }
+  .social-icons{ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(16px, 3vw, 20px);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .social-icons img{ width:28px; height:28px; filter:brightness(0) invert(1); }
 
   .page-heading{ max-width: var(--page-max); margin-inline:auto; padding: clamp(18px, 4vw, 28px) var(--edge-final) 0; }
   .page-heading h1{ margin:0; font-weight:600; font-size: clamp(34px, 6vw, 56px); }
@@ -223,7 +231,6 @@
     .back-to-top{
       font-size: clamp(12px, 2.5vw, 14px) !important;
     }
-  }
   /* Footer logo size */
 .footer-brand img,
 .brand-logo{
@@ -233,14 +240,14 @@
   display: block !important;
   transform: scale(0.8) !important; /* HARSH CSS - Force smaller scale */
 }
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
     .site-footer { 
       padding: clamp(20px, 4vw, 30px) 0 !important; 
     }
     .footer-inner { 
       padding-inline: var(--edge-final) !important; 
-      grid-template-columns: 1fr auto !important; /* Same as desktop */
-      gap: clamp(16px, 3vw, 24px) !important; /* Responsive gap */
+      grid-template-columns: 1fr auto !important;
+      gap: clamp(16px, 3vw, 24px) !important;
     }
     .footer-brand, .footer-nav { 
       font-size: clamp(12px, 3vw, 16px) !important; 
@@ -687,6 +694,24 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
   .contact-form h2{ font-size: clamp(20px, 5vw, 28px) !important; }
 }
 
+/* iPhone X/11/12/13/14 (375px) */
+@media (max-width: 375px){
+  .nav-right{ 
+    gap: clamp(8px, 2vw, 16px) !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+  .nav-right a{ font-size: clamp(28px, 8vw, 42px) !important; }
+  .social-icons{ 
+    gap: clamp(12px, 2vw, 16px) !important;
+    margin: 0 !important;
+  }
+  .social-icons img{ width: 22px; height: 22px; }
+}
+
 @media (max-width: 360px){
   :root{ --edge-final: clamp(10px, 2.5vw, 20px); }
   #navPanel .nav-right a{ font-size: clamp(24px, 10vw, 36px) !important; }
@@ -721,6 +746,88 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
     font-size: clamp(9px, 1.8vw, 11px) !important;
   }
 }
+
+/* ===== COMPREHENSIVE RESPONSIVE SYSTEM ===== */
+
+/* Large Desktop (1440px+) */
+@media (min-width: 1440px) {
+  :root {
+    --container-max: 1400px;
+    --edge-final: clamp(60px, 5vw, 80px);
+  }
+  .contact-hero h1 { font-size: clamp(60px, 6vw, 120px) !important; }
+  .contact-form h2 { font-size: clamp(32px, 3vw, 48px) !important; }
+  .contact-section p { font-size: clamp(18px, 1.5vw, 24px) !important; }
+}
+
+/* Desktop (1200px - 1439px) */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  :root {
+    --container-max: 1200px;
+    --edge-final: clamp(40px, 4vw, 60px);
+  }
+  .contact-hero h1 { font-size: clamp(48px, 5vw, 80px) !important; }
+  .contact-form h2 { font-size: clamp(28px, 2.5vw, 40px) !important; }
+  .contact-section p { font-size: clamp(16px, 1.3vw, 20px) !important; }
+}
+
+/* Laptop (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  :root {
+    --container-max: 992px;
+    --edge-final: clamp(32px, 3.5vw, 48px);
+  }
+  .contact-hero h1 { font-size: clamp(42px, 4.5vw, 64px) !important; }
+  .contact-form h2 { font-size: clamp(24px, 2.2vw, 36px) !important; }
+  .contact-section p { font-size: clamp(14px, 1.2vw, 18px) !important; }
+}
+
+/* Tablet Landscape (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  :root {
+    --container-max: 768px;
+    --edge-final: clamp(24px, 3vw, 36px);
+  }
+  .contact-hero h1 { font-size: clamp(36px, 4vw, 56px) !important; }
+  .contact-form h2 { font-size: clamp(20px, 2vw, 32px) !important; }
+  .contact-section p { font-size: clamp(13px, 1.1vw, 16px) !important; }
+  header { padding: 20px var(--edge-final) !important; }
+}
+
+/* Tablet Portrait (576px - 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  :root {
+    --container-max: 576px;
+    --edge-final: clamp(20px, 2.5vw, 28px);
+  }
+  .contact-hero h1 { font-size: clamp(32px, 3.5vw, 48px) !important; }
+  .contact-form h2 { font-size: clamp(18px, 1.8vw, 28px) !important; }
+  .contact-section p { font-size: clamp(12px, 1vw, 15px) !important; }
+  header { padding: 16px var(--edge-final) !important; }
+}
+
+/* Mobile Large (414px - 575px) */
+@media (min-width: 414px) and (max-width: 575px) {
+  :root {
+    --container-max: 414px;
+    --edge-final: clamp(16px, 2vw, 24px);
+  }
+  .contact-hero h1 { font-size: clamp(28px, 3vw, 40px) !important; }
+  .contact-form h2 { font-size: clamp(16px, 1.5vw, 24px) !important; }
+  .contact-section p { font-size: clamp(11px, 0.9vw, 14px) !important; }
+  header { padding: 14px var(--edge-final) !important; }
+}
+
+/* Ultra-wide screens (1920px+) */
+@media (min-width: 1920px) {
+  :root {
+    --container-max: 1800px;
+    --edge-final: clamp(80px, 6vw, 120px);
+  }
+  .contact-hero h1 { font-size: clamp(80px, 8vw, 160px) !important; }
+  .contact-form h2 { font-size: clamp(40px, 4vw, 64px) !important; }
+  .contact-section p { font-size: clamp(22px, 2vw, 32px) !important; }
+}
 </style>
 </head>
 <body>
@@ -749,21 +856,20 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
           <li><a href="../work.html">Works</a></li>
           <li><a href="../about-us.html">About us</a></li>
           <li><a href="../contact.html">Contact</a></li>
-        </ul>
-        <div class="nav-bottom">
-          <div class="social-icons">
+          
+          <!-- Social icons aligned with navigation text -->
+          <li class="social-icons">
             <a href="https://www.instagram.com/porousdelab" target="_blank" rel="noopener" aria-label="Instagram">
-              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" class="social-icon instagram">
             </a>
             <a href="https://www.facebook.com/share/1CjaMuzAVE/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook">
-              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
+              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" class="social-icon facebook">
             </a>
             <a href="https://www.linkedin.com/company/porousdelab/" target="_blank" rel="noopener" aria-label="LinkedIn">
-              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn">
+              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn" class="social-icon linkedin">
             </a>
-          </div>
-          <div class="nav-copy"></div>
-        </div>
+          </li>
+        </ul>
       </div>
     </div>
   </header>

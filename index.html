@@ -80,20 +80,16 @@ cubic-bezier(.2, .9, .3, 1);
 /* Clean X (no box) */
 .nav-close{
   position: fixed;        /* keep it pinned */
-  top: 26px;
-  right: 28px;
+  top: clamp(20px, 3vw, 26px);
+  right: clamp(20px, 3vw, 28px);
   background: none;
   border: 0;
   color: #fff;
-  font-size: 34px;        /* big X */
+  font-size: clamp(28px, 4vw, 34px);        /* responsive X size */
   line-height: 1;
   cursor: pointer;
-  padding: 0;
-}
-/* put this after your existing .nav-close styles */
-.nav-close{
-  position: fixed;           /* you already have this */
-  z-index: 4000;             /* ⬅️ higher than anything inside the panel */
+  padding: 8px;
+  z-index: 10001;             /* higher than anything inside the panel */
   pointer-events: auto;      /* ensure it can be clicked */
 }
 
@@ -102,7 +98,7 @@ cubic-bezier(.2, .9, .3, 1);
 /* Inner layout */
 .nav-inner{
   height: 100%;
-  padding: 60px 40px;
+  padding: clamp(40px, 6vw, 60px) clamp(20px, 4vw, 40px);
   position: relative;
 }
 
@@ -134,26 +130,21 @@ cubic-bezier(.2, .9, .3, 1);
 .nav-left a{ color:#fff; text-decoration: none; }
 /* Right big links (stacked, vertically centered) */
 .nav-right{
-  /* list-style:none;
-  margin:0;
-  padding:0 8px;
-  position:absolute;
-  right:40px;
-  top:60px;              
-  transform:none;       
-  text-align:right; */
   list-style: none;
   margin: 0;
-  padding: 0 8px;
+  padding: 0;
   position: absolute;
-  right: 0px;
-  top: 0px;
-  transform: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
-  bottom: 0px;
-  left: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  align-self: center;
+  gap: clamp(16px, 4vw, 24px);
+  width: 100%;
+  height: 100%;
 }
 .nav-right a{
   font-size:clamp(42px,9vw,80px);
@@ -179,12 +170,15 @@ cubic-bezier(.2, .9, .3, 1);
 .nav-panel.open{ transform: translateY(0); }
 .nav-bottom{
   position:absolute;
-  left:40px;
-  right:40px;
+  left:50%;
+  transform: translateX(-50%);
   bottom:24px;
+  width: calc(100% - 80px);
+  max-width: 100%;
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  justify-content:center;
+  flex-direction: column;
   gap:20px;
   pointer-events:auto;
 }
@@ -192,38 +186,138 @@ a {
     color: inherit;
     text-decoration: none;
 }
-/* Responsive: keep bottom bar readable on phones */
+/* Responsive: keep perfect centering on phones */
 @media (max-width:640px){
-  .nav-bottom{ left:20px; right:20px; bottom:18px; }
+  .nav-right{ 
+    gap: clamp(12px, 3vw, 20px);
+  }
+  .social-icons{ 
+    gap: clamp(14px, 2.5vw, 18px);
+  }
   .social-icons a{ width:24px; height:24px; }
-  .nav-copy{ font-size:11px; }
+  .nav-inner{ padding: 40px 20px !important; }
+}
+
+/* iPhone X/11/12/13/14 (375px) */
+@media (max-width: 375px){
+  .nav-right{ 
+    gap: clamp(8px, 2vw, 16px) !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+  .nav-right a{ font-size: clamp(28px, 8vw, 42px) !important; }
+  .social-icons{ 
+    gap: clamp(12px, 2vw, 16px) !important;
+    margin: 0 !important;
+  }
+  .social-icons a{ width: 22px; height: 22px; }
+}
+
+/* iPhone 16 Plus and similar large phones */
+@media (max-width: 430px) and (min-width: 390px){
+  .nav-right a{ font-size: clamp(36px, 10vw, 52px) !important; }
+  .social-icons a{ width: 26px; height: 26px; }
+}
+
+/* Extra small phones */
+@media (max-width: 389px){
+  .nav-right a{ font-size: clamp(28px, 9vw, 42px) !important; }
+  .nav-close{ font-size: 28px; top: 20px; right: 20px; }
+  .social-icons{ 
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    justify-content: center !important;
+  }
+}
+
+/* ===== COMPREHENSIVE RESPONSIVE SYSTEM ===== */
+
+/* Large Desktop (1440px+) */
+@media (min-width: 1440px) {
+  :root {
+    --container-max: 1400px;
+    --edge-final: clamp(60px, 5vw, 80px);
+  }
+  .hero h1 { font-size: clamp(60px, 6vw, 120px) !important; }
+  .slider-sub { font-size: clamp(20px, 2vw, 28px) !important; }
+  .navigation_logo_img { width: clamp(220px, 20vw, 280px) !important; }
+}
+
+/* Desktop (1200px - 1439px) */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  :root {
+    --container-max: 1200px;
+    --edge-final: clamp(40px, 4vw, 60px);
+  }
+  .hero h1 { font-size: clamp(48px, 5vw, 80px) !important; }
+  .slider-sub { font-size: clamp(18px, 1.8vw, 24px) !important; }
+  .navigation_logo_img { width: clamp(200px, 18vw, 260px) !important; }
+}
+
+/* Laptop (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  :root {
+    --container-max: 992px;
+    --edge-final: clamp(32px, 3.5vw, 48px);
+  }
+  .hero h1 { font-size: clamp(42px, 4.5vw, 64px) !important; }
+  .slider-sub { font-size: clamp(16px, 1.6vw, 22px) !important; }
+  .navigation_logo_img { width: clamp(180px, 16vw, 220px) !important; }
+}
+
+/* Tablet Landscape (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  :root {
+    --container-max: 768px;
+    --edge-final: clamp(24px, 3vw, 36px);
+  }
+  .hero h1 { font-size: clamp(36px, 4vw, 56px) !important; }
+  .slider-sub { font-size: clamp(14px, 1.4vw, 20px) !important; }
+  .navigation_logo_img { width: clamp(160px, 14vw, 200px) !important; }
+  .navigation_header { padding: 0 24px !important; }
+}
+
+/* Tablet Portrait (576px - 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  :root {
+    --container-max: 576px;
+    --edge-final: clamp(20px, 2.5vw, 28px);
+  }
+  .hero h1 { font-size: clamp(32px, 3.5vw, 48px) !important; }
+  .slider-sub { font-size: clamp(14px, 1.2vw, 18px) !important; }
+  .navigation_logo_img { width: clamp(140px, 12vw, 180px) !important; }
+  .navigation_header { padding: 0 20px !important; }
+}
+
+/* Mobile Large (414px - 575px) */
+@media (min-width: 414px) and (max-width: 575px) {
+  :root {
+    --container-max: 414px;
+    --edge-final: clamp(16px, 2vw, 24px);
+  }
+  .hero h1 { font-size: clamp(28px, 3vw, 40px) !important; }
+  .slider-sub { font-size: clamp(12px, 1vw, 16px) !important; }
+  .navigation_logo_img { width: clamp(120px, 10vw, 160px) !important; }
+  .navigation_header { padding: 0 16px !important; }
+}
+
+/* Ultra-wide screens (1920px+) */
+@media (min-width: 1920px) {
+  :root {
+    --container-max: 1800px;
+    --edge-final: clamp(80px, 6vw, 120px);
+  }
+  .hero h1 { font-size: clamp(80px, 8vw, 160px) !important; }
+  .slider-sub { font-size: clamp(24px, 2.5vw, 36px) !important; }
+  .navigation_logo_img { width: clamp(280px, 22vw, 350px) !important; }
 }
 
 
 .nav-right a:hover {
   opacity: 0.8;  /* subtle fade on hover */
-}
-.nav-right{
-  /* list-style:none;
-  margin:0;
-  padding:0 8px;
-  position:absolute;
-  right:40px;
-  top:60px;              
-  transform:none;       
-  text-align:right; */
-  list-style: none;
-  margin: 0;
-  padding: 0 8px;
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  transform: none;
-  text-align: center;
-  bottom: 0px;
-  left: 0px;
-  justify-content: center;
-  align-self: center;
 }
 .nav-right a{
   font-size:clamp(42px,9vw,80px);
@@ -251,13 +345,13 @@ a {
   .nav-right a{ font-size: clamp(32px, 9.5vw, 58px); }
 }
 .social-icons{
-  position: absolute !important;
-  bottom: 66px !important;
-  left: 668px;
-  display:flex;
-  align-items:center;
-  gap:18px;
- bottom: 50px;   
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 3vw, 20px);
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 .social-icons a{
   display:inline-flex;
@@ -826,26 +920,20 @@ header .btn{ padding-right: 0 !important; }
       <li><a href="#">People</a></li>
       <li><a href="#">Careers</a></li>
       <li><a href="#">Shop</a></li> -->
+      
+      <!-- Social icons aligned with navigation text -->
+      <li class="social-icons">
+        <a href="https://www.instagram.com/porousdelab" target="_blank" aria-label="Instagram">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" class="social-icon instagram">
+        </a>
+        <a href="https://www.facebook.com/share/1CjaMuzAVE/?mibextid=wwXIfr" target="_blank" aria-label="Facebook">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" class="social-icon facebook">
+        </a>
+        <a href="https://www.linkedin.com/company/porousdelab/" target="_blank" aria-label="LinkedIn">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn" class="social-icon linkedin">
+        </a>
+      </li>
     </ul>
-        <!-- bottom bar -->
-    <div class="nav-bottom"style="bottom: 0;" >
-      <div class="social-icons" >
-     <a href="https://www.instagram.com/porousdelab" target="_blank" aria-label="Instagram">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" class="social-icon instagram">
-    </a>
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/share/1CjaMuzAVE/?mibextid=wwXIfr" target="_blank" aria-label="Facebook">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" class="social-icon facebook">
-    </a>
-    <!-- LinkedIn -->
-    <a href="https://www.linkedin.com/company/porousdelab/" target="_blank" aria-label="LinkedIn">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn" class="social-icon linkedin">
-    </a>
-      </div>
-
-      <div class="nav-copy"></div>
-
-    </div>
 
   </div>
 </div>
@@ -3816,15 +3904,6 @@ document.querySelectorAll('#grid a.tile').forEach(a => {
   <div class="swiper-slide"><img src="https://picsum.photos/id/1040/1200/800" alt="Slide 3"></div>
 </div> -->
 
-<!-- Modal -->
-<div class="gallery-modal" id="galleryModal" aria-hidden="true">
-  <button class="gallery-close" id="galleryClose" aria-label="Close">×</button>
-  <div class="swiper gallery-swiper">
-    <div class="swiper-wrapper" id="galleryWrapper"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-  </div>
-</div>
 
 <script>
 (function(){
@@ -4221,17 +4300,6 @@ document.querySelectorAll('#grid a.tile').forEach(a => {
       padding: 4px 8px !important; 
       border: 1px solid rgba(0,0,0,0.1) !important; 
       border-radius: 4px !important; 
-    }
-  }
-    .footer-social .icon{
-      width: clamp(36px, 8vw, 42px) !important;
-      height: clamp(36px, 8vw, 42px) !important;
-    }
-    .footer-social .icon i{
-      font-size: clamp(14px, 3vw, 18px) !important;
-    }
-    .back-to-top{
-      font-size: clamp(12px, 2.5vw, 14px) !important;
     }
   }
   /* --- Centered layout variant --- */

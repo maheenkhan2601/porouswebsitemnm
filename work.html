@@ -485,26 +485,21 @@ header .menu-btn svg rect{
 .nav-left a{ color:#fff; text-decoration: none; }
 /* Right big links (stacked, vertically centered) */
 .nav-right{
-  /* list-style:none;
-  margin:0;
-  padding:0 8px;
-  position:absolute;
-  right:40px;
-  top:60px;              
-  transform:none;       
-  text-align:right; */
   list-style: none;
   margin: 0;
-  padding: 0 8px;
+  padding: 0;
   position: absolute;
-  right: 0px;
-  top: 0px;
-  transform: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
-  bottom: 0px;
-  left: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  align-self: center;
+  gap: clamp(16px, 4vw, 24px);
+  width: 100%;
+  height: 100%;
 }
 .nav-right a{
   font-size:clamp(42px,9vw,80px);
@@ -527,6 +522,113 @@ header .menu-btn svg rect{
   .nav-right a{ font-size: clamp(32px, 9.5vw, 58px); }
 }
 
+/* iPhone X/11/12/13/14 (375px) */
+@media (max-width: 375px){
+  .nav-right{ 
+    gap: clamp(8px, 2vw, 16px) !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+  .nav-right a{ font-size: clamp(28px, 8vw, 42px) !important; }
+  .social-icons{ 
+    gap: clamp(12px, 2vw, 16px) !important;
+    margin: 0 !important;
+  }
+  .social-icons a{ width: 22px; height: 22px; }
+}
+
+/* ===== COMPREHENSIVE RESPONSIVE SYSTEM ===== */
+
+/* Large Desktop (1440px+) */
+@media (min-width: 1440px) {
+  :root {
+    --container-max: 1400px;
+    --edge-final: clamp(60px, 5vw, 80px);
+  }
+  .hero h1 { font-size: clamp(60px, 6vw, 120px) !important; }
+  .hero p { font-size: clamp(20px, 2vw, 28px) !important; }
+  .section_services h2 { font-size: clamp(32px, 3vw, 48px) !important; }
+  .tile h3 { font-size: clamp(20px, 1.8vw, 28px) !important; }
+}
+
+/* Desktop (1200px - 1439px) */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  :root {
+    --container-max: 1200px;
+    --edge-final: clamp(40px, 4vw, 60px);
+  }
+  .hero h1 { font-size: clamp(48px, 5vw, 80px) !important; }
+  .hero p { font-size: clamp(18px, 1.8vw, 24px) !important; }
+  .section_services h2 { font-size: clamp(28px, 2.5vw, 40px) !important; }
+  .tile h3 { font-size: clamp(18px, 1.5vw, 24px) !important; }
+}
+
+/* Laptop (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  :root {
+    --container-max: 992px;
+    --edge-final: clamp(32px, 3.5vw, 48px);
+  }
+  .hero h1 { font-size: clamp(42px, 4.5vw, 64px) !important; }
+  .hero p { font-size: clamp(16px, 1.6vw, 22px) !important; }
+  .section_services h2 { font-size: clamp(24px, 2.2vw, 36px) !important; }
+  .tile h3 { font-size: clamp(16px, 1.3vw, 20px) !important; }
+}
+
+/* Tablet Landscape (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  :root {
+    --container-max: 768px;
+    --edge-final: clamp(24px, 3vw, 36px);
+  }
+  .hero h1 { font-size: clamp(36px, 4vw, 56px) !important; }
+  .hero p { font-size: clamp(14px, 1.4vw, 20px) !important; }
+  .section_services h2 { font-size: clamp(20px, 2vw, 32px) !important; }
+  .tile h3 { font-size: clamp(14px, 1.1vw, 18px) !important; }
+  header { padding: 20px var(--edge-final) !important; }
+}
+
+/* Tablet Portrait (576px - 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  :root {
+    --container-max: 576px;
+    --edge-final: clamp(20px, 2.5vw, 28px);
+  }
+  .hero h1 { font-size: clamp(32px, 3.5vw, 48px) !important; }
+  .hero p { font-size: clamp(14px, 1.2vw, 18px) !important; }
+  .section_services h2 { font-size: clamp(18px, 1.8vw, 28px) !important; }
+  .tile h3 { font-size: clamp(12px, 1vw, 16px) !important; }
+  header { padding: 16px var(--edge-final) !important; }
+}
+
+/* Mobile Large (414px - 575px) */
+@media (min-width: 414px) and (max-width: 575px) {
+  :root {
+    --container-max: 414px;
+    --edge-final: clamp(16px, 2vw, 24px);
+  }
+  .hero h1 { font-size: clamp(28px, 3vw, 40px) !important; }
+  .hero p { font-size: clamp(12px, 1vw, 16px) !important; }
+  .section_services h2 { font-size: clamp(16px, 1.5vw, 24px) !important; }
+  .tile h3 { font-size: clamp(11px, 0.9vw, 14px) !important; }
+  header { padding: 14px var(--edge-final) !important; }
+}
+
+/* Ultra-wide screens (1920px+) */
+@media (min-width: 1920px) {
+  :root {
+    --container-max: 1800px;
+    --edge-final: clamp(80px, 6vw, 120px);
+  }
+  .hero h1 { font-size: clamp(80px, 8vw, 160px) !important; }
+  .hero p { font-size: clamp(24px, 2.5vw, 36px) !important; }
+  .section_services h2 { font-size: clamp(40px, 4vw, 64px) !important; }
+  .tile h3 { font-size: clamp(22px, 2vw, 32px) !important; }
+}
+
 .nav-panel.open{ transform: translateY(0); }
 .nav-bottom{
   position:absolute;
@@ -541,13 +643,13 @@ header .menu-btn svg rect{
 }
 
 .social-icons{
-  position: absolute !important;
-  bottom: 66px !important;
-  left: 668px;
-  display:flex;
-  align-items:center;
-  gap:18px;
- bottom: 50px;   
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 3vw, 20px);
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 .social-icons a{
   display:inline-flex;
@@ -1231,7 +1333,7 @@ header .brand img{ max-width: clamp(120px, 22vw, 200px); height: auto; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(8px, 2vw, 14px);
+  gap: clamp(16px, 4vw, 24px);
   text-align: center;
 }
 .nav-right a{
@@ -1239,11 +1341,14 @@ header .brand img{ max-width: clamp(120px, 22vw, 200px); height: auto; }
   line-height: 1.05;
 }
 
-/* Social icons: don’t absolutely place; let them sit above the copyright line */
+/* Social icons: centered within navigation */
 .social-icons{
   position: static !important;
-  display: flex; gap: 16px; align-items: center;
-  margin-top: clamp(16px, 3vw, 28px);
+  display: flex; 
+  gap: clamp(16px, 3vw, 20px); 
+  align-items: center;
+  justify-content: center;
+  margin: 0;
 }
 .social-icons a{ width: 28px; height: 28px; }
 
@@ -1689,7 +1794,6 @@ header .brand img{ max-width: clamp(120px, 22vw, 200px); height: auto; }
     .back-to-top{
       font-size: clamp(12px, 2.5vw, 14px) !important;
     }
-  }
 
 /* ===== Touch: hide hover label, reduce hover effects ===== */
 @media (hover: none){
@@ -1951,26 +2055,20 @@ header .menu-btn{ padding: 0 !important; margin: 0 !important; }
       <li><a href="#">People</a></li>
       <li><a href="#">Careers</a></li>
       <li><a href="#">Shop</a></li> -->
+      
+      <!-- Social icons aligned with navigation text -->
+      <li class="social-icons">
+        <a href="https://www.instagram.com/porousdelab" target="_blank" aria-label="Instagram">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" class="social-icon instagram">
+        </a>
+        <a href="https://www.facebook.com/share/1CjaMuzAVE/?mibextid=wwXIfr" target="_blank" aria-label="Facebook">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" class="social-icon facebook">
+        </a>
+        <a href="https://www.linkedin.com/company/porousdelab/" target="_blank" aria-label="LinkedIn">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn" class="social-icon linkedin">
+        </a>
+      </li>
     </ul>
-        <!-- bottom bar -->
-    <div class="nav-bottom"style="bottom: 0;" >
-      <div class="social-icons" >
-     <a href="https://www.instagram.com/porousdelab" target="_blank" aria-label="Instagram">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" class="social-icon instagram">
-    </a>
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/share/1CjaMuzAVE/?mibextid=wwXIfr" target="_blank" aria-label="Facebook">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" class="social-icon facebook">
-    </a>
-    <!-- LinkedIn -->
-    <a href="https://www.linkedin.com/company/porousdelab/" target="_blank" aria-label="LinkedIn">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn" class="social-icon linkedin">
-    </a>
-      </div>
-
-      <div class="nav-copy"></div>
-
-    </div>
 
   </div>
 </div>
