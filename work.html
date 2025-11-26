@@ -295,7 +295,10 @@ h1, h2 {
 .gallery-close{ position:absolute; top:20px; right:30px; font-size:32px; background:none; border:none; cursor:pointer; }
 .gallery-swiper{ width:90%; height:90%; }
 .gallery-swiper .swiper-slide{ display:flex; align-items:center; justify-content:center; }
-.gallery-swiper .swiper-slide img{ max-width:95vw; max-height:85vh; width:auto; height:auto; object-fit:contain; }
+.gallery-swiper .swiper-slide img{ 
+  /* max-width:95vw; 
+  max-height:85vh;  */
+  width:auto; height:auto; object-fit:contain; }
 .gallery-swiper .swiper-button-next, .gallery-swiper .swiper-button-prev{ color:#000; }
 
 
@@ -953,7 +956,8 @@ header{ z-index:1500; }
   width: auto;
   max-width: 100%;
   height: auto;
-  max-height: 80vh; /* match your gallery height */
+  /* max-height: 80vh;  */
+  /* match your gallery height */
   display: block;
   margin: 0 auto;
 }
@@ -1229,7 +1233,9 @@ footer i.fa-brands{
     padding-inline: 24px;
   }
   #galleryWrapper {
-    position: absolute;top: 27%;bottom: 50%
+    position: absolute;
+    top: 30%;
+    bottom: 50%
   }
   
 }
@@ -2927,8 +2933,8 @@ document.querySelectorAll('.category').forEach(el => {
 }
 
 .gallery-swiper .swiper-slide img {
-  max-width: 95vw;
-  max-height: 85vh; /* keeps images inside viewport */
+  /* max-width: 95vw; */
+  /* max-height: 85vh; */
   width: auto;
   height: auto;
   object-fit: contain;
