@@ -71,6 +71,11 @@ header .header-nav a.active {
     display: none; /* Hide nav links on mobile, use burger menu instead */
   }
 }
+@media (min-width: 769px) {
+  header .header-nav {
+    display: none; /* Hide nav links on desktop */
+  }
+}
 header .btn { text-decoration: none !important; }
 header .btn:hover { text-decoration: none !important; }
 
@@ -747,7 +752,7 @@ footer{
 }
 
 /* Responsive typography for about content */
-.hero h1{ font-size: clamp(32px, 6vw, 64px) !important; line-height: 1.1; }
+.hero h1{ font-size: clamp(28px, 4vw, 44px) !important; line-height: 1.1; }
 .hero p{ font-size: clamp(16px, 3vw, 20px) !important; line-height: 1.6; }
 .about-content h2{ font-size: clamp(24px, 4vw, 36px) !important; line-height: 1.2; }
 .about-content p{ font-size: clamp(14px, 2.5vw, 16px) !important; line-height: 1.5; }
@@ -1782,21 +1787,11 @@ body{
     --container-max: 1400px;
     --edge-final: clamp(60px, 5vw, 80px);
   }
-  .hero h1 { font-size: clamp(60px, 6vw, 120px) !important; }
+  .hero h1 { font-size: clamp(36px, 4vw, 52px) !important; }
   .about-content h2 { font-size: clamp(32px, 3vw, 48px) !important; }
   .about-content p { font-size: clamp(18px, 1.5vw, 24px) !important; }
 }
 
-/* Desktop (1200px - 1439px) */
-@media (min-width: 1200px) and (max-width: 1439px) {
-  :root {
-    --container-max: 1200px;
-    --edge-final: clamp(40px, 4vw, 60px);
-  }
-  .hero h1 { font-size: clamp(48px, 5vw, 80px) !important; }
-  .about-content h2 { font-size: clamp(28px, 2.5vw, 40px) !important; }
-  .about-content p { font-size: clamp(16px, 1.3vw, 20px) !important; }
-}
 
 /* Laptop (992px - 1199px) */
 @media (min-width: 992px) and (max-width: 1199px) {
@@ -1804,7 +1799,7 @@ body{
     --container-max: 992px;
     --edge-final: clamp(32px, 3.5vw, 48px);
   }
-  .hero h1 { font-size: clamp(42px, 4.5vw, 64px) !important; }
+  .hero h1 { font-size: clamp(32px, 4vw, 48px) !important; }
   .about-content h2 { font-size: clamp(24px, 2.2vw, 36px) !important; }
   .about-content p { font-size: clamp(14px, 1.2vw, 18px) !important; }
 }
@@ -1851,7 +1846,7 @@ body{
     --container-max: 1800px;
     --edge-final: clamp(80px, 6vw, 120px);
   }
-  .hero h1 { font-size: clamp(80px, 8vw, 160px) !important; }
+  .hero h1 { font-size: clamp(40px, 4.5vw, 56px) !important; }
   .about-content h2 { font-size: clamp(40px, 4vw, 64px) !important; }
   .about-content p { font-size: clamp(22px, 2vw, 32px) !important; }
 }
