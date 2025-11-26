@@ -840,6 +840,16 @@ header .btn{ padding-right: 0 !important; }
     padding-bottom: clamp(20px, 4vw, 30px) !important;
   }
 }
+@media (max-width: 767px){
+  #a .w-dyn-items{
+    max-width: 100%;
+    padding-inline: 24px;
+  }
+  #galleryWrapper {
+    position: absolute;top: 27%;bottom: 50%
+  }
+  
+}
 
 /* --- Preloader (frame-by-frame feel) --- */
 .preloadernew{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;z-index:9999;background:var(--bg)}
@@ -847,6 +857,10 @@ header .btn{ padding-right: 0 !important; }
     .preloadernew .bar{width:320px;height:6px;background:var(--accent-dim);border-radius:999px;overflow:hidden}
     .preloadernew .bar > i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#fff,#bfbfbf);transition:width .8s cubic-bezier(.2,.9,.3,1)}
     .preloadernew .percent{font-size:13px;color:var(--muted)}
+    .preloadernew .logo {
+      width: 450px;   /* adjust as needed */
+      height: auto;   /* keeps aspect ratio */
+    }
 </style>
 </head>
    <body class="u-body">
@@ -1930,7 +1944,7 @@ html, body {
 <div class="gallery-modal" id="galleryModal" aria-hidden="true">
   <button class="gallery-close" id="galleryClose" aria-label="Close">×</button>
   <div class="swiper gallery-swiper">
-    <div class="swiper-wrapper" id="galleryWrapper" style="position: absolute;top: 19%;bottom: 50%"></div>
+    <div class="swiper-wrapper" id="galleryWrapper"></div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
   </div>
