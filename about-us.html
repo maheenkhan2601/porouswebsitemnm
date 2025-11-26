@@ -46,6 +46,31 @@ header {
   justify-content: space-between;
   z-index: 1500;
 }
+header .header-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+header .header-nav a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  font-size: 15px;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+header .header-nav a:hover,
+header .header-nav a.active {
+  opacity: 1;
+}
+@media (max-width: 768px) {
+  header .header-nav {
+    display: none; /* Hide nav links on mobile, use burger menu instead */
+  }
+}
 header .btn { text-decoration: none !important; }
 header .btn:hover { text-decoration: none !important; }
 
@@ -461,27 +486,22 @@ body { padding-top: 74px; } /* header 30px + 26px top/btm = ~74px */
 .nav-left p{ margin: 0 0 8px; color: #ddd; line-height: 1.7; }
 .nav-left a{ color:#fff; text-decoration: none; }
 /* Right big links (stacked, vertically centered) */
-.nav-right{
-  /* list-style:none;
-  margin:0;
-  padding:0 8px;
-  position:absolute;
-  right:40px;
-  top:60px;              
-  transform:none;       
-  text-align:right; */
-  list-style: none;
-  margin: 0;
-  padding: 0 8px;
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  transform: none;
-  text-align: center;
-  bottom: 0px;
-  left: 0px;
-  justify-content: center;
-  align-self: center;
+.nav-right {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(16px, 4vw, 24px);
+    /* width: 100%;
+    height: 100%; */
 }
 .nav-right a{
   font-size:clamp(42px,9vw,80px);
@@ -522,9 +542,9 @@ a {
 }
 /* Responsive: keep perfect centering on phones */
 @media (max-width:640px){
-  #navPanel .nav-right{ 
+  /* #navPanel .nav-right{ 
     gap: clamp(12px, 3vw, 20px) !important;
-  }
+  } */
   .social-icons{ 
     gap: clamp(14px, 2.5vw, 18px);
   }
@@ -642,7 +662,10 @@ main{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fina
 .image-panel{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
 
 /* Footer: divider and content align to the same edge */
-footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
+/* footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; } */
+footer{
+  padding: 0px 55px !important;
+}
 .footer-inner{ padding-left: var(--edge-final) !important; padding-right: var(--edge-final) !important; }
 .footer-divider{ margin-left: var(--edge-final) !important; margin-right: var(--edge-final) !important; }
 
@@ -652,6 +675,17 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
     --edge-final: clamp(18px, 4vw, 24px);
     --burger-nudge-x: 30px;
   }
+}
+
+
+.social-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(16px, 3vw, 20px);
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
@@ -682,9 +716,7 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
   align-items: center; /* Center items vertically */
   justify-content: center; /* Center content vertically */
   text-align: center;
-  gap: clamp(16px, 4vw, 24px); /* Spacing between links */
-  width: 100% !important;
-  height: 100% !important;
+  gap: clamp(12px, 3vw, 24px); /* Spacing between links */
 }
 #navPanel .nav-right a{
   padding: 0 !important;
@@ -728,6 +760,9 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
   header .actions{ padding-right: var(--burger-nudge-x) !important; }
 }
 @media (max-width: 640px){
+  #navPanel .nav-right{
+  top: 28% !important;
+}
   #navPanel .nav-right a{ font-size: clamp(32px, 10vw, 58px) !important; }
 }
 
@@ -737,6 +772,9 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
     --edge-final: clamp(12px, 3vw, 24px);
     --burger-nudge-x: 30px; /* Unified alignment across all pages */
   }
+  #navPanel .nav-right{
+  top: 28% !important;
+}
   #navPanel .nav-right a{ font-size: clamp(28px, 9vw, 44px) !important; }
   .hero h1{ font-size: clamp(28px, 8vw, 48px) !important; }
   .about-content h2{ font-size: clamp(20px, 5vw, 28px) !important; }
@@ -822,6 +860,13 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
     font-size: clamp(9px, 1.8vw, 11px) !important;
   }
 }
+
+/* --- Preloader (frame-by-frame feel) --- */
+.preloadernew{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;z-index:9999;background:var(--bg)}
+    .preloadernew .logo{width:120px;opacity:.96}
+    .preloadernew .bar{width:320px;height:6px;background:var(--accent-dim);border-radius:999px;overflow:hidden}
+    .preloadernew .bar > i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#fff,#bfbfbf);transition:width .8s cubic-bezier(.2,.9,.3,1)}
+    .preloadernew .percent{font-size:13px;color:var(--muted)}
 </style>
   <script id="sync-edges-to-header">
 (function(){
@@ -856,100 +901,56 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
 })();
 </script>
 
+
 </head>
 <body>
-<header>
-  <div class="brand">
-    <a href="../index.html"><img src="../Font Logo-Dark (1).png" alt="Room"></a>
+   <!-- Preloader (progress will animate via JS) -->
+   <div class="preloadernew" id="preloadernew">
+    <img class="logo" src="../Font Logo-Dark (1).png" alt="logo">
+    <div class="bar"><i id="bar-fill"></i></div>
+    <div class="percent" id="percent">0%</div>
   </div>
-  <div style="display:flex;gap:16px;align-items:center">
-    <a class="btn" href="mailto:porousdelab@gmail.com">Email</a>
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
-      <svg width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="0" y="0"  width="22" height="2" rx="1" fill="#000"/>
-        <rect x="0" y="7"  width="22" height="2" rx="1" fill="#000"/>
-        <rect x="0" y="14" width="22" height="2" rx="1" fill="#000"/>
-      </svg>
-    </button>
-  </div>
+  <header class="pdl-header">
+    <div class="brand"  style="padding-left: 15px;">
+      <a href="../porouswebsitemnm/index.html">
+        <img src="../porouswebsitemnm/Font Logo-Dark (1).png" alt="Porous Delab">
+      </a>
+    </div>
   
-<!-- Full-screen nav overlay -->
-<div id="navPanel" class="nav-panel" aria-hidden="true">
-  <!-- close button -->
-  <button id="navClose" class="nav-close" aria-label="Close">×</button>
-
-  <div class="nav-inner">
-    <!-- LEFT: info columns -->
- 
-
-      
+    <nav class="header-nav">
+      <a href="../index.html">Home</a>
+      <a href="../work.html">Works</a>
+      <a href="../about-us.html" class="active">About us</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  
+    <div class="header-actions">
+      <a class="btn" href="mailto:porousdelab@gmail.com">Email</a>
+  
+      <!-- Burger that will trigger the Webflow menu -->
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" style="padding-right:10px ;">
+        <svg width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="0"  width="22" height="2" rx="1" />
+          <rect x="0" y="7"  width="22" height="2" rx="1" />
+          <rect x="0" y="14" width="22" height="2" rx="1" />
+        </svg>
+      </button>
     </div>
-
-    <!-- RIGHT: giant navigation -->
-    <ul class="nav-right">
-      <li><a href="../index.html">Home</a></li>
-      <li><a href="../work.html">Works</a></li>
-      <li><a href="../about-us.html">About us</a></li>
-      <li><a href="../contact.html">Contact</a></li>
-      <!-- <li><a href="work.html">Projects</a></li>
-      <li><a href="studio.html">Practice</a></li>
-      <li><a href="#">People</a></li>
-      <li><a href="#">Careers</a></li>
-      <li><a href="#">Shop</a></li> -->
-    </ul>
-        <!-- bottom bar -->
-    <div class="nav-bottom"style="bottom: 0;" >
-      <div class="social-icons" >
-     <a href="https://www.instagram.com/porousdelab" target="_blank" aria-label="Instagram">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" class="social-icon instagram">
-    </a>
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/share/1CjaMuzAVE/?mibextid=wwXIfr" target="_blank" aria-label="Facebook">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" class="social-icon facebook">
-    </a>
-    <!-- LinkedIn -->
-    <a href="https://www.linkedin.com/company/porousdelab/" target="_blank" aria-label="LinkedIn">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn" class="social-icon linkedin">
-    </a>
-      </div>
-
-      <div class="nav-copy"></div>
-
-    </div>
-
-  </div>
-</div>
-</header>
+    <style>
+    .footer-social i[class*="fa-"] {
+      font-family: "Font Awesome 6 Brands" !important; /* only in your footer block */
+      font-style: normal; font-weight: 400;
+      font-size: 24px; line-height: 1;
+    }
+  </style>
+  
+     
+  </header>
 <!-- Full-screen nav overlay -->
 <div id="navPanel" class="nav-panel" aria-hidden="true">
   <button id="navClose" class="nav-close" aria-label="Close">×</button>
 
   <div class="nav-inner">
-    <!-- LEFT: info columns (you can copy/tweak from Work page) -->
-    <div class="nav-left">
-      <div class="col">
-        <h4>Contact</h4>
-        <p><strong>Call.</strong> +92 336 3922013</p>
-        <p><strong>Enquire.</strong> porousdelab@gmail.com</p>
-        <p><strong>Media.</strong> marketing@porousdelab.com</p>
-        <p><strong>Careers.</strong> cv@porousdelab.com</p>
-        <p><strong>New project enquiry.</strong><br> newprojects@porousdelab.com</p>
-      </div>
-
-      <div class="col">
-        <h4>Address</h4>
-        <p><strong>Karachi</strong></p>
-        <p>Plot No. B-280, Block 13<br>Federal-B Area, Gulberg Town<br>Karachi 75950</p>
-      </div>
-
-      <div class="col social-col" style="display:none">
-        <h4>Social</h4>
-        <p><a href="https://www.instagram.com/porousdelab" target="_blank">Instagram</a></p>
-        <p><a href="https://www.facebook.com/share/1CjaMuzAVE/?mibextid=wwXIfr" target="_blank">Facebook</a></p>
-        <p><a href="https://www.linkedin.com/company/porousdelab/" target="_blank">LinkedIn</a></p>
-      </div>
-    </div>
-
     <!-- RIGHT: giant navigation -->
     <ul class="nav-right">
       <li><a href="../index.html">Home</a></li>
@@ -974,7 +975,7 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
 </div>
 
   <!-- Hero line (serif like Crane) -->
-  <section class="hero" style="pad">
+  <section class="hero">
     <h1>
       Architecture should speak of its time and place, but yearn for <em>timelessness</em>.
     </h1>
@@ -1114,7 +1115,7 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
           alt=""
           class="brand-logo"
           width="220" height="56"
-          loading="lazy" decoding="async" style="height: 6rem;">
+          loading="lazy" decoding="async">
       </a>
 
       <nav class="footer-nav">
@@ -1159,7 +1160,8 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
 
 <style>
   :root { --brand-h: clamp(36px, 6vw, 64px); }
-.brand-logo { height: var(--brand-h); width: 300px; display: block; }
+/* .brand-logo { height: var(--brand-h); width: 300px; display: block; }
+.brand-logo { height: var(--brand-h); width: 300px; display: block; } */
 
   /* ========= EASY TUNING ========= */
   :root{
@@ -1279,6 +1281,9 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
     .site-footer { 
       padding: clamp(20px, 4vw, 30px) 0 !important; 
     }
+    #navPanel .nav-right{
+  top: 28% !important;
+}
     .footer-inner { 
       padding-inline: var(--edge-final) !important; 
       grid-template-columns: 1fr auto !important; /* Same as desktop */
@@ -1478,9 +1483,8 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
       border-radius: 4px !important; 
     }
   }
-    .back-to-top{
-      font-size: clamp(12px, 2.5vw, 14px) !important;
-    }
+  .back-to-top{
+    font-size: clamp(12px, 2.5vw, 14px) !important;
   }
   /* --- Centered layout variant --- */
 .footer-inner.is-centered{
@@ -1668,8 +1672,15 @@ body{
   --divider: rgba(0,0,0,0.10);
 }
 
+@media (max-width: 768px) {
+    .footer-brand img {
+        height: 24px !important;
+        width: auto !important;
+    }
+}
+
 /* kill previous logo sizing */
-.brand-logo { all: unset; }
+/* .brand-logo { all: unset; } */
 
 /* Wrapper + divider */
 .site-footer{ background:var(--footer-bg); color:var(--footer-fg); font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
@@ -1689,12 +1700,7 @@ body{
 /* Left column */
 .footer-left{ display:flex; flex-direction:column; gap:18px; align-items:flex-start; }
 .footer-brand{ display:inline-block; margin:0; text-align:left; }
-.footer-brand img{
-  height: 55px !important;   /* 🔒 keeps logo small on all devices */
-  width: 955px !important;                      /* preserve aspect ratio */
-  max-width: 220px !important;                 /* smaller hard cap */
-  display: block !important;
-}
+
 .footer-nav{ display:flex; flex-wrap:wrap; gap:22px; margin: 4px 0 12px; }
 .footer-nav a{ color: var(--footer-fg); text-decoration: none; font-size: 18px; opacity: .9; }
 .footer-nav a:hover{ opacity: 1; text-decoration: underline; }
@@ -1886,6 +1892,21 @@ body{
     a.addEventListener('click', ()=> toggleNav(false));
   });
 </script>
-
+<script>
+  /* ----------  new Preloader simulation ---------- */
+(function(){
+const pre = document.getElementById('preloadernew');
+const fill = document.getElementById('bar-fill');
+const pct = document.getElementById('percent');
+let progress = 0;
+const step = () => {
+  progress += Math.random()*18;
+  if(progress >= 100){progress=100; fill.style.width='100%'; pct.textContent='100%';
+    setTimeout(()=>{pre.style.opacity=0; pre.style.pointerEvents='none'; setTimeout(()=>pre.remove(),600)},500);
+  } else {fill.style.width = progress+'%'; pct.textContent = Math.floor(progress)+'%'; setTimeout(step,220+Math.random()*200)}
+}
+step();
+})();
+</script>
 
 </html>

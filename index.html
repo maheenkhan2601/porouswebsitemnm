@@ -840,10 +840,17 @@ header .btn{ padding-right: 0 !important; }
     padding-bottom: clamp(20px, 4vw, 30px) !important;
   }
 }
+
+/* --- Preloader (frame-by-frame feel) --- */
+.preloadernew{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;z-index:9999;background:var(--bg)}
+    .preloadernew .logo{width:120px;opacity:.96}
+    .preloadernew .bar{width:320px;height:6px;background:var(--accent-dim);border-radius:999px;overflow:hidden}
+    .preloadernew .bar > i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#fff,#bfbfbf);transition:width .8s cubic-bezier(.2,.9,.3,1)}
+    .preloadernew .percent{font-size:13px;color:var(--muted)}
 </style>
 </head>
    <body class="u-body">
-      <section class="preloader">
+      <!-- <section class="preloader">
          <img src="https://cdn.prod.website-files.com/67b5e40b1b9d30208caed4c7/67bc677bb392f6f770d77061_huge_logo.svg" loading="lazy" alt="" class="preloader_logo"/>
          <div class="preloader_line">
             <div class="preloader_fill"></div>
@@ -851,7 +858,14 @@ header .btn{ padding-right: 0 !important; }
             <div id="w-node-_7fe4f245-a81c-55ff-a3e6-12526124bfa1-6124bf9b" class="preloader_title u-text-s">Loading</div>
             <img src="https://cdn.prod.website-files.com/67b5e40b1b9d30208caed4c7/67c1927f9a91d10441b6123b_hourglass.svg" loading="lazy" id="w-node-_7fe4f245-a81c-55ff-a3e6-12526124bfa3-6124bf9b" alt="" class="preloader_icon"/>
          </div>
-      </section>
+      </section> -->
+
+      <!-- Preloader (progress will animate via JS) -->
+  <div class="preloadernew" id="preloadernew">
+    <img class="logo" src="../Font Logo-Dark (1).png" alt="logo">
+    <div class="bar"><i id="bar-fill"></i></div>
+    <div class="percent" id="percent">0%</div>
+  </div>
 
 
       <section class="section_header" style="padding: 0;">
@@ -1916,7 +1930,7 @@ html, body {
 <div class="gallery-modal" id="galleryModal" aria-hidden="true">
   <button class="gallery-close" id="galleryClose" aria-label="Close">×</button>
   <div class="swiper gallery-swiper">
-    <div class="swiper-wrapper" id="galleryWrapper"></div>
+    <div class="swiper-wrapper" id="galleryWrapper" style="position: absolute;top: 19%;bottom: 50%"></div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
   </div>
@@ -2678,6 +2692,7 @@ header .brand img {
     display: block;
     width: 100%;
     height: auto;
+    border-radius: 16px;
 
   }
 
@@ -3149,6 +3164,21 @@ document.querySelectorAll("a").forEach(link => {
     runExitPreloader(() => { window.location.href = url.href; });
   });
 });
+
+/* ----------  new Preloader simulation ---------- */
+(function(){
+      const pre = document.getElementById('preloadernew');
+      const fill = document.getElementById('bar-fill');
+      const pct = document.getElementById('percent');
+      let progress = 0;
+      const step = () => {
+        progress += Math.random()*18;
+        if(progress >= 100){progress=100; fill.style.width='100%'; pct.textContent='100%';
+          setTimeout(()=>{pre.style.opacity=0; pre.style.pointerEvents='none'; setTimeout(()=>pre.remove(),600)},500);
+        } else {fill.style.width = progress+'%'; pct.textContent = Math.floor(progress)+'%'; setTimeout(step,220+Math.random()*200)}
+      }
+      step();
+    })();
          
          
          	//
@@ -3956,7 +3986,7 @@ document.querySelectorAll('#grid a.tile').forEach(a => {
     <div class="footer-left">
       <a class="footer-brand" href="/" aria-label="Home">
         <img
-          src="../porouswebsitemnm/Font Logo-Dark (1) - Copy.png"
+          src="../Font Logo-Dark (1) - Copy.png"
           
           alt=""
           class="brand-logo"

@@ -2003,6 +2003,217 @@ header .menu-btn{ padding: 0 !important; margin: 0 !important; }
 }
 </style>
 
+<style>
+  /* Nav Panel: align with the same edge */
+#navPanel .nav-inner{ padding: clamp(24px, 4vw, 40px) var(--edge-final) !important; }
+#navPanel .nav-right{
+  position: absolute !important; /* Keep absolute positioning for overlay */
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center content vertically */
+  text-align: center;
+  gap: clamp(12px, 3vw, 24px); /* Spacing between links */
+}
+#navPanel .nav-right a{
+  padding: 0 !important;
+  font-size: clamp(42px, 9vw, 80px) !important; /* Unified font size */
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.02em; /* Slight letter spacing */
+}
+#navPanel .social-icons{
+  position: static !important;
+  display: flex;
+  gap: 16px;
+  justify-content: center; /* Center social icons */
+}
+#navPanel .nav-bottom{
+  position: absolute !important;
+  bottom: clamp(40px, 6vw, 60px) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex;
+  justify-content: center; /* Center nav bottom content */
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+  width: 100%; /* Take full width to align with nav links */
+  max-width: 400px; /* Limit width to match nav links width */
+}
+#navPanel .nav-copy{
+  text-align: center !important;
+  margin-left: 0 !important; /* Remove auto margin */
+  width: 100%; /* Take full width */
+}
+
+/* Mobile: keep everything consistent and stacked nicely */
+@media (max-width: 980px){
+  :root{ --burger-nudge-x: 36px; } /* Moved further right */
+}
+@media (max-width: 640px){
+  #navPanel .nav-right a{ font-size: clamp(32px, 10vw, 58px) !important; }
+  
+  /* Fix overlapping and spacing issues on tablets - match work.html */
+  .grid{ gap: 0 !important; } /* Remove gap - justified grid handles spacing */
+  .j-row{ gap: 2px !important; margin-bottom: 2px !important; } /* Same as work.html */
+  .tile{ margin-bottom: 0 !important; } /* Remove margin since j-row handles spacing */
+  .category-filters{ gap: clamp(10px, 2.5vw, 16px) !important; margin-bottom: clamp(20px, 4vw, 30px) !important; }
+  
+  /* Adjust hero spacing - reduce gaps */
+  .hero{ padding-top: clamp(25px, 5vw, 40px) !important; padding-bottom: clamp(20px, 4vw, 30px) !important; }
+  .hero .container{ margin-top: clamp(12px, 2.5vw, 20px) !important; }
+  .header_title{ margin-bottom: clamp(10px, 2vw, 16px) !important; }
+  .header_text{ margin-bottom: clamp(12px, 2.5vw, 20px) !important; }
+  
+  /* Remove excessive height from services section */
+  .section_services{ 
+    min-height: auto !important; 
+    height: auto !important; 
+    padding-top: clamp(20px, 4vw, 30px) !important;
+    padding-bottom: clamp(20px, 4vw, 30px) !important;
+  }
+  
+  /* Fix header height on mobile */
+  :root{ --header-h: clamp(50px, 8vw, 60px); }
+}
+
+/* Additional responsive breakpoints for better mobile experience */
+@media (max-width: 480px){
+  :root{ 
+    --edge-final: clamp(12px, 3vw, 24px);
+    --burger-nudge-x: 30px; /* Unified alignment across all pages */
+  }
+  .hero h1{ font-size: clamp(28px, 8vw, 48px) !important; }
+  #navPanel .nav-right a{ font-size: clamp(28px, 9vw, 44px) !important; }
+  
+  /* Fix grid gaps and overlapping on mobile - match work.html */
+  .grid{ gap: 0 !important; } /* Remove gap - justified grid handles spacing */
+  .j-row{ gap: 2px !important; margin-bottom: 2px !important; } /* Same as work.html */
+  .tile{ margin-bottom: 0 !important; } /* Remove margin since j-row handles spacing */
+  .category-filters{ gap: clamp(8px, 2vw, 12px) !important; margin-bottom: clamp(16px, 3vw, 24px) !important; }
+  
+  /* Fix hero section spacing - reduce gaps */
+  .hero{ padding-top: clamp(20px, 4vw, 30px) !important; padding-bottom: clamp(15px, 3vw, 25px) !important; }
+  .hero .container{ margin-top: clamp(10px, 2vw, 15px) !important; }
+  .header_title{ margin-bottom: clamp(8px, 1.5vw, 12px) !important; }
+  .header_text{ margin-bottom: clamp(10px, 2vw, 15px) !important; }
+  
+  /* Fix footer spacing */
+  .site-footer{ padding: clamp(20px, 4vw, 30px) 0 !important; }
+  
+  /* Mobile footer improvements */
+  .footer-inner{
+    grid-template-columns: 1fr auto !important;
+    gap: clamp(12px, 2.5vw, 20px) !important;
+    padding: clamp(16px, 3vw, 24px) var(--edge-final) !important;
+  }
+  .footer-right{
+    justify-items: end !important;
+  }
+  .footer-nav{
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: clamp(6px, 1.2vw, 10px) !important;
+  }
+  .footer-nav a{
+    font-size: clamp(13px, 2.8vw, 16px) !important;
+  }
+  .footer-brand{
+    font-size: clamp(16px, 3.5vw, 24px) !important;
+  }
+  .footer-social .icon{
+    width: clamp(32px, 7vw, 38px) !important;
+    height: clamp(32px, 7vw, 38px) !important;
+  }
+  
+  /* Fix any overlapping elements */
+  .preview{ margin-top: clamp(20px, 4vw, 30px) !important; box-shadow: none !important; }
+  .hero-swiper{ 
+    /* margin-top: clamp(16px, 3vw, 24px) !important;  */
+    margin-top: 0 !important; 
+    
+  }
+  
+  /* Reduce gap before Featured Works */
+  .featured-bar{ margin-top: clamp(8px, 1.5vw, 15px) !important; }
+  
+  /* Remove excessive height from services section */
+  .section_services{ 
+    min-height: auto !important; 
+    height: auto !important; 
+    padding-top: clamp(20px, 4vw, 30px) !important;
+    padding-bottom: clamp(20px, 4vw, 30px) !important;
+  }
+}
+
+@media (max-width: 360px){
+  :root{ 
+    --edge-final: clamp(10px, 2.5vw, 20px);
+    --burger-nudge-x: 30px; /* Unified alignment across all pages */
+  }
+  .hero h1{ font-size: clamp(24px, 9vw, 40px) !important; }
+  #navPanel .nav-right a{ font-size: clamp(24px, 10vw, 36px) !important; }
+  
+  /* Ultra-compact mobile layout - match work.html */
+  .grid{ gap: 0 !important; } /* Remove gap - justified grid handles spacing */
+  .j-row{ gap: 2px !important; margin-bottom: 2px !important; } /* Same as work.html */
+  .tile{ margin-bottom: 0 !important; } /* Remove margin since j-row handles spacing */
+  .category-filters{ gap: clamp(6px, 1.5vw, 10px) !important; margin-bottom: clamp(12px, 2.5vw, 20px) !important; }
+  
+  /* Minimal hero spacing - ultra compact */
+  .hero{ padding-top: clamp(15px, 3vw, 25px) !important; padding-bottom: clamp(10px, 2vw, 20px) !important; }
+  .hero .container{ margin-top: clamp(8px, 1.5vw, 12px) !important; }
+  .header_title{ margin-bottom: clamp(6px, 1vw, 10px) !important; }
+  .header_text{ margin-bottom: clamp(8px, 1.5vw, 12px) !important; }
+  
+  /* Compact footer */
+  .site-footer{ padding: clamp(15px, 3vw, 25px) 0 !important; }
+  
+  /* Ultra-compact mobile footer */
+  .footer-inner{
+    grid-template-columns: 1fr auto !important;
+    gap: clamp(10px, 2vw, 16px) !important;
+    padding: clamp(12px, 2.5vw, 20px) var(--edge-final) !important;
+  }
+  .footer-right{
+    justify-items: end !important;
+  }
+  .footer-nav{
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: clamp(4px, 1vw, 8px) !important;
+  }
+  .footer-nav a{
+    font-size: clamp(12px, 2.5vw, 14px) !important;
+  }
+  .footer-brand{
+    font-size: clamp(14px, 3vw, 20px) !important;
+  }
+  .footer-social .icon{
+    width: clamp(28px, 6vw, 34px) !important;
+    height: clamp(28px, 6vw, 34px) !important;
+  }
+  .footer-legal{
+    font-size: clamp(9px, 1.8vw, 11px) !important;
+  }
+  
+  /* Ultra-compact gap before Featured Works */
+  .featured-bar{ margin-top: clamp(5px, 1vw, 10px) !important; }
+  
+  /* Remove excessive height from services section */
+  .section_services{ 
+    min-height: auto !important; 
+    height: auto !important; 
+    padding-top: clamp(20px, 4vw, 30px) !important;
+    padding-bottom: clamp(20px, 4vw, 30px) !important;
+  }
+}
+</style>
+
 <body>
 
   <!-- Preloader (progress will animate via JS) -->
@@ -2326,7 +2537,7 @@ header .menu-btn{ padding: 0 !important; margin: 0 !important; }
 <div class="gallery-modal" id="galleryModal" aria-hidden="true">
   <button class="gallery-close" id="galleryClose" aria-label="Close">×</button>
   <div class="swiper gallery-swiper">
-    <div class="swiper-wrapper" id="galleryWrapper"></div>
+    <div class="swiper-wrapper" id="galleryWrapper" style="position: absolute;top: 27%;bottom: 50%"></div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
   </div>

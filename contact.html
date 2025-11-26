@@ -233,12 +233,10 @@
     }
   /* Footer logo size */
 .footer-brand img,
-.brand-logo{
-  height: 16px !important; /* HARSH CSS - Force tiny footer logo */
-  width: auto !important;          /* keep aspect ratio */
-  max-width: 80px !important;     /* HARSH CSS - Force tiny max width */
-  display: block !important;
-  transform: scale(0.8) !important; /* HARSH CSS - Force smaller scale */
+.brand-logo {
+    height: var(--brand-h);
+    width: 300px;
+    display: block;
 }
 @media (max-width: 768px) {
     .site-footer { 
@@ -333,11 +331,15 @@
     }
     
     /* LEFT SIDE - Brand and Navigation */
-    .footer-left { 
+    /* .footer-left { 
       display: flex !important; 
       flex-direction: column !important; 
       gap: 12px !important; 
       align-items: flex-start !important; 
+    } */
+    .footer-brand img {
+        height: 24px !important;
+        width: auto !important;
     }
     .footer-brand { 
       font-size: 16px !important; 
@@ -423,7 +425,17 @@
     }
   }
 
-
+  #navPanel.nav-panel {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.571) 0%, rgba(0, 0, 0, 0.571) 40%, rgba(0, 0, 0, 0.571) 100%) !important;
+    backdrop-filter: blur(18px) saturate(120%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(120%) !important;
+    color: #fff;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    transition: transform .45s 
+cubic-bezier(.2, .9, .3, 1);
+}
   </style>
 <style id="final-responsive-align">
 /* ===== Final alignment + responsiveness unifier ===== */
@@ -828,9 +840,22 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
   .contact-form h2 { font-size: clamp(40px, 4vw, 64px) !important; }
   .contact-section p { font-size: clamp(22px, 2vw, 32px) !important; }
 }
+
+/* --- Preloader (frame-by-frame feel) --- */
+.preloadernew{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;z-index:9999;background:var(--bg)}
+    .preloadernew .logo{width:120px;opacity:.96}
+    .preloadernew .bar{width:320px;height:6px;background:var(--accent-dim);border-radius:999px;overflow:hidden}
+    .preloadernew .bar > i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#fff,#bfbfbf);transition:width .8s cubic-bezier(.2,.9,.3,1)}
+    .preloadernew .percent{font-size:13px;color:var(--muted)}
 </style>
 </head>
 <body>
+  <!-- Preloader (progress will animate via JS) -->
+  <div class="preloadernew" id="preloadernew">
+    <img class="logo" src="../Font Logo-Dark (1).png" alt="logo">
+    <div class="bar"><i id="bar-fill"></i></div>
+    <div class="percent" id="percent">0%</div>
+  </div>
   <!-- Header -->
   <header>
     <div class="brand">
@@ -930,7 +955,8 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
     <div class="footer-inner">
       <div class="footer-left">
         <a class="footer-brand" href="/" aria-label="Home">
-          <img src="../Font Logo-Dark (1) - Copy.png" alt="Porous Delab" class="brand-logo" loading="lazy" decoding="async" style="height: 3rem;">
+          <!-- <img src="../Font Logo-Dark (1) - Copy.png" alt="Porous Delab" class="brand-logo" loading="lazy" decoding="async" style="height: 3rem;"> -->
+          <img src="../Font Logo-Dark (1) - Copy.png" alt="" class="brand-logo" width="220" height="56" loading="lazy" decoding="async">
         </a>
         <nav class="footer-nav">
           <a href="../index.html">Home</a>
@@ -998,5 +1024,22 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && navPanel.classList.contains('open')) toggleNav(false); });
     document.querySelectorAll('#navPanel .nav-right a').forEach(a => a.addEventListener('click', () => toggleNav(false)));
   </script>
+
+<script>
+  /* ----------  new Preloader simulation ---------- */
+(function(){
+const pre = document.getElementById('preloadernew');
+const fill = document.getElementById('bar-fill');
+const pct = document.getElementById('percent');
+let progress = 0;
+const step = () => {
+  progress += Math.random()*18;
+  if(progress >= 100){progress=100; fill.style.width='100%'; pct.textContent='100%';
+    setTimeout(()=>{pre.style.opacity=0; pre.style.pointerEvents='none'; setTimeout(()=>pre.remove(),600)},500);
+  } else {fill.style.width = progress+'%'; pct.textContent = Math.floor(progress)+'%'; setTimeout(step,220+Math.random()*200)}
+}
+step();
+})();
+</script>
 </body>
 </html>
