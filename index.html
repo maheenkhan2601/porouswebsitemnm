@@ -3740,20 +3740,42 @@ document.querySelectorAll("a").forEach(link => {
 
         // If this is the last row, use its natural height so it stretches full width
         const isLastRow = (i === items.length - 1);
-        // Use more random heights for each row
+        // Use random height for each row - all tiles in this row will have the same height
         const randomHeight = getTargetRowHeight();
         const finalH = isLastRow ? h : Math.min(randomHeight, h);
 
-        // Compute widths and distribute any rounding remainder to the last tile
-        const widths = row.map(it => finalH * it.ar);
-        const total = widths.reduce((a,b)=>a+b,0);
-        const remainder = cw - (total + gutter * (row.length - 1));
+        // Compute base widths from aspect ratios
+        const baseWidths = row.map(it => finalH * it.ar);
+        const availableWidth = cw - gutter * (row.length - 1);
+        
+        // Add randomness to widths (vary by 50% to 150% of base width)
+        const widthVariations = baseWidths.map(w => w * (0.5 + Math.random() * 1.0));
+        const variedTotal = widthVariations.reduce((a,b)=>a+b,0);
+        
+        // Scale to fit available width
+        const scaleFactor = availableWidth / variedTotal;
+        let finalWidths = widthVariations.map(w => w * scaleFactor);
+        
+        // Cap maximum width per item (max 50% of row width) to prevent items from being too wide
+        const maxItemWidth = availableWidth * 0.5;
+        finalWidths = finalWidths.map(w => Math.min(w, maxItemWidth));
+        const cappedTotal = finalWidths.reduce((a,b)=>a+b,0);
+        
+        // If widths were capped, scale proportionally to fill available width
+        if (cappedTotal < availableWidth) {
+          const scaleFactor2 = availableWidth / cappedTotal;
+          finalWidths = finalWidths.map(w => w * scaleFactor2);
+        }
 
+        // Apply same height to all tiles in the row, with random widths
         row.forEach((it, idx) => {
-          const add = (idx === row.length - 1) ? remainder : 0;
-          const w = widths[idx] + add;
+          const add = (idx === row.length - 1) ? (availableWidth - finalWidths.reduce((a,b)=>a+b,0)) : 0;
+          const w = finalWidths[idx] + add;
+          // Ensure all tiles in the row have exactly the same height
           it.el.style.width  = w + 'px';
           it.el.style.height = finalH + 'px';
+          it.el.style.minHeight = finalH + 'px';
+          it.el.style.maxHeight = finalH + 'px';
           jrow.appendChild(it.el);
         });
 
