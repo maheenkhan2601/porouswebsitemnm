@@ -853,12 +853,14 @@ header .btn{ padding-right: 0 !important; }
 
 /* --- Preloader (frame-by-frame feel) --- */
 .preloadernew{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;z-index:9999;background:var(--bg)}
-    .preloadernew .logo{width:120px;opacity:.96}
+    .preloadernew .logo{
+      /* width:120px; */
+      opacity:.96}
     .preloadernew .bar{width:320px;height:6px;background:var(--accent-dim);border-radius:999px;overflow:hidden}
     .preloadernew .bar > i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#fff,#bfbfbf);transition:width .8s cubic-bezier(.2,.9,.3,1)}
     .preloadernew .percent{font-size:13px;color:var(--muted)}
     .preloadernew .logo {
-      width: 450px;   /* adjust as needed */
+      width: 450px !important;   /* adjust as needed */
       height: auto;   /* keeps aspect ratio */
     }
 </style>
