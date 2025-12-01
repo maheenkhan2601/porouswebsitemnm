@@ -2217,6 +2217,12 @@ html, body {
       .project-modal-desc{
         font-size: clamp(13px, 2.8vw, 15px) !important;
       }
+      .tile .hover-overlay h4 {
+        font-size: 22px !important;
+      }
+      .tile .hover-overlay .cat {
+        font-size: 12px !important;
+      }
     }
 
     /* small touches */
@@ -2363,6 +2369,13 @@ html, body {
   
   .hero-swiper .swiper-slide {
     height: 100% !important;
+  }
+
+  .tile .hover-overlay h4 {
+    font-size: 22px !important;
+  }
+  .tile .hover-overlay .cat {
+    font-size: 12px !important;
   }
   
   .hero-swiper .swiper-slide img {
@@ -4242,6 +4255,12 @@ document.querySelectorAll('#grid a.tile').forEach(a => {
   /* Keep desktop 2-column layout on all devices but make it responsive */
 
   @media (max-width: 768px) {
+    .tile .hover-overlay h4 {
+    font-size: 22px !important;
+  }
+  .tile .hover-overlay .cat {
+    font-size: 12px !important;
+  }
     .site-footer { 
       padding: clamp(20px, 4vw, 30px) 0 !important; 
     }
