@@ -11,8 +11,11 @@
 
 
   <style>
+*, *::before, *::after {
+  font-family: 'General Sans', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif !important;
+}
 
-             body {
+body {
   font-family: 'General Sans', sans-serif;
 
 }
@@ -46,6 +49,9 @@ header {
   justify-content: space-between;
   z-index: 1500;
 }
+
+
+
 header .header-nav {
   position: absolute;
   left: 50%;
@@ -725,9 +731,9 @@ footer{
 }
 #navPanel .nav-right a{
   padding: 0 !important;
-  font-size: clamp(42px, 9vw, 80px) !important; /* Unified font size */
+  font-size: 50px !important;
   line-height: 1.05;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: -0.02em; /* Slight letter spacing */
 }
 #navPanel .social-icons{
@@ -766,8 +772,7 @@ footer{
 }
 @media (max-width: 640px){
   #navPanel .nav-right{
-  /* top: 28% !important; */
-  top: 180px !important;
+  top: 28% !important;
 }
   #navPanel .nav-right a{ font-size: clamp(32px, 10vw, 58px) !important; }
 }
@@ -779,8 +784,7 @@ footer{
     --burger-nudge-x: 30px; /* Unified alignment across all pages */
   }
   #navPanel .nav-right{
-  /* top: 28% !important; */
-  top: 180px !important;
+  top: 28% !important;
 }
   #navPanel .nav-right a{ font-size: clamp(28px, 9vw, 44px) !important; }
   .hero h1{ font-size: clamp(28px, 8vw, 48px) !important; }
@@ -874,10 +878,12 @@ footer{
     .preloadernew .bar{width:320px;height:6px;background:var(--accent-dim);border-radius:999px;overflow:hidden}
     .preloadernew .bar > i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#fff,#bfbfbf);transition:width .8s cubic-bezier(.2,.9,.3,1)}
     .preloadernew .percent{font-size:13px;color:var(--muted)}
-    .preloadernew .logo {
-      width: 450px;   /* adjust as needed */
-      height: auto;   /* keeps aspect ratio */
-    }
+    /* Preloader logo */
+.preloader .logo {
+  width: 450px;   /* adjust as needed */
+  height: auto;   /* keeps aspect ratio */
+}
+
 </style>
   <script id="sync-edges-to-header">
 (function(){
@@ -931,8 +937,8 @@ footer{
     <nav class="header-nav">
       <a href="../index.html">Home</a>
       <a href="../work.html">Works</a>
-      <a href="../about-us.html" class="active">About us</a>
-      <a href="../contact.html">Contact</a>
+      <a href="../about-us.html" class="active">About</a>
+      <a href="../contact.html">Contact Us</a>
     </nav>
   
     <div class="header-actions">
@@ -966,8 +972,8 @@ footer{
     <ul class="nav-right">
       <li><a href="../index.html">Home</a></li>
       <li><a href="../work.html">Works</a></li>
-      <li><a href="../about-us.html">About us</a></li>
-      <li><a href="../contact.html">Contact</a></li>
+      <li><a href="../about-us.html">About</a></li>
+      <li><a href="../contact.html">Contact Us</a></li>
       
       <!-- Social icons aligned with navigation text -->
       <li class="social-icons">
@@ -1020,78 +1026,25 @@ footer{
     </p>
   </div>
 </section>
-<section class="section philosophy">
-  <div class="wrap">
-    <p class="kicker">Our Philosophy</p>
-    <h2>Creativity, Construction, Collaboration</h2>
-    <p class="intro">
-      Committed to both traditional architecture and modern innovation, our expertise in
-      classical and traditional architecture informs our contemporary work. This allows us
-      to create spaces that honour the past while pushing the boundaries of form and material.
-      We are dedicated to balancing aesthetic appeal with functional needs, ensuring every
-      design is beautiful, purposeful, and timeless. We remain closely involved throughout
-      the project, from initial concept to completion, ensuring every detail is crafted to
-      bring our clients’ vision to life.
-    </p>
 
-    <div class="grid">
-      <div>
-        <h4>Creativity</h4>
-        <p>
-          Blending classical principles with contemporary innovation, we design buildings and
-          create spaces that are both inspiring and functional, tailored to reflect your vision.
-          Our approach integrates timeless aesthetics with modern solutions, creating environments
-          that are both elegant and practical.
-        </p>
-      </div>
-
-      <div>
-        <h4>Construction</h4>
-        <p>
-          Detailing is at the heart of our practice. Through comprehensive construction information,
-          we uphold high standards of precision and accuracy. Our dedication to thorough planning and
-          execution achieves both beauty and lasting quality in every project.
-        </p>
-      </div>
-
-      <div>
-        <h4>Collaboration</h4>
-        <p>
-          We work closely with clients, contractors, and consultants, leveraging our experience and
-          expertise for a smooth and successful project. Our strong network and hands-on approach
-          enhance efficiency, ensuring every aspect of the project meets the highest standards.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
 
   <section class="band" style="background-image:url('https://images.unsplash.com/photo-1487956382158-bb926046304a?q=80&w=2000&auto=format&fit=crop'); /* TODO replace */"></section>
 
  
-  <section class="section team" id="team">
-    <div class="wrap">
-      <h2 class="h2" style="margin-bottom:22px">Our Founder</h2>
-
-     
-
-        <article class="card founder-card">
-  <div class="founder-image">
-    <img src="../ChatGPT Image Aug 22, 2025, 10_17_20 PM.png" alt="Nenad Lorencin">
-
-    <!-- Overlay text -->
-    <div class="overlay-text">
-      
-      <p>Nenad Lorencin brings decades of design experience, leading projects with creativity,
-         precision, and a passion for timeless architecture.</p>
-         <h3>Maaz Khan</h3>
-    </div>
-  </div>
-</article>
-
-
-   
-      </div>
+  <section class="founder-banner" style="position: relative; width: 100%;">
+    <img src="Gemini_Generated_Image_wwzy17wwzy17wwzy (1).png" alt="Founder" style="width: 100%; height: 700px; object-fit: cover; display: block;">
+    <div style="
+      position: absolute;
+      bottom: 40px;
+      right: 40px;
+      z-index: 1;
+      max-width: 500px;
+      color: #fff;
+      text-align: left;
+    ">
+      <h2 style="font-size: 42px; font-weight: 600; margin-bottom: 12px; text-shadow: 0 2px 8px rgba(0,0,0,0.5);">Our Founder</h2>
+      <h3 style="font-size: 28px; font-weight: 500; margin-bottom: 12px; text-shadow: 0 2px 8px rgba(0,0,0,0.5);">Maaz Khan</h3>
+      <p style="font-size: 16px; line-height: 1.6; text-shadow: 0 2px 8px rgba(0,0,0,0.5);">Nenad Lorencin brings decades of design experience, leading projects with creativity, precision, and a passion for timeless architecture.</p>
     </div>
   </section>
 
@@ -1132,8 +1085,8 @@ footer{
       <nav class="footer-nav">
           <a href="../index.html">Home</a>
         <a href="../work.html">Projects</a>
-        <a href="../about-us.html">About us</a>
-        <a href="../contact.html">Contact</a>
+        <a href="../about-us.html">About</a>
+        <a href="../contact.html">Contact Us</a>
       </nav>
 
       <div class="footer-legal">
@@ -1293,8 +1246,7 @@ footer{
       padding: clamp(20px, 4vw, 30px) 0 !important; 
     }
     #navPanel .nav-right{
-  /* top: 28% !important; */
-  top: 180px !important;
+  top: 28% !important;
 }
     .footer-inner { 
       padding-inline: var(--edge-final) !important; 

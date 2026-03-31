@@ -26,6 +26,10 @@
   --gutter: 90px;       /* same as header .header-container padding */
 }
 
+*, *::before, *::after {
+  font-family: 'General Sans', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif !important;
+}
+
 body {
   font-family: 'General Sans', sans-serif;
 
@@ -523,12 +527,6 @@ header .menu-btn svg rect{
 @media (max-width: 640px){
   .nav-left{ grid-template-columns: 1fr; }
   .nav-right a{ font-size: clamp(32px, 9.5vw, 58px); }
-  .tile .hover-overlay h4 {
-    font-size: 22px !important;
-  }
-  .tile .hover-overlay .cat {
-    font-size: 12px !important;
-  }
 }
 
 /* iPhone X/11/12/13/14 (375px) */
@@ -547,12 +545,6 @@ header .menu-btn svg rect{
     margin: 0 !important;
   }
   .social-icons a{ width: 22px; height: 22px; }
-  .tile .hover-overlay h4 {
-    font-size: 22px !important;
-  }
-  .tile .hover-overlay .cat {
-    font-size: 12px !important;
-  }
 }
 
 /* ===== COMPREHENSIVE RESPONSIVE SYSTEM ===== */
@@ -604,12 +596,6 @@ header .menu-btn svg rect{
   .section_services h2 { font-size: clamp(20px, 2vw, 32px) !important; }
   .tile h3 { font-size: clamp(14px, 1.1vw, 18px) !important; }
   header { padding: 20px var(--edge-final) !important; }
-  .tile .hover-overlay h4 {
-    font-size: 22px !important;
-  }
-  .tile .hover-overlay .cat {
-    font-size: 12px !important;
-  }
 }
 
 /* Tablet Portrait (576px - 767px) */
@@ -824,7 +810,7 @@ header{ z-index:1500; }
 #navPanel .nav-inner{ background: transparent !important; }
 
     /* --- Hero / Title --- */
-    .hero{min-height:84vh;display:grid;align-items:center;padding:120px 24px 60px;position:relative;overflow:hidden}
+    .hero{min-height:74vh;display:grid;align-items:center;padding:120px 24px 60px;position:relative;overflow:hidden}
     /* --- SAFE hero layout + gentle nudge --- */
 .hero .container{
   /* max-width: var(--container); */
@@ -1136,8 +1122,8 @@ footer i.fa-brands{
 /* keep children from bleeding out */
 .grid > *{ max-width: 100%; }
                 /* container is block */
-.j-row { display: flex; gap: 2px;        /* must match JS 'gutter' */
-         margin-bottom: 2px; }
+.j-row { display: flex; gap: 5px;        /* must match JS 'gutter' */
+         margin-bottom: 5px; }
 .j-row .tile { flex: none; width: auto; height: auto; } /* JS sets size */
 
 .tile {
@@ -1331,7 +1317,7 @@ footer i.fa-brands{
 /* Body copy / headings go fluid */
 h1{ font-size: clamp(32px, 8vw, 80px) !important; line-height: 1.02; }
 h2{ font-size: clamp(22px, 5.5vw, 40px); }
-p, .muted, .category{ font-size: clamp(14px, 1.8vw, 18px); }
+p, .muted, .category{ font-size: clamp(14px, 1.8vw, 20px); }
 
 /* ===== Header (no fixed height/huge side gutters) ===== */
 header{
@@ -2050,9 +2036,9 @@ header .menu-btn{ padding: 0 !important; margin: 0 !important; }
 }
 #navPanel .nav-right a{
   padding: 0 !important;
-  font-size: clamp(42px, 9vw, 80px) !important; /* Unified font size */
+  font-size: 50px !important;
   line-height: 1.05;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: -0.02em; /* Slight letter spacing */
 }
 #navPanel .social-icons{
@@ -2287,8 +2273,8 @@ header .menu-btn{ padding: 0 !important; margin: 0 !important; }
     <ul class="nav-right">
       <li><a href="../index.html">Home</a></li>
       <li><a href="../work.html">Works</a></li>
-      <li><a href="../about-us.html">About us</a></li>
-      <li><a href="../contact.html">Contact</a></li>
+      <li><a href="../about-us.html">About</a></li>
+      <li><a href="../contact.html">Contact Us</a></li>
       <!-- <li><a href="work.html">Projects</a></li>
       <li><a href="studio.html">Practice</a></li>
       <li><a href="#">People</a></li>
@@ -2312,41 +2298,13 @@ header .menu-btn{ padding: 0 !important; margin: 0 !important; }
   </div>
 </div>
 
-
-
-  <!-- Hero -->
   <section class="hero" id="hero">
     <div class="container">
-      <div>
-        <h1>Work</h1>
-        <p class="lead">Our portfolio showcases the full scope of our work — from photorealistic visualizations and cinematic animations to interactive experiences built in Unreal Engine.</p>
-        <div style="margin-top:22px;display:flex;gap:12px;align-items:center">
-          <a class="btn" href="#portfolio">See projects</a>
-          <a class="muted" href="mailto:porousdelab@gmail.com">porousdelab@gmail.com</a>
-        </div>
+      <div style="display: flex; align-items: center; gap: 445px; margin-left: 4%; margin-right: 4%;">
+        <h1 style="margin: 0; white-space: nowrap;">Work</h1>
+        <p class="lead" style="margin: 0; font-size: 14px; min-width: 700px;">Our portfolio showcases the full scope of our work — from photorealistic visualizations and cinematic animations to interactive experiences built in Unreal Engine.</p>
       </div>
 
-     <div class="preview" aria-hidden="true">
-  <div class="swiper hero-swiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <img src="https://i.ibb.co/274bgy6s/1.png" alt="preview">
-      </div>
-      <div class="swiper-slide">
-        <img src="https://i.ibb.co/Xx48M32x/4.png" alt="preview">
-      </div>
-      <div class="swiper-slide">
-        <img src="https://i.ibb.co/NzHRjJW/3-1.png" alt="preview">
-      </div>
-    </div>
-  </div>
-  <div class="play">
-    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-      <circle cx="32" cy="32" r="30" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
-      <path d="M26 22L44 32L26 42V22Z" fill="white" opacity="0.96"/>
-    </svg>
-  </div>
-</div>
 
   </section>
   <section id="work" class="portfolio">
@@ -2728,7 +2686,7 @@ data-images="https://i.ibb.co/8gBqKWPt/Enscape-2025-09-30-02-47-51-Enscape-scene
     if (width <= 360) return 2;
     if (width <= 480) return 2;
     if (width <= 640) return 2;
-    return 2; // Desktop - same as work.html
+    return 2; 
   }
   
   function getTargetRowHeight() {
@@ -3515,8 +3473,8 @@ document.querySelectorAll('body > *:not(.gallery-modal):not(.project-modal)').fo
       <nav class="footer-nav">
           <a href="../index.html">Home</a>
         <a href="../work.html">Projects</a>
-        <a href="../about-us.html">About us</a>
-        <a href="../contact.html">Contact</a>
+        <a href="../about-us.html">About</a>
+        <a href="../contact.html">Contact Us</a>
       </nav>
 
       <div class="footer-legal">

@@ -23,6 +23,9 @@
   }
 
   html, body{ height: 100%; }
+  *, *::before, *::after {
+    font-family: 'General Sans', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif !important;
+  }
   body{
     margin: 0;
     font-family: 'General Sans', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
@@ -260,7 +263,7 @@
       align-items: center !important;
       justify-content: flex-end !important;
     }
-  } */
+  }
 
   @media (max-width: 640px) {
     .site-footer { 
@@ -515,11 +518,10 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
   gap: clamp(12px, 3vw, 24px); /* Spacing between links */
 }
 #navPanel .nav-right a{
-  
   padding: 0 !important;
-  font-size: clamp(42px, 9vw, 80px) !important; /* Unified font size */
+  font-size: 50px !important;
   line-height: 1.05;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: -0.02em; /* Slight letter spacing */
 }
 #navPanel .social-icons{
@@ -528,7 +530,7 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
   gap: 16px;
   justify-content: center; /* Center social icons */
 }
-#navPanel .nav-bottom{
+#navPanel .nav-bottom{ 
   position: absolute !important;
   bottom: clamp(40px, 6vw, 60px) !important;
   left: 50% !important;
@@ -883,8 +885,8 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
         <ul class="nav-right">
           <li><a href="../index.html">Home</a></li>
           <li><a href="../work.html">Works</a></li>
-          <li><a href="../about-us.html">About us</a></li>
-          <li><a href="../contact.html">Contact</a></li>
+          <li><a href="../about-us.html">About</a></li>
+          <li><a href="../contact.html">Contact Us</a></li>
           
           <!-- Social icons aligned with navigation text -->
           <li class="social-icons">
@@ -905,14 +907,14 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
 
   <!-- Page Heading -->
   <div class="page-heading">
-    <h1>Contact Us</h1>
+    <h1 style="font-weight: 200; font-size: clamp(40px, 8vw, 80px); line-height: 0.95; letter-spacing: -1px;">Get in touch</h1>
   </div>
 
   <section class="contact-section">
     <div class="contact-wrap">
       <div class="contact-info">
         <h2>Porous Delab</h2>
-        <p>Chester House<br>Plot No. B-280 , Block 13<br>Federal-B Area, Gulberg Town<br>Karachi. 75950</p>
+        <p><br>Plot No. B-280 , Block 13<br>Federal-B Area, Gulberg Town<br>Karachi. 75950</p>
         <p><strong>Phone:</strong> +92 336 3922013</p>
         <p><strong>Email:</strong> porousdelab@gmail.com</p>
       </div>
@@ -928,7 +930,7 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
   </section>
 
   <section class="social-section">
-    <h3>We are social, follow us to find out what we're up to</h3>
+    <h3 style="font-weight: 200; font-size: clamp(40px, 8vw, 80px); line-height: 0.95; letter-spacing: -1px; margin-bottom: 30px;">We are social, follow us to find out what we're up to</h3>
     <div class="social-gallery" id="ig-grid">
       <!-- Static fallbacks (will be replaced by API if available) -->
       <a href="https://www.instagram.com/porousdelab?igsh=MTUzaW1tY3k2dWhyYQ==" target="_blank" rel="noopener" class="ig-card">
@@ -965,8 +967,8 @@ footer{ padding-left: var(--edge-final) !important; padding-right: var(--edge-fi
         <nav class="footer-nav">
           <a href="../index.html">Home</a>
           <a href="../work.html">Projects</a>
-          <a href="../studio.html">About us</a>
-          <a href="../contact.html">Contact</a>
+          <a href="../about-us.html">About</a>
+          <a href="../contact.html">Contact Us</a>
         </nav>
         <div class="footer-legal">
           <a href="/legal.html">Legal and policies</a>
