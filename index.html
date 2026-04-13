@@ -1121,7 +1121,7 @@ html, body {
 .slider-title{
   margin: 0 0 .25em 0;
   font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  font-weight: 650;              /* Inter heavy */
+  font-weight: 325;              /* 50% boldness */
   text-transform: uppercase;
   letter-spacing: .02em;
   line-height: .9;
@@ -1960,7 +1960,7 @@ html, body {
 
     <div class="project-modal-inner">
       <div class="project-modal-left">
-        <h3 class="project-modal-title" id="pmTitle">Title</h3>
+        <h3 class="project-modal-title" id="pmTitle" style="font-size:30px!important;font-weight:500!important;line-height:1.5!important;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif!important;color:#000!important;">Title</h3>
         <div class="project-modal-desc" id="pmDesc">Short description goes here.</div>
       </div>
       <div class="project-modal-right">
@@ -2103,7 +2103,10 @@ html, body {
     text-align: center !important;
   }
   .project-modal-title{
-    font-size: clamp(18px, 4vw, 24px) !important;
+    font-size: 30px !important;
+    font-weight: 500 !important;
+    line-height: 1.5 !important;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
   }
   .project-modal-desc{
     font-size: clamp(14px, 3vw, 16px) !important;
@@ -2185,8 +2188,8 @@ html, body {
   text-align:center; padding:24px; color:#fff; opacity:0; transition:opacity .25s ease;
   background:rgba(0,0,0,.25); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
 }
-.tile .hover-overlay h4{ margin:0 0 6px; font-size:30px; font-weight:500; line-height:1.05; }
-.tile .hover-overlay .cat{ opacity:.9; font-size:18px; font-weight:300; line-height:1.8; }
+.tile .hover-overlay h4{ margin:0 0 6px; font-size:30px; font-weight:500; line-height:1.05; font-family: 'General Sans', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif !important; text-transform: none !important; }
+.tile .hover-overlay .cat, #grid .tile .hover-overlay .cat, div.grid .tile .hover-overlay .cat { opacity:.9; font-size:18px; font-weight:300; line-height:1.8; text-transform: none !important; }
 
 .tile:hover .hover-overlay{ opacity:1; }
 .tile:hover img{ transform:scale(1.04); filter:blur(3px) brightness(.85); }
@@ -2206,7 +2209,7 @@ html, body {
     .project-modal-close{position:absolute;top:12px;right:16px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;z-index:10}
     .project-modal-inner{display:grid;grid-template-columns:1fr 1fr;height:100%}
     .project-modal-left{padding:28px;display:flex;flex-direction:column;justify-content:center}
-    .project-modal-title{font-size:22px;font-weight:700;margin:0}
+    .project-modal-title{font-size:30px !important;font-weight:500 !important;line-height:1.5 !important;font-family:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;margin:0}
     .project-modal-desc{color:var(--muted);margin-top:10px;line-height:1.6}
     .project-modal-right{position:relative}
     .project-modal-right .swiper{height:100%}
@@ -2227,7 +2230,10 @@ html, body {
         text-align: center !important;
       }
       .project-modal-title{
-        font-size: clamp(16px, 3.5vw, 20px) !important;
+        font-size: 30px !important;
+        font-weight: 500 !important;
+        line-height: 1.5 !important;
+        font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
       }
       .project-modal-desc{
         font-size: clamp(13px, 2.8vw, 15px) !important;
@@ -2642,13 +2648,15 @@ header .brand img {
 
 /* Extra force just for the title */
 .project-modal-title {
-  font-size: 26px !important;
-  font-weight: 800 !important;
-  line-height: 1.2 !important;
+  font-size: 30px !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  color: #000 !important;
   text-transform: none !important;
 }
 /* Force modal text to normal case */
-.project-modal-title,
+
 .project-modal-desc,
 .project-modal-left {
   text-transform: none !important;
@@ -2658,9 +2666,10 @@ header .brand img {
 
 /* Extra style for the title to match Screenshot #1 */
 .project-modal-title {
-  font-size: 26px !important;
-  font-weight: 800 !important;
-  line-height: 1.2 !important;
+  font-size: 30px !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
   color: #000 !important;
 }
 /* Row above the grid */
@@ -2693,6 +2702,7 @@ header .brand img {
   border-radius: 999px;
   background: #fff;
   color:#111;
+  font-size: 25.5px;
   font-size: 15px;
   font-weight: 200;
   text-decoration:none;
@@ -3617,17 +3627,26 @@ document.querySelectorAll("a").forEach(link => {
 </script>
 <!-- build hover overlay text from tile content -->
 <script>
-(() => {
+document.addEventListener('DOMContentLoaded', () => {
+  const categoryNames = {
+    'architecture': 'Architecture',
+    'interior': 'Interior',
+    'landscaping': 'Landscaping',
+    '3d-visualization': '3D Visualization'
+  };
   const tiles = document.querySelectorAll('#grid .tile');
   tiles.forEach(t => {
     const name = (t.querySelector('.meta')?.textContent || t.querySelector('img')?.alt || 'Project').trim();
     const cat  = ['architecture','interior','landscaping','3d-visualization'].find(c => t.classList.contains(c)) || 'Project';
-    if (!t.querySelector('.hover-overlay')) {
-      const ov = document.createElement('div');
-      ov.className = 'hover-overlay';
-      ov.innerHTML = `<div><h4>${name}</h4><div class="cat">${cat.replace('-', ' ').replace('3d', '3D')}</div></div>`;
-      t.appendChild(ov);
+    const existingOverlay = t.querySelector('.hover-overlay');
+    if (existingOverlay) {
+      existingOverlay.remove();
     }
+    const ov = document.createElement('div');
+    ov.className = 'hover-overlay';
+    const catFormatted = categoryNames[cat] || 'Project';
+    ov.innerHTML = `<div><h4 style="text-transform:none!important">${name}</h4><div class="cat" style="text-transform:none!important">${catFormatted}</div></div>`;
+    t.appendChild(ov);
 
     // Get project images from data-images attribute
     const imagesAttr = t.getAttribute('data-images');
@@ -3680,7 +3699,7 @@ document.querySelectorAll("a").forEach(link => {
       });
     }
   });
-})();
+});
 </script>
 
 <!-- justified rows layout (no library) -->
@@ -3751,10 +3770,10 @@ document.querySelectorAll("a").forEach(link => {
       const rowWidthMinusGaps = cw - gutter * (row.length - 1);
       const h = rowWidthMinusGaps / arSum;
 
-      // Limit tiles per row based on screen size, but allow random sizes
-      const maxTilesPerRow = window.innerWidth <= 640 ? 2 : 4;
+      // Force exactly 3 tiles per row on desktop, 2 on mobile
+      const tilesPerRow = window.innerWidth <= 640 ? 2 : 3;
       
-      if (h <= targetRowHeight || row.length === maxTilesPerRow || i === items.length - 1) {
+      if (row.length === tilesPerRow || i === items.length - 1) {
         const jrow = document.createElement('div');
         jrow.className = 'j-row';
 
