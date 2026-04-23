@@ -305,6 +305,15 @@
   width: 90%;
   height: 90%;
 }
+.gallery-swiper .swiper-wrapper,
+.gallery-swiper .swiper-slide{
+  height: 100%;
+}
+.gallery-swiper .swiper-slide{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .gallery-swiper .swiper-slide img {
   width: auto;
   max-width: 100%;
@@ -317,6 +326,35 @@
 .gallery-swiper .swiper-button-next,
 .gallery-swiper .swiper-button-prev {
   color: #fff;
+}
+
+/* Center gallery nav arrows vertically */
+.gallery-swiper .swiper-button-next,
+.gallery-swiper .swiper-button-prev{
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Swiper nav: show arrows instead of text */
+.gallery-swiper .swiper-button-next::after,
+.gallery-swiper .swiper-button-prev::after{
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 28px;
+}
+.gallery-swiper .swiper-button-next::after{ content: "→"; }
+.gallery-swiper .swiper-button-prev::after{ content: "←"; }
+
+/* Hide arrows: swipe with finger only */
+.gallery-swiper .swiper-button-next,
+.gallery-swiper .swiper-button-prev{
+  display: none !important;
+}
+
+/* Also hide any default nav text if present */
+.gallery-swiper .swiper-button-next,
+.gallery-swiper .swiper-button-prev{
+  font-size: 0 !important;
 }
 .preview {
   position: relative;

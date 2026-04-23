@@ -453,7 +453,13 @@ body { padding-top: 74px; } /* header 30px + 26px top/btm = ~74px */
 
 /* Mobile: reduce fixed heights, inset text, keep desktop unchanged */
 @media (max-width: 640px){
+  .founder-banner{
+    padding: 0 16px;
+  }
   .founder-banner img{
+    margin: 0 auto;
+    max-width: 520px;
+    border-radius: 14px;
     height: clamp(420px, 70vh, 560px);
   }
   .founder-banner .founder-banner__copy{
