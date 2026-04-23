@@ -1354,6 +1354,10 @@ html, body {
   .categories-grid {
     padding: 20px 4% !important;
   }
+  .category-card .caption{
+    font-size: 1.05rem;
+    padding: 10px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1363,6 +1367,10 @@ html, body {
   .categories-grid {
     padding: 15px 4% !important;
   }
+  .category-card .caption{
+    font-size: 0.95rem;
+    padding: 9px;
+  }
 }
 
 @media (max-width: 360px) {
@@ -1371,6 +1379,10 @@ html, body {
   }
   .categories-grid {
     padding: 12px 4% !important;
+  }
+  .category-card .caption{
+    font-size: 0.9rem;
+    padding: 8px;
   }
 }
 
@@ -2133,6 +2145,18 @@ html, body {
 
 .tile:hover .hover-overlay{ opacity:1; }
 .tile:hover img{ transform:scale(1.04); filter:blur(3px) brightness(.85); }
+
+/* Mobile/touch: keep overlay readable (don't affect desktop) */
+@media (hover: none), (max-width: 640px){
+  .tile .hover-overlay{ padding: 14px; }
+  .tile .hover-overlay h4{ font-size: 18px; line-height: 1.12; }
+  .tile .hover-overlay .cat,
+  #grid .tile .hover-overlay .cat,
+  div.grid .tile .hover-overlay .cat{
+    font-size: 13px;
+    line-height: 1.35;
+  }
+}
 
 /* Category filter (optional) */
 .category-filters{ margin: 0 60px 18px; }
