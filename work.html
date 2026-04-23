@@ -1861,6 +1861,27 @@ header .brand img{ max-width: clamp(120px, 22vw, 200px); height: auto; }
   .tile:hover img{ filter: none; transform: none; }
 }
 
+/* Mobile/touch: smaller hover overlay text (keep desktop unchanged) */
+@media (hover: none), (max-width: 640px){
+  .tile .hover-overlay{ padding: 14px !important; }
+  .tile .hover-overlay h4{ font-size: 18px !important; line-height: 1.12 !important; }
+  .tile .hover-overlay .cat{ font-size: 13px !important; line-height: 1.35 !important; }
+}
+
+/* Mobile: make the Work hero text visible + wrap correctly */
+@media (max-width: 640px){
+  .work-hero-row{
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+  .work-hero-row .lead{
+    min-width: 0 !important;
+    width: 100% !important;
+    white-space: normal !important;
+  }
+}
+
 /* Make all images scale down nicely where appropriate */
 img{ max-width: 100%; height: auto; }
 
@@ -2345,7 +2366,7 @@ header .menu-btn{ padding: 0 !important; margin: 0 !important; }
 
   <section class="hero" id="hero">
     <div class="container">
-      <div style="display: flex; align-items: center; gap: 445px; margin-left: 4%; margin-right: 4%;">
+      <div class="work-hero-row" style="display: flex; align-items: center; gap: 445px; margin-left: 4%; margin-right: 4%;">
         <h1 style="margin: 0; white-space: nowrap;">Work</h1>
         <p class="lead" style="margin: 0; font-size: 14px; min-width: 700px;">Our portfolio showcases the full scope of our work — from photorealistic visualizations and cinematic animations to interactive experiences built in Unreal Engine.</p>
       </div>
