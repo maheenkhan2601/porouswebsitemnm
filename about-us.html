@@ -845,9 +845,25 @@ footer{
   header .actions{ padding-right: var(--burger-nudge-x) !important; }
 }
 @media (max-width: 640px){
+  /* Force perfect centering on phones */
+  #navPanel .nav-inner{
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding-top: 80px !important;   /* keep space for close button */
+    padding-bottom: 60px !important;
+  }
   #navPanel .nav-right{
-  top: 28% !important;
-}
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 520px;
+  }
   #navPanel .nav-right a{ font-size: clamp(32px, 10vw, 58px) !important; }
 }
 
@@ -858,8 +874,8 @@ footer{
     --burger-nudge-x: 30px; /* Unified alignment across all pages */
   }
   #navPanel .nav-right{
-  top: 28% !important;
-}
+    max-width: 420px;
+  }
   #navPanel .nav-right a{ font-size: clamp(28px, 9vw, 44px) !important; }
   .hero h1{ font-size: clamp(28px, 8vw, 48px) !important; }
   .about-content h2{ font-size: clamp(20px, 5vw, 28px) !important; }
